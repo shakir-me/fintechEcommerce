@@ -1,0 +1,314 @@
+.cart{
+    &__area{
+        margin-top: 100px;
+        margin-bottom: 100px;
+        @media only screen and (max-width: $mbl-land) {
+            margin-top: 50px;
+        }
+        &-wrapper{
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            grid-gap: 70px;
+            @media only screen and (max-width: $tab-land) {
+                grid-template-columns: auto;
+                grid-gap: 40px;
+			}
+        }
+        &-items{
+            display: grid;
+            grid-template-columns: 410px 130px 190px auto;
+            border-bottom: 1px solid $color-gray5;
+            padding: 20px 0;
+            @media only screen and (max-width: $laptop-port) {
+                grid-template-columns: auto auto auto;
+			}
+            @media only screen and (max-width: $mbl-land) {
+                grid-template-columns: auto auto;
+			}
+            &:first-of-type{
+                border-top: 1px solid $color-gray5;
+            }
+        }
+        &-item{
+            &:nth-child(1){
+                order: 1;
+            }
+            &:nth-child(2){
+                order: 3;
+            }
+            &:nth-child(3){
+                order: 2;
+            }
+            &:nth-child(4){
+                order: 4;
+            }
+            &:last-child{
+                padding-top: 10px;
+            }
+            img{
+                padding: 0 18px;
+            }
+        }
+        &-headingone{
+            margin-bottom: 20px;
+            font-weight: 700;
+            font-size: 18px;
+            line-height: 1.2;
+            text-transform: uppercase; 
+            color: #000000 !important;
+        }
+        &-inneritem{
+            display: flex;
+            span{
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 22px;
+                color: $color-gray5;
+            }
+            p{
+                max-width: 200px;
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 22px;
+                color: $color-dark-3;
+            }
+        }
+        &-footer{
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            @media only screen and (max-width: $mbl-port) {
+               flex-wrap: wrap;
+			}
+            form{
+                position: relative;
+                display: flex;
+                flex: 2;
+                input{
+                    height: 55px;
+                    width: 100%;
+                    max-width: 285px;
+                    padding: 10px;
+                    @media only screen and (max-width: $mbl-port) {
+                        width: inherit;
+                     }
+                }
+            }
+        }
+        &-coupon{
+            display: inline-block;
+            padding: 17px 33px;
+            background-color: $color-dark-2;
+            color: $color-white;
+            text-transform: uppercase;
+            border: 1px solid $color-gray5;
+            margin-left: 20px;
+            @media only screen and (max-width: $laptop-port) {
+                padding: 11px 18px;
+                font-size: 13px;
+			}
+            @media only screen and (max-width: $mbl-port) {
+                margin-left: 0;
+             }
+        }
+        &-innerright{
+            border: 1px solid $color-gray5;
+            padding: 28px;
+            div{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1px solid $color-gray5;
+                padding-bottom: 14px;
+                margin-bottom: 14px;
+                &:last-of-type{
+                    border: 0;
+                }
+            }
+            h4{
+                font-weight: 700;
+                font-size: 28px;
+                line-height: 1.5;
+                text-transform: uppercase;
+                color: $color-dark-2;
+                margin-bottom: 30px;
+            } 
+            span{
+                font-weight: 600;
+                font-size: 18px;
+                line-height: 1.1;
+                text-transform: capitalize;
+                color: $color-dark-2;
+            } 
+        }
+    }
+}
+.increment {
+    max-width: 109px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 50px;
+    border: 1px solid #1e1e1e;
+    span{
+        height: 100%;
+        display: block;
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        &:nth-child(2){
+            border-left: 1px solid #000000;
+            border-right: 1px solid #000000;
+        }
+    }
+}
+.cart__area-footer form{
+    @media only screen and (max-width: $mbl-port) {
+        margin-bottom: 10px;
+    } 
+}
+
+
+.contact__form-innerr {
+    max-width: 930px;
+    margin: auto;
+    margin-top: 60px;
+}
+.checktitle {
+    text-align: left;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 1.2;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: $color-dark-2;
+    margin-bottom: 30px;
+}
+.contact__form-field.field-2 input {
+    border-radius: 12px;
+}
+.contact__form-field.field-2 label {
+    color: $color-dark-2;
+    span{
+        color: $color-red;
+    }
+}
+
+.field-two-images{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    span{
+        display: inline-block;
+        width: 130px;
+        background-color: #F8F8F8;
+        box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 12px;
+        padding: 8px 10px;
+        margin-right: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:last-of-type{
+            margin-right: 0;
+        }
+    }
+}
+.checkout-title{
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1.2;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: $color-dark-2;
+    display: block;
+    margin-bottom: 25px;
+    margin-top: 50px;
+}
+.contact__form-checkbtn{
+    padding: 10px 30px;
+    color: $color-white;
+    background-color: $color-dark-2;
+    border-radius: 15px;
+    margin-top: 70px;
+}
+.dark{
+    .checktitle{
+        color: $color-primary;
+    }
+    .contact__form-field.field-2 label{
+        color: $color-white;
+    }
+    .checkout-title{
+        color: $color-primary;  
+    }
+    .contact__form-checkbtn{
+        background-color: $color-primary;
+    }
+    .contact__form-wrapper{
+        background: #19212F;
+        border: 2px solid $color-primary;
+        box-shadow: 0px 0px 30px 2px rgba(0, 255, 226, 0.25);
+        border-radius: 10.7463px;
+    }
+    .contact__form-field.field-2 input{
+        background-color: transparent;
+        color: $color-white;
+    }
+    .contact__form-field textarea{
+        background-color: transparent;
+        color: $color-white;
+    }
+}
+.dark{
+    .cart__area-headingone{
+        color: $color-primary !important;
+    }
+    .cart__area-inneritem p{
+        color: $color-white;
+    }
+    .increment{
+        border: 1px solid $color-white;
+    }
+    .increment span:nth-child(2){
+        border-left: 1px solid $color-white;
+        border-right: 1px solid $color-white;
+    }
+    .cart__area-inneritem span{
+        color: $color-white;
+    }
+    .cart__area-coupon{
+        background-color: $color-primary;
+    }
+    .cart__area-footer form input{
+        border: 1px solid $color-primary;
+    }
+    .cart__area-innerright h4{
+        color: $color-white;
+    }
+    .cart__area-innerright span{
+        color: $color-white;
+    }
+}
+.contact__form-wrapper.contact__form-checkout {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    background: #FFFFFF;
+    border: 0.5px solid #20234A ;
+    border-radius: 12px;
+    box-shadow: none;
+    @media only screen and (max-width: $tab-port) {
+        padding-top: 50px;
+        padding-bottom: 50px;
+        margin-bottom: 50px;
+    } 
+}
+.dark{
+    .contact__form-wrapper.contact__form-checkout{
+        background: #19212F;
+        border: 2px solid #00FFE2;
+        box-shadow: 0px 0px 30px 2px rgba(0, 255, 226, 0.25);
+        border-radius: 10.7463px;
+    }
+
+}

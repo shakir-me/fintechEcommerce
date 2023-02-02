@@ -1,0 +1,145 @@
+.items-section {
+}
+.items {
+	padding-top: 50px;
+	.col-12,
+	.col-sm-6,
+	.col-xl-4,
+	.col-xxl-3 {
+		height: 370px;
+		padding-left: 10px;
+		padding-right: 10px;
+		@media only screen and (max-width: $mbl-land) {
+			height: 311px;
+		}
+	}
+
+	&__item {
+		background-color: #fff;
+		border-radius: 1.2rem;
+		padding: 2rem 0;
+		transition: all 0.5s;
+		// height: 100%;
+		padding: 5rem 2.6rem 2rem 2.6rem;
+		transition: all 0.5s;
+		border: 2px solid transparent;
+		// height: 37rem;
+		overflow: hidden;
+		transition: all 0.3s;
+		box-shadow: 0px 0px 10px 2px rgba(32, 35, 74, 0.25);
+
+		&:hover {
+			border: 2px solid #00ffe2;
+			box-shadow: 0px 0px 25px 2px rgba(0, 255, 226, 0.25);
+			position: relative;
+			z-index: 5;
+			// height: 45rem;
+			// transform: scaleY(1.2);
+
+			.price-list {
+				.discount,
+				.old-price {
+					display: block;
+				}
+			}
+
+			.items__bottom {
+				display: block;
+				.btn-wishlist i{
+					color: $color-dark-2;
+				}
+				.btn-search{
+					color: $color-dark-2;
+				}
+			}
+		}
+	}
+
+	&__img {
+		height: 100%;
+		max-height: 18rem;
+		width: 100%;
+	}
+
+	.name {
+		text-align: center;
+		padding: 0 1rem;
+		margin-bottom: 0.7rem;
+		font-size: 1.4rem;
+	}
+	.title {
+		text-align: center;
+		padding: 0 1rem;
+		margin-bottom: 0.8rem;
+		font-size: 1.4rem;
+	}
+
+	.price-list {
+		.discount,
+		.old-price {
+			font-size: 1.4rem;
+			color: $color-black;
+			display: none;
+			transition: all 0.5s;
+		}
+
+		.price {
+			font-size: 1.6rem;
+			color: $color-black;
+			font-weight: 600;
+		}
+	}
+
+	&__btn {
+		text-align: center;
+
+		.btn {
+			padding: 1rem 4rem;
+			background: #000133;
+			border-radius: 3rem;
+			color: $color-white;
+			text-transform: uppercase;
+		}
+	}
+	&__bottom {
+		display: none;
+		transition: .3s linear;
+		.text {
+			font-size: 1.4rem;
+		}
+		.btn-search,
+		.btn-wishlist {
+			padding: 0;
+			background-color: transparent;
+			@include flex-center;
+
+			i {
+				font-size: 2rem;
+			}
+		}
+
+		.btn-cart {
+			padding: 10px 15px;
+			background-color: $color-black;
+			color: $color-white;
+			border-radius: 10rem;
+			font-size: 12px;
+			text-transform: capitalize;
+		}
+	}
+}
+
+.free-items {
+	.text {
+		font-size: 17px;
+		line-height: 1.5;
+		text-align: center;
+	}
+	h3 {
+		color: #444444;
+		font-weight: 400;
+		font-size: 16px;
+		max-width: 680px;
+		margin: auto;
+	}
+}

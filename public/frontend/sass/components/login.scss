@@ -1,0 +1,127 @@
+.login{
+    &__area{
+        margin-top: 100px;
+        margin-bottom: 100px;
+        @media only screen and (max-width: $tab-port) {
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+        &-wrapper{
+            display: grid;
+            grid-template-columns: auto auto;
+            grid-gap: 20px;
+            @media only screen and (max-width: $tab-port) {
+                grid-template-columns: auto;
+			}
+        }
+        &-title{
+            font-weight: 600;
+            font-size: 42px;
+            line-height: 1.2; 
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: $color-dark-2;
+            margin-bottom: 30px;
+            @media only screen and (max-width: $mbl-port) {
+                font-size: 30px;
+                margin-bottom: 15px;
+            }
+        }
+        &-field{
+            position: relative;
+            margin-bottom: 50px;
+            input{
+                background: rgba(151, 151, 151, 0.25);
+                border-radius: 6px;
+                width: 100%;
+                height: 78px;
+                display: flex;
+                align-items: center;
+                padding-left: 75px;
+                border: 0;
+                @media only screen and (max-width: $mbl-port) {
+                    padding-left: 15px;
+                    height: 45px;
+                }
+            }
+        }
+        &-icon{
+            position: absolute;
+            left: 45px;
+            top: 50%;
+            transform: translateY(-50%);
+            @media only screen and (max-width: $mbl-port) {
+                display: none;
+            }
+        }
+        &-submit{
+            text-align: center;
+        }
+        &-submitbtn{
+            display: inline-block;
+            font-weight: 600;
+            font-size: 22px;
+            line-height: 2;
+            text-transform: uppercase;
+            color: $color-white-2;
+            background: $color-dark-2;
+            box-shadow: 8px 8px 2px rgba(32, 35, 74, 0.25);
+            padding: 8px 100px;
+        }
+        &-lostpass{
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 22px;
+            letter-spacing: 0.05em;
+            text-transform: capitalize;
+            color: $color-dark-2;
+            display: block;
+            margin-top: 30px;
+        }
+        &-inner{
+            padding: 45px 30px;
+            border: 1px solid $color-gray5;
+            @media only screen and (max-width: $mbl-port) {
+                max-width: 100%;
+                padding: 15px;
+            }
+        }
+        &-login{
+            max-width: 650px;
+        }
+        &-sign{
+            display: block;
+            padding: 12px;
+            max-width: 365px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+            border: 1px solid $color-dark-2;
+            margin-top: 50px;
+            img{
+                padding-right: 10px;
+            }
+        }
+    }
+}
+.dark{
+    .login{
+       &__area{
+            &-title{
+                color: $color-primary;
+            }
+            &-field{
+                input{
+                    background: rgba(0, 255, 226, 0.2);
+                    &::placeholder{
+                        color: $color-white;
+                    }
+                }
+            }
+            &-submitbtn{
+                background-color: $color-primary;
+            }
+       }
+    }
+}

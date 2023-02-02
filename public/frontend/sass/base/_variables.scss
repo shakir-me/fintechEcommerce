@@ -1,0 +1,37 @@
+// ==============================
+// Colors
+// ==============================
+$color-primary: #00ffe2;
+$color-orenge: #ff7133;
+$color-red: #fa0304;
+$color-black: #000133;
+$color-white: #fff;
+$color-white-2: #F0F2F1;
+$color-light: #eee;
+$color-dark: #06132d;
+$color-dark-2: #20234A;
+$color-dark-3: #545454;
+$color-dark-4: #455A64;
+$color-gray1:#C6C2C2;
+$color-gray2:#C9C9C9;
+$color-gray3:#929191;
+$color-gray4:#D9D9D9;
+$color-gray5:#979797;
+
+// =============================================
+// Fonts
+// =============================================
+$font-primary: 'Open Sans', sans-serif;
+$font-Rubik: 'Rubik Bubbles', cursive;
+
+// ============================================
+// Breakpoints
+// ============================================
+
+$laptop-land: 75em; //1200px / 16px = 75em
+$laptop-port: 64em; //1024px / 16px = 64em
+$tab-land: 62em; //992px / 16px = 62em
+$tab-port: 48em; //768px / 16px = 48em
+$mbl-land: 35.9375em; //575px / 16px = 35.9375em
+$mbl-port: 30em; //480px / 16px = 30em
+$mbl-small: 23.75em; //380px / 16px = 23.75em
