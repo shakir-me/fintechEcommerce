@@ -1,4 +1,7 @@
 <!-- footer -->
+@php
+	$setting=DB::table('settings')->first();
+@endphp
 <footer class="footer-section">
 	<div class="container">
 		<div class="footer row g-5">
@@ -12,22 +15,22 @@
 					</p>
 					<ul class="social d-flex align-items-center gap-2">
 						<li class="social__item">
-							<a href="#" class="social__link">
+							<a href="{{ $setting->facebook }}" target="_black" class="social__link">
 								<i class="bi bi-facebook"></i>
 							</a>
 						</li>
 						<li class="social__item">
-							<a href="#" class="social__link">
+							<a href="{{ $setting->instagram }}" class="social__link">
 								<i class="bi bi-instagram"></i>
 							</a>
 						</li>
 						<li class="social__item">
-							<a href="#" class="social__link">
+							<a href="{{ $setting->youtube }}" class="social__link">
 								<i class="bi bi-youtube"></i>
 							</a>
 						</li>
 						<li class="social__item">
-							<a href="#" class="social__link">
+							<a href="{{ $setting->twitter }}" class="social__link">
 								<i class="bi bi-twitter"></i>
 							</a>
 						</li>
