@@ -13,6 +13,20 @@
 				i {
 					font-size: 2.2rem;
 					color: #444444;
+					display: inline-block;
+					height: 60px;
+					width: 60px;
+					background: #FFFFFF;
+					box-shadow: 0px 0px 20px 2px rgba(32, 35, 74, 0.1);
+					border-radius: 30px;
+					position: absolute;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					right: 10px;
+					@media only screen and (max-width: $mbl-land) {
+						display: none;
+					}
 				}
 			}
 		}
@@ -25,7 +39,9 @@
 			max-width: 90rem;
 			width: 100%;
 			margin: 0 auto;
-
+			@media only screen and (max-width: $mbl-land) {
+				padding: 1rem;
+			}
 			.symbol {
 				font-size: 8rem;
 				margin-top: -3rem;
@@ -38,19 +54,22 @@
 
 			.desc .text {
 				font-weight: 400;
-				font-size: 1.8rem;
-				line-height: 2.5rem;
+				font-size: 18px;
+				line-height: 1.5;
 				text-align: center;
-				color: #444444;
+				color: #666666;
+				text-transform: lowercase;
 			}
 
 			h3 {
 				color: #222222;
+				font-size: 24px;
 			}
 
 			.title {
 				color: #444444;
-				font-size: 1.6rem;
+				font-size: 16px;
+
 			}
 		}
 
@@ -70,4 +89,22 @@
 			}
 		}
 	}
+}
+.membership.membership-plan {
+    padding-top: 50px;
+}
+.membership-section.membership-section-bottom {
+    padding-top: 100px;
+}
+.dark{
+	.swiper-button-next,
+	.swiper-button-prev {
+		i {
+			background-color: $color-primary !important;
+		}
+	}
+}
+.swiper-button-prev, .swiper-rtl .swiper-button-next {
+    left: 75px !important;
+    right: auto;
 }

@@ -144,10 +144,15 @@
 			<!-- pagination -->
 
 			<div class="pagination">
-				<button class="btn btn-page active">1</button>
+
+				
+
+				{{-- {{ $products->links() }} --}}
+
+				{{-- <button class="btn btn-page active">1</button>
 				<button class="btn btn-page">2</button>
 				<button class="btn btn-page">3</button>
-				<button class="btn btn-page"><i class="bi bi-chevron-right"></i></button>
+				<button class="btn btn-page"><i class="bi bi-chevron-right"></i></button> --}}
 			</div>
 		</div>
 	</div>

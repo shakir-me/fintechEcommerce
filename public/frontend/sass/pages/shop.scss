@@ -39,7 +39,7 @@
 
 			@media only screen and (max-width: $tab-land) {
 				position: absolute;
-				top: 38rem;
+				top: 0;
 				left: 0;
 				background-color: $color-white;
 				padding: 4rem;
@@ -135,9 +135,9 @@
 			.btn-apply {
 				background: #20234a;
 				border-radius: 3.77143px;
-				font-size: 10px;
+				font-size: 16px;
 				text-transform: uppercase;
-				padding: 6px 11px;
+				padding: 10px 25px !important;
 				&:hover{
 					color: $color-white;
 				}
@@ -185,7 +185,7 @@
 					border-radius: 6px;
 					color: #8f8e8e;
 					transition: all 0.3s;
-					padding: 0.8rem 1.5rem;
+					padding: 10px 15px;
 					text-transform: uppercase;
 					font-weight: 400;
 
@@ -285,4 +285,20 @@
 }
 .range-wrapper {
     margin-bottom: 25px;
+}
+.line-through {
+    text-decoration: line-through;
+}
+.increment_decrement {
+    height: 44px;
+    width: 28px;
+    background: $color-dark-2;
+	color: $color-white;
+	display: inline-block;
+	border: 0;
+}
+input.increment_decrement.input-increment {
+    width: 50px;
+    padding-left: 13px;
+    padding-right: 13px;
 }

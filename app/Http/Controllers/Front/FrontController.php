@@ -23,7 +23,7 @@ class FrontController extends Controller
         $testimonial = Testimonial::all();
         $freeProducts = Product::where('is_free',1)->take(4)->latest()->get();
         $latestProducts = Product::take(8)->latest()->get();
-        $memberships = Membership::latest()->get();
+        $memberships = Membership::get();
         return view('front.home',compact('testimonial','freeProducts','latestProducts','memberships'));
     }
 
@@ -46,9 +46,13 @@ class FrontController extends Controller
      */
     public function freeProduct()
     {   
-        $freeProducts = Product::where('is_free', 1)->get();
+        $freeProducts = Product::where('is_free', 1)->paginate(12);
         $product_type = "free";
-        return view('front.free_product',compact('freeProducts','product_type'));
+        $brands = Brand::all();
+        $category    = Category::with('product')->get();
+        $start_price = '';
+        $end_price = '';
+        return view('front.free_product',compact('start_price','end_price','brands','category','freeProducts','product_type'));
     }
 
     /**
@@ -78,7 +82,7 @@ class FrontController extends Controller
         $subcategory_id ='';
         $brand_id ='';
         $category = Category::with('product')->get();
-        $products = Product::all();
+        $products = Product::paginate(12);
         $brands = Brand::all();
         return view('front.shop',compact('category','start_price','end_price','products','brands','category_id','subcategory_id','brand_id'));
     }

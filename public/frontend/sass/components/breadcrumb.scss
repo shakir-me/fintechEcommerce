@@ -9,6 +9,9 @@
                 font-weight: 600;
                 font-size: 22px;
                 line-height: 1.5;
+                @media only screen and (max-width: $mbl-land) {
+                    font-size: 13px;
+                }
             }
         }
     }
@@ -22,12 +25,13 @@
             font-size: 40px;
         }
         @media only screen and (max-width: $mbl-land) {
-            font-size: 30px;
+            font-size: 20px;
         }
     }
 }
 .dark{
     .bredcrumb{
+        background-color: #19212F;
         &__title{
             color: $color-white;
         } 

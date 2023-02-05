@@ -102,10 +102,13 @@
 		}
 	}
 	&__have{
-		margin-bottom: 100px;
 		@media only screen and (max-width: $tab-land) {
 			margin-bottom: 50px;
 			padding-top: 50px;
+        }
+		@media only screen and (max-width: $tab-land) {
+			margin-top: 0;
+			padding-top: 0;
         }
 		&-section{
 			text-align: center;
@@ -231,7 +234,47 @@
 			}
 		}
 	}
+	.about__store-title{
+		color: $color-primary;
+	}
+	.about__features-item{
+		background-color: #19212F;
+		box-shadow: none;
+	}
+	.about__features-title{
+		color: $color-primary;
+	}
+	.contact__form-field input{
+		background-color: transparent;
+		::placeholder{
+			color: $color-white !important;
+		}
+	}
+	.contact__form-submit{
+		border: 1px solid $color-primary;
+		background-color: transparent;
+		&:hover{
+			background: $color-primary;
+			box-shadow: 0px 0px 30px rgba(0, 255, 226, 0.8);
+			backdrop-filter: blur(7.5px);
+			color: $color-dark-2;
+		}
+	}
+	.contact__form-title2{
+		color: $color-primary !important;
+	}
+	.contact__form-item{
+		background: #19212F;
+		border: 1px solid rgba(0, 255, 226, 0.25);
+		border-radius: 12px;
+	}
+	.contact__form-btitle span{
+		color: $color-primary !important;
+	}
 }
 .about__img{
 	background-image: url('../img/service-shape.png');
+}
+.about__have {
+    margin-top: 100px;
 }

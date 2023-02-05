@@ -1,78 +1,151 @@
 @extends('layouts.front')
+
 @section('front_content')
 
 @push('css')
 @endpush
+<div class="shop-page">
+	<div class="bredcrumb">
+		<h2 class="bredcrumb__title">Free Product</h2>
+		<ul class="bredcrumb__items">
+			<li>Home <i class="bi bi-chevron-right"></i></li>
+			<li>Free Product</li>
+		</ul>
+	</div>
+	
+	
+	<div class="page__shop">
+		<div class="container">
+			<div class="shop">
+				<div class="categories">
+					<button class="btn-close-categories"><i class="bi bi-x"></i></button>
+					<div class="categories__item mb-2">
+						<h4 class="heading mb-2">Product categories</h4>
+						<ul class="categories__list">
 
-<!-- Free items -->
-<section class="section items-section free-items mt-3">
-	<div class="container">
-		<h2 class="heading text-center">@if($product_type == 'latest')Latest items @else Free items @endif</h2>
-		<h3 class="heading mb-4 text-center">
-			There are always free software on Trading Kernel for you to enjoy. forex robots, must
-			use scripts, profit lock systems and lots more, get the while you can!
-		</h3>
-
-		<div class="items row g-5 mb-5">
-			@foreach($freeProducts as $freeProduct)
-			<div class="col-12 col-sm-6 col-lg-3">
-					<div class="items__item">
-						<a href="{{ URL::to('product/details/'.$freeProduct->product_slug) }}">
-						<img src="{{ asset($freeProduct->thumbnail) }}" alt="" class="items__img" />
-						<h5 class="heading name">{{ $freeProduct->product_name }}</h5>
-						<h5 class="heading title">{{ $freeProduct->product_title }}</h5>
-						<div class="price-list d-flex justify-content-center align-items-center gap-2 mb-1">
-							@if($freeProduct->discount_rate == 0.00)
-							<p class="price">${{ $freeProduct->product_price }}</p>
-							@else
-							<p class="price">${{ $freeProduct->discount_price }}</p>
-							@endif
-
-							@if($freeProduct->discount_rate == 0.00)
-							@else
-							<span class="discount">- @if($freeProduct->discount_type == "Flat") $@endif{{ intval($freeProduct->discount_rate) }} @if($freeProduct->discount_type == "Percent") % @endif</span>
-							@endif
-
-							@if($freeProduct->discount_rate == 0.00)
-							@else
-							<span class="old-price">${{ $freeProduct->product_price }}</span>
-							@endif
-						</div>
-
-						<div class="items__bottom">
-							<p class="text mb-2 text-center">
-								{{ $freeProduct->product_short_desc }}
-							</p>
-						</a>
-							<div class="d-flex justify-content-between align-items-center">
-								<button class="btn btn-search">
-									<i class="bi bi-search"></i>
-								</button>
-								<form action="{{ route('add.cart') }}" method="post" class="addCard">
-									@csrf
-									<input type="hidden" name="product_id" value="{{ $freeProduct->id }}">
-									<input type="hidden" name="product_qty" value="1">
-									@if($freeProduct->discount_rate == 0.00 )
-									<input type="hidden" name="product_price" value="{{ $freeProduct->product_price }}">
-									@else
-									<input type="hidden" name="product_price" value="{{ $freeProduct->discount_price }}">
-									@endif
-									<button class="btn btn-cart" type="submit">Add to cart</button>
-								</form>
-								<button class="btn btn-wishlist addWishlist" data-id="{{ $freeProduct->id }}">
-									<i class="bi bi-heart"></i>
-								</button>
+							@foreach($category as $cat)
+							<li class="categories__list--item">
+								<div class="circle"></div>
+								<span class="text">{{ $cat->category_name }} </span>
+								<span class="item-number">{{ $cat->product->count() }}</span>
+							</li>
+							@endforeach
+							
+							
+							
+						</ul>
+					</div>
+	
+					<div class="categories__item mb-2">
+						<h4 class="heading mb-2">Select By price</h4>
+						<form action="{{ route('price.range.product') }}" method="get">
+							<div class="range-wrapper">
+								<input type="hidden" min="1" max="100" name="start_price" value="1" class="slider" id="myRange" />
+								<input type="range" min="1" max="1000" name="end_price" value="{{ $end_price ? $end_price : ''  }}" class="slider" id="myRange" />
 							</div>
+							<div class="d-flex justify-content-between align-items-center">
+								<button class="btn btn-apply">apply</button>
+								<div
+									class="categories__price d-flex justify-content-between align-items-center gap-2"
+								>
+									<span class="min-price">${{ $start_price ? $start_price : 1 }}</span>
+									<span class="minus">-</span>
+									<span class="min-price">${{ $end_price ? $end_price : 50 }}</span>
+								</div>
+							</div>
+						</form>
+					</div>
+	
+					<div class="categories__item">
+						<h4 class="heading mb-2">Brands</h4>
+						<div class="categories__btns">
+							@foreach ($brands as $brand )
+							<a href="{{ URL::to('/'.$brand->brand_slug.'/brand/product') }}" class="btn">{{ $brand->brand_name }}</a>
+							@endforeach
+							
 						</div>
 					</div>
+				</div>
+	
+				<div class="shop__right">
+					<div class="shop__top mb-2">
+						<button class="btn-category">
+							<svg class="icon"><use xlink:href="img/icons.svg#icon-bars"></use></svg>
+						</button>
+						<p class="text text-center">Showing 1-9 of 32 results</p>
+					</div>
+					<div class="items row g-5 mb-4">
+						@foreach ($freeProducts as $freeProduct)
+						<div class="col-12 col-sm-6 col-xl-4 col-xxl-3">
+							<div class="items__item">
+								<img src="{{ asset($freeProduct->thumbnail) }}" alt="" class="items__img" />
+								<h5 class="heading name">{{ $freeProduct->product_name }}</h5>
+								<h5 class="heading title">{{ $freeProduct->product_title }}</h5>
+								<div class="price-list d-flex justify-content-center align-items-center gap-2 mb-1">
+
+									@if($freeProduct->discount_rate == 0.00)
+							        <p class="price">${{ $freeProduct->product_price }}</p>
+									@else
+									<span class="price newprice">${{ $freeProduct->discount_price }}</span> 
+									@endif
+
+									@if($freeProduct->discount_rate == 0.00)
+										@else
+										<span class="price newprice">@if($freeProduct->discount_type == "Flat") $@endif{{ intval($freeProduct->discount_rate) }} @if($freeProduct->discount_type == "Percent") % @endif</span> 
+										
+										@endif
+										@if($freeProduct->discount_rate == 0.00)
+										@else
+										<span class="price">${{ $freeProduct->product_price }}</span> 
+										@endif
+								</div>
+	
+								<div class="items__bottom">
+									<p class="text mb-2 text-center">
+										{{ Str::limit($freeProduct->product_short_desc, 100, '') }} 
+								
+									</p>
+									<div class="d-flex justify-content-between align-items-center">
+
+                                     <form class="text-center">
+										<button class="btn btn-cart" type="submit">Add to cart</button>
+									 </form>
+									
+									
+
+										
+
+
+										<button class="btn btn-wishlist" >hjgjh
+											<i class="bi bi-heart"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						@endforeach
+					
+					</div>
+				</div>
 			</div>
-			@endforeach
+	
+			<!-- pagination -->
+	
+			<div class="pagination">
+
+				{{ $freeProducts->links() }}
+				{{-- <button class="btn btn-page active">1</button>
+				<button class="btn btn-page">2</button>
+				<button class="btn btn-page">3</button>
+				<button class="btn btn-page"><i class="bi bi-chevron-right"></i></button> --}}
+			</div>
 		</div>
 	</div>
-	<br>
-</section>
-<!-- footer -->
-@include('front.partial.footer_section')
+
+</div>
+<!-- Free items -->
+
+
 @push('js')
 
 @endpush

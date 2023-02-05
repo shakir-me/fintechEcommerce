@@ -2,24 +2,29 @@
 	.request {
 		max-width: 100rem;
 		margin: 0 auto;
-
 		&__form {
 			&-item{
-				margin-bottom: 45px;
+				margin-bottom: 15px;
 			}
 			input,
 			textarea {
 				width: 100%;
 				padding: 1rem 2rem;
-				background: #f8f8f8;
-				border-radius: 3rem;
-				border: 0.5px solid $color-dark-2;
+				background: #FFFFFF;
+				border: 0.5px solid #999999;
 				border-radius: 12px;
 				outline: none;
 				height: 54px;
+				border-radius: 12px;
+				text-transform: lowercase;
+				
+				&:focus{
+					box-shadow: 0px 0px 10px 2px rgba(32, 35, 74, 0.25);
+					border: 0.5px solid $color-dark-3;
+				}
 				&::placeholder{
 					font-weight: 600;
-					color: $color-dark-2
+					color: #545454;
 				}
 			}
 
@@ -46,4 +51,401 @@
 			}
 		}
 	}
+}
+
+
+.custom{
+	&__area{
+		padding: 70px 0;
+		&-subtitle{
+			font-size: 16px;
+			display: block;
+			color: $color-dark;
+			margin-bottom: 10px;
+		}
+		&-title{
+			font-size: 48px;
+			display: block;
+			color: $color-dark-2;
+			font-weight: 700;
+			margin-bottom: 15px;
+			@media (max-width:768px){
+				font-size: 30px;
+			}
+		}
+		&-dis{
+			color: $color-dark-2;
+			margin-bottom: 25px;
+			line-height: 1.5;
+		}
+		&-item{
+			display: flex;
+			align-items: center;
+			@media (max-width:991px){
+				flex-wrap: wrap;
+				justify-content: center;
+				text-align: center;
+				margin-bottom: 20px;
+			}
+		}
+		&-thumb{
+			margin-right: 20px;
+			@media (max-width:991px){
+			    margin-bottom: 12px;
+			}
+			span{
+				font-size: 30px;
+				color: $color-dark-2;
+				height: 70px;
+				width: 70px;
+				font-weight: 700;
+				border-radius: 100px;
+				background-color: #d7d3d3;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+		}
+		&-content{
+			h3{
+				font-size: 18px;
+				margin-bottom: 10px;
+				font-weight: 700;
+			}
+			p{
+				font-size: 12px;
+			}
+		}
+		&-items{
+			display: grid;
+			grid-template-columns: repeat(2,1fr);
+			grid-gap: 5px;
+			margin-bottom: 30px;
+			@media (max-width:991px){
+				grid-template-columns: auto;
+			}
+		}
+		&-right{
+			@media (max-width:991px){
+				margin-top: 50px;
+			}
+		}
+	}
+	&__form{
+		margin-top: 80px;
+		padding-top: 100px;
+		padding-bottom: 100px;
+		background-color: #f7f7f7;
+		padding-left: 40px;
+		padding-right: 15px;
+		@media (max-width:991px){
+			background-color: transparent !important;
+			padding-left: 0;
+		}
+		&-title{
+			font-size: 24px;
+			color: $color-dark-2;
+			font-weight: 600;
+			margin-bottom: 30px;
+		}
+		&-mark{
+			font-size: 18px;
+			color: $color-dark-2;
+			font-weight: 600;
+			margin-bottom: 30px;
+			margin-top: 10px;	
+		}
+		&-markcheck{
+			display: flex;
+			align-items: center;
+			margin-bottom: 30px;
+			label{
+				position: relative;
+				display: inline-block;
+				padding-left: 26px;
+				&::before{
+					content: "";
+					display: inline-block;
+					height: 20px;
+					width: 20px;
+					border: 1px solid #ddd;
+					left: 0;
+					top: 2px;
+					position: absolute;
+				}
+				&::after{
+					position: absolute;
+					height: 8px;
+					width: 11px;
+					border-left: 1px solid $color-primary;
+					border-bottom: 1px solid $color-primary;
+					content: "";
+					top: 5px;
+					left: 3px;
+					transform: rotate(-54deg);
+					opacity: 0;
+					transition: .3s linear;
+				}
+			}
+			input{
+				appearance: none;
+				&:checked ~ label{
+					&::after{
+						opacity: 1;
+					}
+				}
+				&#b:checked ~ label{
+					&::after{
+						opacity: 1;
+					}
+				}
+				&#c:checked ~ label{
+					&::after{
+						opacity: 1;
+					}
+				}
+				&#d:checked ~ label{
+					&::after{
+						opacity: 1;
+					}
+				}
+				&#e:checked ~ label{
+					&::after{
+						opacity: 1;
+					}
+				}
+				&#f:checked ~ label{
+					&::after{
+						opacity: 1;
+					}
+				}
+				&#g:checked ~ label{
+					&::after{
+						opacity: 1;
+					}
+				}
+				&#h:checked ~ label{
+					&::after{
+						opacity: 1;
+					}
+				}
+				&#i:checked ~ label{
+					&::after{
+						opacity: 1;
+					}
+				}
+				&#j:checked ~ label{
+					&::after{
+						opacity: 1;
+					}
+				}
+				&#k:checked ~ label{
+					&::after{
+						opacity: 1;
+					}
+				}
+				&#l:checked ~ label{
+					&::after{
+						opacity: 1;
+					}
+				}
+			}
+		}
+		&-field{
+			margin-bottom: 10px;
+			label{
+				display: block;
+				color: $color-dark-2;
+				margin-bottom: 7px;
+				font-size: 16px;
+				display: block;
+				padding-bottom: 10px;
+				span{
+					color: $color-red;
+				}
+			}
+			input{
+				width: 100%;
+				border: 1px solid #d3d3d3;
+				padding: 0 10px;
+				height: 50px;
+				font-size: 14px;
+				border-radius: 5px;
+			}
+			textarea{
+				height: 190px;
+				width: 100%;
+				border: 1px solid #d3d3d3;
+				border-radius: 5px;
+				padding: 15px;
+			}
+		}
+	}
+	&__sidebar{
+		&-title{
+			font-size: 24px;
+			color: #20234A;
+			font-weight: 600;
+			margin-bottom: 30px;
+			position: relative;
+			@media (max-width:991px){
+				margin-top: 50px;
+			}
+			&::before{
+				content: "";
+				position: absolute;
+				right: 0;
+				top: 50%;
+				transform: translateY(-50%);
+				background-color: #ddd;
+				width: 185px;
+				height: 1px;
+				@media (max-width:991px){
+					width: 120px;
+				}
+			}
+		}
+		&-dis{
+			font-size: 13px;
+			color: $color-dark-2;
+			line-height: 1.5;
+			margin-bottom: 30px;
+		}
+	}
+	&__item{
+		display: flex;
+		align-items: center;
+		margin-bottom: 40px;
+		i{
+			display: inline-block;
+			margin-right: 20px;
+			font-size: 50px;
+			color: $color-dark-2;
+		}
+		p{
+			font-size: 14px;
+			span{
+				color: $color-dark-2;
+				font-weight: 600;
+			}
+		}
+	}
+}
+.dark{
+	.custom{
+		&__area{
+			&-field{
+				margin-bottom: 10px;
+				label{
+					color: $color-primary;
+					span{
+						color: $color-red;
+					}
+				}
+			}
+			&-subtitle{
+				color: $color-white;
+			}
+			&-title{
+				color: $color-white;
+			}
+			&-dis{
+				color: $color-white;
+			}
+			&-thumb{
+				span{
+					color: $color-dark-2;
+					background-color: $color-primary;
+				}
+	
+			}
+			&-content{
+				h3{
+					color: $color-primary;
+				}
+				p{
+					color: $color-white;
+				}
+			}
+		}
+		&__form{
+			background-color: transparent;
+			&-title{
+				color: $color-primary;
+			}
+			&-field{
+				label{
+					color: $color-primary;
+					span{
+						color: $color-primary;
+					}
+				}
+				input{
+					color: $color-white;
+					background-color: transparent;
+					background: #19212f;
+					border: 1px solid transparent;
+					transition: .3s linear;
+					&:focus{
+						border: 1px solid $color-primary;
+					}
+				}
+				textarea{
+					border: 1px solid transparent;
+					color: $color-white;
+					background-color: transparent;
+					transition: .3s linear;
+					background-color: #19212f;
+					&:focus{
+						border: 1px solid $color-primary;
+					}
+				}
+			}
+		}
+		&__sidebar{
+			&-title{
+				color: $color-primary;
+				&::before{
+					background-color: $color-primary;
+				}
+			}
+			&-dis{
+				color: $color-white;
+			}
+		}
+		&__item{
+			i{
+				color: $color-primary;
+			}
+			p{
+				span{
+					color: $color-primary;
+				}
+			}
+		}
+	}
+	.custom__form-mark{
+		color: $color-primary;
+	}
+
+}
+
+@media (max-width:768px){
+	.custom__form {
+		padding-left: 0;
+		background-color: transparent;
+		padding-top: 0;
+		padding-bottom: 0;
+
+	}
+	.custom__form-field {
+		margin-bottom: 0;
+	}
+	.btn-one.custom-btn {
+		margin-bottom: 20px;
+	}
+}
+.mt-space {
+    margin-top: 30px;
 }

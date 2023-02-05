@@ -9,6 +9,9 @@
             display: grid;
             grid-template-columns: 2fr 1fr;
             grid-gap: 70px;
+            @media only screen and (max-width: $laptop-land) {
+                gap: 0;
+            } 
             @media only screen and (max-width: $tab-land) {
                 grid-template-columns: auto;
                 grid-gap: 40px;
@@ -91,6 +94,7 @@
                     padding: 10px;
                     @media only screen and (max-width: $mbl-port) {
                         width: inherit;
+                        border: 1px solid #ddd;
                      }
                 }
             }
@@ -103,6 +107,7 @@
             text-transform: uppercase;
             border: 1px solid $color-gray5;
             margin-left: 20px;
+            font-weight: 600;
             @media only screen and (max-width: $laptop-port) {
                 padding: 11px 18px;
                 font-size: 13px;
@@ -112,14 +117,12 @@
              }
         }
         &-innerright{
-            border: 1px solid $color-gray5;
-            padding: 28px;
             div{
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
                 border-bottom: 1px solid $color-gray5;
-                padding-bottom: 14px;
+                padding: 14px;
                 margin-bottom: 14px;
                 &:last-of-type{
                     border: 0;
@@ -137,7 +140,7 @@
                 font-weight: 600;
                 font-size: 18px;
                 line-height: 1.1;
-                text-transform: capitalize;
+                text-transform: uppercase;
                 color: $color-dark-2;
             } 
         }
@@ -173,6 +176,12 @@
     max-width: 930px;
     margin: auto;
     margin-top: 60px;
+    display: grid;
+    grid-template-columns: auto 473px;
+    gap: 30px;
+    @media only screen and (max-width: $tab-land) {
+        grid-template-columns: auto;
+    }
 }
 .checktitle {
     text-align: left;
@@ -226,7 +235,7 @@
     margin-top: 50px;
 }
 .contact__form-checkbtn{
-    padding: 10px 30px;
+    padding: 15px 60px;
     color: $color-white;
     background-color: $color-dark-2;
     border-radius: 15px;
@@ -279,6 +288,7 @@
     }
     .cart__area-coupon{
         background-color: $color-primary;
+        color: $color-dark-2;
     }
     .cart__area-footer form input{
         border: 1px solid $color-primary;
@@ -294,13 +304,16 @@
     padding-top: 100px;
     padding-bottom: 100px;
     background: #FFFFFF;
-    border: 0.5px solid #20234A ;
+    border: 0.25px solid #20234A;
+    box-shadow: 0px 0px 20px 2px rgba(32, 35, 74, 0.1);
     border-radius: 12px;
-    box-shadow: none;
     @media only screen and (max-width: $tab-port) {
         padding-top: 50px;
         padding-bottom: 50px;
         margin-bottom: 50px;
+    }
+    @media only screen and (max-width: $mbl-land) {
+        border: 0;
     } 
 }
 .dark{
@@ -311,4 +324,173 @@
         border-radius: 10.7463px;
     }
 
+}
+.checkout_total{
+    background: rgba(74, 77, 116, 0.2);
+    border-radius: 10px;
+    border: 0 !important;
+    span{
+        &:first-child{
+            font-weight: 700;
+        }
+        &:last-child{
+            font-weight: 600;
+        }
+    }
+}
+.checkout_subtotal {
+    padding: 14px 0 !important;
+}
+.payment-select-title{
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 21px;
+    letter-spacing: 0.05em;
+    color: #20234A;
+    padding: 23px 6px;
+}
+.payment-logos {
+    display: block !important;
+    padding: 0 !important;
+    div{
+        background: #FFFFFF;
+        border: 0.25px solid #999999 !important;
+        border-radius: 12px !important;
+    }
+}
+.my-wallet{
+    justify-content: flex-start !important;
+    gap: 20px !important;
+    img{
+        align-self: flex-start !important;
+    }
+}
+.first-disabled {
+    background: rgba(32, 35, 74, 0.6);
+}
+.dark{
+    .dashboard__title-info{
+        background-color: #19212F;
+    }
+    .cart__area-coupon{
+        border: 0;
+    }
+    .cart__area-innerright{
+        border: 1px solid #979797;
+        border-radius: 0;
+    }
+    .dashboard__profile-itemm span{
+        color: $color-white;
+    }
+    .dashboard__profile-itemm .order-close-icon{
+        filter: brightness(100);
+    }
+}
+.cart__area-right{
+    // .img-btn img {
+    //     width: 100px;
+    //     height: 50px;
+    //   }
+      .img-btn > input {
+        display: none;
+      }
+      .img-btn {
+        cursor: pointer;
+        border: 5px solid transparent;
+        position: relative;
+        z-index: 9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 60px;
+      }     
+}
+.payment-logos {
+    position: relative;
+    img{
+        max-width: 100%;
+    }
+}
+.cart__area-right.add-shadow{
+    box-shadow: 0px 0px 20px 2px rgba(32, 35, 74, 0.1);
+    border-radius: 12px;
+    padding: 28px;  
+}
+.dark{
+    .contact__form-field.field-2 input{
+        background: rgba(0, 255, 226, 0.2);
+        border: 0.5px solid #DDDDDD;
+        border-radius: 12px;
+        &::placeholder{
+            color: $color-white;
+        }
+    }
+    .payment-logos{
+        background: #19212F;
+        border-radius: 12px;
+    }  
+    .cart__area-right.add-shadow{
+        border: 1px solid #979797;
+        border-radius: 0;
+    }
+    .cart__area-innerright{
+        border: 0;
+    }
+    .payment-select-title{
+        color: $color-white;
+    }
+}
+.increment_decrement.input-increment-white {
+    height: 100%;
+    background: transparent;
+    border-left: 1px solid $color-dark-2;
+    border-right: 1px solid $color-dark-2;
+    color: $color-dark-2;
+    width: 34px;
+    padding: 0 8px;
+}
+.dark{
+    .increment_decrement.input-increment-white{
+        color: $color-primary;
+    }
+    .cart-btn-wishlist{
+        background-color: $color-primary;
+        color: $color-dark-2 !important;
+    } 
+}
+#payment-input, #payment-input2, #payment-input3, #payment-input4{
+    appearance: none;
+}
+input#payment-input:checked ~ .selected-bg {
+    background: #FFB503 !important;
+    border: 0 !important;
+}
+input#payment-input2:checked ~ .selected-bg {
+    background: #FFB503 !important;
+    border: 0 !important;
+}
+input#payment-input3:checked ~ .selected-bg {
+    background: #FFB503 !important;
+    border: 0 !important;
+}
+input#payment-input4:checked ~ .selected-bg {
+    background: #FFB503 !important;
+    border: 0 !important;
+}
+.selected-bg{
+    background: #FFFFFF !important;
+    border: 0.25px solid #999999 !important;
+    border-radius: 12px;
+    text-align: center;
+    padding: 10px !important;
+    margin-bottom: 15px;
+    height: 60px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.about__have-section p {
+    color: $color-dark-2;
 }

@@ -1,7 +1,6 @@
 .footer-section {
 	.footer {
 		&__item {
-			// text-align: center;
 			@media only screen and (max-width: $mbl-land) {
 				text-align: center;
 			}
@@ -11,9 +10,6 @@
 				font-size: 24px;
 				line-height: 1.5;
 				color: $color-white;
-				@media only screen and (max-width: $mbl-land) {
-					background-color: $color-primary;
-				}
 			}
 
 			.btn {
@@ -84,7 +80,7 @@
 				}
 
 				.link {
-					font-size: 18px;
+					font-size: 14px;
 					line-height: 25px;
 					color: #EEEEEE;
 				}
@@ -101,7 +97,7 @@
 
 .copyright{
 	p{
-		background: linear-gradient(180deg, #17202E 0%, rgba(23, 32, 46, 0.9) 100%);
+		background: #1E1E1E;
 		color: $color-white;
 		text-align: center;
 		margin-bottom: 0;
@@ -112,4 +108,11 @@
 .footer-section{
 	background: linear-gradient(180deg, #17202E 0%, rgba(23, 32, 46, 0.9) 100%);
 	padding: 100px 0;
+}
+
+@media only screen and (max-width: $mbl-land) {
+	button.btn-one.btn-request {
+		border-radius: 12px;
+		margin-top: 20px;
+	}
 }

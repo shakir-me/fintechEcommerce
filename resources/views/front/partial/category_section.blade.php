@@ -1,4 +1,4 @@
-@php
+{{-- @php
 	$category = App\Models\Admin\Category::take(5)->with('sub_category')->get();
 	$category_more = App\Models\Admin\Category::skip(5)->take(10)->get();
 @endphp
@@ -45,4 +45,4 @@
 			</ul>
 		</div>
 	</div>
-</nav>
+</nav> --}}

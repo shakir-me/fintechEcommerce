@@ -2,7 +2,8 @@
     &__login{
         margin-bottom: 100px;
         position: fixed;
-        top: 0;
+        top: 50%;
+        transform: translateY(-50%);
         left: 0;
         z-index: 999999;
         right: 0;
@@ -13,8 +14,8 @@
             border: 1px solid #20234A;
             box-shadow: 0px 0px 15px 2px rgba(32, 35, 74, 0.4);
             border-radius: 12px;
-            padding-top: 70px;
             position: relative;
+            max-width: 720px;
             @media only screen and (max-width: $mbl-land) {
                 padding-top: 20px;
 			}
@@ -57,8 +58,10 @@
     }
 }
 .popup__register {
+    margin-bottom: 100px;
     position: fixed;
-    top: 0;
+    top: 50%;
+    transform: translateY(-50%);
     left: 0;
     z-index: 999999;
     right: 0;
@@ -93,7 +96,15 @@
         }
     }
     .login__area-sign{
-        border: 1px solid $color-primary;;
+        background-color: transparent;
+        border: 1px solid $color-primary;
+        transition: .3s all linear;
+        &:hover{
+            background: $color-primary;
+            box-shadow: 0px 0px 30px rgba(0, 255, 226, 0.8);
+            backdrop-filter: blur(7.5px);
+            color: $color-dark-2 !important;
+        }
     }
     .popup__icon{
         filter: brightness(100);
@@ -107,13 +118,14 @@
 }
 .offcanvas-overlay {
     position: fixed;
-    background-color: rgba(0, 0, 0, 0.5);
+    background: rgba(32, 35, 74, 0.5);
     top: 0;
     left: 0;
     height: 100%;
     width: 100%;
     opacity: 0;
     visibility: hidden;
+    z-index: 999;
 }
 .offcanvas-overlay.overlay-open {
     opacity: 1;

@@ -114,13 +114,22 @@
             &-field{
                 input{
                     background: rgba(0, 255, 226, 0.2);
+                    color: $color-white;
                     &::placeholder{
                         color: $color-white;
                     }
                 }
             }
             &-submitbtn{
-                background-color: $color-primary;
+                background-color: transparent;
+                border: 1px solid $color-primary;
+                transition: .3s all linear;
+                &:hover{
+                    background: $color-primary;
+                    box-shadow: 0px 0px 30px rgba(0, 255, 226, 0.8);
+                    backdrop-filter: blur(7.5px);
+                    color: $color-dark-2 !important;
+                }
             }
        }
     }

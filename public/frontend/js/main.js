@@ -50,8 +50,28 @@ const swiper = new Swiper('.swiper', {
 });
 
 
-//   7. Header Sticky
+// jquery document ready 
+
 $(document).ready(function() {
+
+	// meanmenu
+	$('#mobile-menu').meanmenu({
+		meanMenuContainer: '.mobile-menu',
+		meanScreenWidth: "992"
+	});
+
+	// MOBILE MENU CLICKABLE 
+	$('.open-mobile-menu').on('click', function () {
+		$('.mobile_info_open').addClass('show');
+		$('.offcanvas-overlay').addClass('overlay-open');
+	})
+
+	$('.close_info,.offcanvas-overlay,.mobile_one_page li.menu-item a.nav-link').on('click', function () {
+		$('.mobile_info_open').removeClass('show');
+		$('.offcanvas-overlay').removeClass('overlay-open');
+	});
+	
+	// add header sticky 
 	$(window).on('scroll', function () {
 		var scroll = $(window).scrollTop();
 		if (scroll < 245) {
@@ -64,6 +84,7 @@ $(document).ready(function() {
 	// MOBILE MENU CLICKABLE 
 	$('.login').on('click', function () {
 		$('.popup__login').addClass('block');
+		$('body').addClass('overflow-h');
 		$('.offcanvas-overlay').addClass('overlay-open');
 	});
 	
@@ -83,15 +104,22 @@ $(document).ready(function() {
 		$('.offcanvas-overlay').removeClass('overlay-open');
 	});
 
+	$('.nav__item').on('click', function () {
+		$('.nav__dropdown').toggleClass('block');
+	});
+
 
 });
 
-// var loginbtn = document.querySelector('.login');
-// var loginpopup = document.querySelector('.popup__login');
-
-// loginbtn.addEventListener('click',()=>{
-// 	loginpopup.classList.toggle('block');
-// })
+// dashboard hide show 
+var dashboard = document.querySelector('.dashboard__main');
+var dashboardicon = document.querySelector('.dashboard-open');
+if(dashboard && dashboardicon){
+	dashboardicon.addEventListener('click',()=>{
+		dashboard.classList.toggle('block');
+	})
+	
+}
 
 
 
