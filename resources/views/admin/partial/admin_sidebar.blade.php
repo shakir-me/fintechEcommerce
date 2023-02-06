@@ -58,8 +58,8 @@
                     </li>
                     <li> <a href="{{ route('index.product') }}"><i class="bx bx-right-arrow-alt"></i>All Product</a>
                     </li>
-                    <li> <a href="#"><i class="bx bx-right-arrow-alt"></i>Products</a>
-                    </li>
+                    {{-- <li> <a href="#"><i class="bx bx-right-arrow-alt"></i>Products</a>
+                    </li> --}}
                     <li> <a href="ecommerce-orders.html"><i class="bx bx-right-arrow-alt"></i>Orders</a>
                     </li>
                 </ul>
@@ -120,9 +120,9 @@
                     <div class="menu-title">Cms Page</div>
                 </a>
                 <ul>
-                    <li> <a href="{{ route('index.features') }}"><i class="bx bx-right-arrow-alt"></i>Features</a>
+                    <li> <a href="{{ route('index.features') }}"><i class="bx bx-right-arrow-alt"></i>Privacy Policy</a>
                     </li>
-                    <li> <a href="{{ route('index.afeature') }}"><i class="bx bx-right-arrow-alt"></i>A Features </a>
+                    <li> <a href="{{ route('index.afeature') }}"><i class="bx bx-right-arrow-alt"></i>Terms Of Service </a>
                     </li>
                     <li> <a href="{{ route('index.page') }}"><i class="bx bx-right-arrow-alt"></i>Pages</a>
                     </li>

@@ -29,6 +29,7 @@
 		<link rel="stylesheet" href="{{ asset('frontend/css/style.css')}}" />
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
 		<link rel="stylesheet" href="{{ asset('frontend/css/responsive.css')}}" />
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
 
 	</head>
 	<body>
@@ -80,53 +81,54 @@
 												</div>
 											</div>
 											<div class="text-center">
-												<span class="btn-three" href="#">view list</span>
+												<span class="btn-three" href="{{ url('/wishlist') }}">view list</span>
 											</div>
 										</div>
 									</a>
-									<a href="#" class="nav__icon cart">
+@php
+$carts=Cart::content();
+@endphp
+									<a href="{{ url('cart/index') }}" class="nav__icon cart">
 										<i class="bi bi-basket2"></i>
 										<span class="cart__number">{{ \Cart::count(); }}</span>
 										<div class="hovercart">
+											@if($carts->count() > 0)
 											<div class="hovercart-wrapper">
 												<h4 class="hctitle">Added cart</h4>
 												<div>
+													@foreach($carts as $row)
 													<div class="hovercart-hoverwrapper">
 														<img class="hover-close" src="{{ asset('frontend/img/close.png')}}" alt="">
 													<div class="hovercart-thumb">
-														<img src="{{ asset('frontend/img/sm-p.png')}}" alt="">
+														<img src="{{ asset($row->options->image) }}" width="50" alt="">
 													</div>
 													<div class="hovercart-content">
-														<strong>Microsoft Office</strong>
-														<p>Operating Systems & Mac <br>
-															Software
+														<strong>{{ $row->name }}</strong>
+														<p>{{ $row->options->title }}
 															</p>
-														<span>1X45:00$</span>
+														<span>{{ $row->qty }} X ${{ $row->price }}</span>
 													</div>
 													</div>
-													<div class="hovercart-hoverwrapper">
-														<img class="hover-close" src="{{ asset('frontend/img/close.png')}}" alt="">
-													<div class="hovercart-thumb">
-														<img src="{{ asset('frontend/img/sm-p.png')}}" alt="">
-													</div>
-													<div class="hovercart-content">
-														<strong>Microsoft Office</strong>
-														<p>Operating Systems & Mac <br>
-															Software
-															</p>
-														<span>1X45:00$</span>
-													</div>
-													</div>
+													@endforeach
+
+													
 													<div class="hovercart-total bg-total">
 														<span>Total: </span>
-														<span>90:00$ </span>
+														<span>{{ $row->qty * $row->price }}$ </span>
 													</div>
 													<div class="hovercart-total">
-														<span class="btn-two" href="#">Checkout</span>
-														<span class="btn-two" href="#">view cart</span>
+														<span class="btn-two" href="">Checkout</span>
+													
+														<span class="btn-two" href="">view cart</span>
 													</div>
 												</div>
 											</div>
+											@else
+                                             <h3 style="color:white">Cart is empty</h3>
+											@endif
+
+
+
 										</div>
 									</a>
 									<button class="btn btn-dark">
@@ -335,10 +337,10 @@ $category_more = App\Models\Admin\Category::take(5)->get();
 										<a href="#" class="link">What we do?</a>
 									</li>
 									<li class="item">
-										<a href="#" class="link">About Us</a>
+										<a href="{{ url('about-us') }}" class="link">About Us</a>
 									</li>
 									<li class="item">
-										<a href="#" class="link">Contact</a>
+										<a href="{{ url('contact-us') }}" class="link">Contact</a>
 									</li>
 								</ul>
 							</div>
@@ -351,13 +353,13 @@ $category_more = App\Models\Admin\Category::take(5)->get();
 										<a href="#" class="link">Help Center</a>
 									</li>
 									<li class="item">
-										<a href="#" class="link">Terms of Service</a>
+										<a href="term-service" class="link">Terms of Service</a>
 									</li>
 									<li class="item">
 										<a href="#" class="link">Legal</a>
 									</li>
 									<li class="item">
-										<a href="#" class="link">Privacy policy</a>
+										<a href="{{ url('/privacy-policy') }}" class="link">Privacy policy</a>
 									</li>
 									<li class="item">
 										<a href="#" class="link">Status</a>
@@ -382,7 +384,7 @@ $category_more = App\Models\Admin\Category::take(5)->get();
 				</div>
 			</footer>
 			<div class="copyright">
-				<p>Your Site  © 2022 All Rights Reserved</p>
+				<p>Your Site  © 2023 All Rights Reserved</p>
 			</div>
 
 			<div class="offcanvas-overlay"></div>
@@ -483,6 +485,30 @@ $category_more = App\Models\Admin\Category::take(5)->get();
 		<script src="{{ asset('frontend/js/backToTop.js')}}"></script>
 		<script src="{{ asset('frontend/js/jquery.meanmenu.min.js')}}"></script>
 		<script src="{{ asset('frontend/js/main.js')}}"></script>
+
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+   
+		<script>
+		 @if(Session::has('messege'))
+		   var type="{{Session::get('alert-type','info')}}"
+		   switch(type){
+			   case 'info':
+					toastr.info("{{ Session::get('messege') }}");
+					break;
+			   case 'success':
+				   toastr.success("{{ Session::get('messege') }}");
+				   break;
+			   case 'warning':
+				  toastr.warning("{{ Session::get('messege') }}");
+				   break;
+			   case 'error':
+				   toastr.error("{{ Session::get('messege') }}");
+				   break;
+		   }
+		 @endif
+	  </script>
+	  
 
 		<script>
 			
@@ -613,35 +639,7 @@ $category_more = App\Models\Admin\Category::take(5)->get();
 			})
 		</script>
 
-		<script>
-		    @if(Session::has('messege'))
-
-		      toastr.options = {
-		        "closeButton": true,
-		        "progressBar": true,
-		        "showDuration": "300",
-		        "hideDuration": "1000",
-		        "timeOut": "8000",
-		        "extendedTimeOut": "1000",
-		      }
-
-		      var type="{{Session::get('alert-type','info')}}"
-		      switch(type){
-		          case 'info':
-		               toastr.info("<h4>{{ Session::get('messege') }}</h4>");
-		               break;
-		          case 'success':
-		              toastr.success("<h4>{{ Session::get('messege') }}</h4>");
-		              break;
-		          case 'warning':
-		             toastr.warning("<h4>{{ Session::get('messege') }}</h4>");
-		              break;
-		          case 'error':
-		              toastr.error("<h4>{{ Session::get('messege') }}</h4>");
-		              break;
-		            }
-		    @endif
-		  </script>
+		
 		@stack('js')
 	</body>
 </html>

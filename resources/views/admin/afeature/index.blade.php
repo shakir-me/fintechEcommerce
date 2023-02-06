@@ -44,7 +44,7 @@
 								<td>{{ $loop->index+1 }}</td>
 								<td>{{ $data->title }}</td>
 								<td>
-                                    <img src="{{ asset($data->photo) }}" alt="{{ $data->photo }}">
+                                    
                                 </td>
 								<td>
 									<button class="btn btn-sm btn-info features-edit" data-bs-toggle="modal" data-bs-target="#editModel" data-id="{{ $data->id }}" >Edit</button>
@@ -98,12 +98,7 @@
                                         <textarea name="description" rows="4" class="form-control"></textarea>
 									</div>
 								</div>
-								<div class="modal-body">
-									<div class="col-md-12">
-										<label for="inputFirstName" class="form-label">Photo<sup class="text-danger">*</sup></label>
-										<input type="file" class="form-control" name="photo" id="inputFirstName">
-									</div>
-								</div>
+							
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 									<button type="submit" class="btn btn-primary">Submit</button>

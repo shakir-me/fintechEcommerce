@@ -41,13 +41,12 @@ class FeaturesController extends Controller
         $validated = $request->validate([
                 'heading' => 'required|unique:features|max:255',
                 'description' => 'required',
-                'photo'=> 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
             ]);
 
         $data = $request->all();
-        if($request->photo){
-            $data['photo'] = Helper::upload_image($request->photo , 80 , 80);
-        }
+        // if($request->photo){
+        //     $data['photo'] = Helper::upload_image($request->photo , 80 , 80);
+        // }
         Features::create($data);
 
         $notification=array(
@@ -94,16 +93,16 @@ class FeaturesController extends Controller
         $validated = $request->validate([
             'heading' => 'required|unique:features,heading,'.$id,
             'description' => 'required',
-            'photo'=> 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+    
             ]);
         $old_image = Features::find($id);
         $data = $request->except('_token');
-        if($request->photo){
-            $data['photo'] = Helper::upload_image($request->photo , 80 , 80);
-            if(file_exists($old_image->photo)){
-                unlink($old_image->photo);
-            }
-        }
+        // if($request->photo){
+        //     $data['photo'] = Helper::upload_image($request->photo , 80 , 80);
+        //     if(file_exists($old_image->photo)){
+        //         unlink($old_image->photo);
+        //     }
+        // }
         Features::where('id',$id)->update($data);
         $notification=array(
             'messege'=>'Successfully Updated !',

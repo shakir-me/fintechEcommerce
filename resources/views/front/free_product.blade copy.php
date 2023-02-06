@@ -73,8 +73,6 @@
 	<br>
 </section>
 <!-- footer -->
-@include('front.partial.footer_section')
-@push('js')
 
-@endpush
+
 @endsection

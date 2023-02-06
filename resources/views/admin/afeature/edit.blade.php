@@ -17,14 +17,7 @@
                                         <textarea name="description" rows="4" class="form-control">{{ $data->description }}</textarea>
 									</div>
 								</div>
-								<div class="modal-body">
-									<div class="col-md-12">
-										<label for="inputFirstName" class="form-label">Photo<sup class="text-danger">*</sup></label>
-										<input type="file" class="form-control" name="photo" id="inputFirstName">
-                                        <br>
-                                        <img style="width: 50px;" src="{{ asset($data->photo) }}" alt="{{ $data->photo }}">
-									</div>
-								</div>
+						
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 									<button type="submit" class="btn btn-primary">Submit</button>

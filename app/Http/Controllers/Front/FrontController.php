@@ -10,6 +10,9 @@ use App\Models\Admin\Brand;
 use App\Models\Admin\Testimonial;
 use App\Models\Admin\SubCategory;
 use App\Models\Admin\Membership;
+use App\Models\Contact;
+use App\Models\Admin\Features;
+use App\Models\Admin\Afeature;
 
 class FrontController extends Controller
 {
@@ -101,9 +104,9 @@ class FrontController extends Controller
         $subcategory_id ='';
         $category_id = Category::where('category_slug',$category)->first();
         $category    = Category::with('product')->get();
-        $products    = Product::where('category_id',$category_id->id)->get();
+        $products    = Product::where('category_id',$category_id->id)->paginate(12);
         $brands = Brand::all();
-        return view('front.shop',compact('category','products','category_id','start_price','end_price','brands','subcategory_id'));
+        return view('front.category_product',compact('category','products','category_id','start_price','end_price','brands','subcategory_id'));
     }
 
 
@@ -122,7 +125,7 @@ class FrontController extends Controller
         $category    = Category::with('product')->get();
         $products    = Product::where('subcategory_id',$subcategory_id->id)->get();
         $brands = Brand::all();
-        return view('front.shop',compact('category','products','category_id','start_price','end_price','brands','subcategory_id'));
+        return view('front.subcategory_product',compact('category','products','category_id','start_price','end_price','brands','subcategory_id'));
     }
 
     /**
@@ -140,8 +143,8 @@ class FrontController extends Controller
         $end_price       = $request->end_price;
         $category    = Category::with('product')->get();
         $brands = Brand::all();
-        $products    = Product::whereBetween('product_price',[$start_price , $end_price])->get();
-        return view('front.shop',compact('category','products','category_id','start_price','end_price','brands','subcategory_id','brand_id'));
+        $products    = Product::whereBetween('product_price',[$start_price , $end_price])->paginate(12);
+        return view('front.price_filter',compact('category','products','category_id','start_price','end_price','brands','subcategory_id','brand_id'));
     }
 
 
@@ -159,9 +162,9 @@ class FrontController extends Controller
         $subcategory_id = "";
         $brand_id = Brand::where('brand_slug',$brand)->first();
         $category    = Category::with('product')->get();
-        $products    = Product::where('brand_id',$brand_id->id)->get();
+        $products    = Product::where('brand_id',$brand_id->id)->paginate(12);
         $brands = Brand::all();
-        return view('front.shop',compact('category','products','category_id','start_price','end_price','brands','brand_id','subcategory_id'));
+        return view('front.brand_product',compact('category','products','category_id','start_price','end_price','brands','brand_id','subcategory_id'));
     }
 
 
@@ -218,10 +221,38 @@ class FrontController extends Controller
        return view('front.contact');
     }
 
+    public function ContatctStore(Request $request)
+    {
+       $contact=new Contact();
+       $contact->name=$request->name;
+       $contact->email=$request->email;
+       $contact->subject=$request->subject;
+       $contact->address=$request->address;
+       $contact->description=$request->description;
+       $contact->save();
+
+       $notification=array(
+        'messege'=>'Successfully Conatct Sent Please Wait !',
+        'alert-type'=>'success'
+         );
+       return Redirect()->back()->with($notification);
+
+    }
+
 
     public function PrivacyPolicy()
     {
-        return view('front.privacy_policy'); 
+        $privacy_policy=Features::all();
+        return view('front.privacy_policy',compact('privacy_policy')); 
+    }
+
+    public function TeamAndCondition()
+    {
+
+    
+
+        $privacy_policy=Afeature::all();
+        return view('front.team_and_condition',compact('privacy_policy')); 
     }
 
     public function AboutUs()

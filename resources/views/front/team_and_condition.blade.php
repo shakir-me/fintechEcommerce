@@ -2,10 +2,10 @@
 
 @section('front_content')
 <div class="bredcrumb">
-    <h2 class="bredcrumb__title">privacy policy</h2>
+    <h2 class="bredcrumb__title">Terms Of Service</h2>
     <ul class="bredcrumb__items">
         <li>Home <i class="bi bi-chevron-right"></i></li>
-        <li>privacy policy</li>
+        <li>Terms Of Service</li>
     </ul>
 </div>
 
@@ -16,7 +16,7 @@
 
         @foreach ($privacy_policy as $row)
         <div class="privicey__content-item">
-            <span class="privicey__content-title">{{ $loop->index+1 }}. {{ $row->heading }}</span>
+            <span class="privicey__content-title">{{ $loop->index+1 }}. {{ $row->title }}</span>
             <p class="privicey__content-dis">
                 {{ $row->description }}
              </p>

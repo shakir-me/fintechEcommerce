@@ -12,13 +12,13 @@
 					<ol class="breadcrumb mb-0 p-0">
 						<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
 						</li>
-						<li class="breadcrumb-item active" aria-current="page">Features</li>
+						<li class="breadcrumb-item active" aria-current="page">Privacy Policy</li>
 					</ol>
 				</nav>
 			</div>
 			<div class="ms-auto">
 				<div class="btn-group">
-					<button type="button" class="btn btn-sm btn-primary pull-right" data-bs-toggle="modal" data-bs-target="#createModel">Create New</button>
+					<button type="button" class="btn btn-sm btn-primary pull-right" data-bs-toggle="modal" data-bs-target="#createModel">Create Privacy Policy</button>
 				</div>
 			</div>
 		</div>
@@ -33,7 +33,7 @@
 							<tr>
 								<th width="10%">SL</th>
 								<th>Heading</th>
-								<th>Photo
+								<th>Create Time
                                 </th>
 								<th width="15%">Action</th>
 							</tr>
@@ -44,7 +44,7 @@
 								<td>{{ $loop->index+1 }}</td>
 								<td>{{ $data->heading }}</td>
 								<td>
-                                    <img src="{{ asset($data->photo) }}" alt="{{ $data->photo }}">
+                                   {{$data->created_at}}
                                 </td>
 								<td>
 									<button class="btn btn-sm btn-info features-edit" data-bs-toggle="modal" data-bs-target="#editModel" data-id="{{ $data->id }}" >Edit</button>
@@ -82,7 +82,7 @@
 							<form action="{{ route('store.features') }}" method="post" enctype="multipart/form-data">
 								@csrf
 								<div class="modal-header">
-									<h5 class="modal-title">Create New Feature</h5>
+									<h5 class="modal-title">Create New Create Privacy Policy</h5>
 									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 								</div>
 								<div class="modal-body">
@@ -109,12 +109,7 @@
                                         <textarea name="description" rows="4" class="form-control"></textarea>
 									</div>
 								</div>
-								<div class="modal-body">
-									<div class="col-md-12">
-										<label for="inputFirstName" class="form-label">Photo<sup class="text-danger">*</sup></label>
-										<input type="file" class="form-control" name="photo" id="inputFirstName">
-									</div>
-								</div>
+								
 								<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 									<button type="submit" class="btn btn-primary">Submit</button>

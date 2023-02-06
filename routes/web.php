@@ -80,7 +80,9 @@ Route::get('/product/details/{product_slug}',[FrontController::class, 'productDe
 Route::post('store/request/product',[RequestProductController::class, 'storeRequestProduct'])->name('store.request.product');
 
 Route::get('/contact-us', [FrontController::class, 'ContatctUs']);
+Route::post('/contact-store', [FrontController::class, 'ContatctStore']);
 Route::get('/privacy-policy', [FrontController::class, 'PrivacyPolicy']);
+Route::get('/term-service', [FrontController::class, 'TeamAndCondition']);
 Route::get('/about-us', [FrontController::class, 'AboutUs']);
 Route::get('/how-it-work', [FrontController::class, 'HowToWork']);
 

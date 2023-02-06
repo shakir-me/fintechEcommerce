@@ -41,13 +41,13 @@ class AfeatureController extends Controller
         $validated = $request->validate([
                 'title' => 'required|unique:afeatures|max:255',
                 'description' => 'required',
-                'photo'=> 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+               
             ]);
 
         $data = $request->all();
-        if($request->photo){
-            $data['photo'] = Helper::upload_image($request->photo , 30, 30);
-        }
+        // if($request->photo){
+        //     $data['photo'] = Helper::upload_image($request->photo , 30, 30);
+        // }
         Afeature::create($data);
         $notification=array(
             'messege'=>'Successfully Created !',
@@ -93,16 +93,16 @@ class AfeatureController extends Controller
         $validated = $request->validate([
             'title' => 'required|unique:afeatures,title,'.$id,
             'description' => 'required',
-            'photo'=> 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            
             ]);
         $old_image = Afeature::find($id);
         $data = $request->except('_token');
-        if($request->photo){
-            $data['photo'] = Helper::upload_image($request->photo , 30, 30);
-            if(file_exists($old_image->photo)){
-                unlink($old_image->photo);
-            }
-        }
+        // if($request->photo){
+        //     $data['photo'] = Helper::upload_image($request->photo , 30, 30);
+        //     if(file_exists($old_image->photo)){
+        //         unlink($old_image->photo);
+        //     }
+        // }
         Afeature::where('id',$id)->update($data);
         $notification=array(
             'messege'=>'Successfully Updated !',
