@@ -20,17 +20,16 @@
         <div class="row">
             <div class="col-xl-6">
                 <div class="about__store-left">
-                    <span class="about__store-subtitle">ABOUT OUR ONLINE STORE</span>
-                    <h3 class="about__store-title">About Trading System for 
-                        any platform</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur. Nibh metus arcu morbi a. At nibh posuere sagittis eros scelerisque. Elementum.</p>
-                    <p>Lorem ipsum dolor sit amet consectetur. Hendrerit convallis fringilla massa augue. Elit netus nulla consectetur potenti tincidunt lobortis nulla urna eu. Dictum tempor et purus molestie integer viverra. Dictum imperdiet enim quam ut morbi vel libero.</p>
-                    <p>Lorem ipsum dolor sit amet consectetur. Sit nunc id mauris nibh bibendum tellus nec sit. Orci proin dolor ipsum mi et sit condimentum pulvinar. Purus facilisis eget sed dictum donec commodo. Enim pellentesque ac eget tristique. Aliquet mattis aliquam id aliquet. Iaculis nunc nisi mus egestas euismod at.</p>
+                    <span class="about__store-subtitle">{{ $about->about_us }}</span>
+                    <h3 class="about__store-title">{{ $about->about_title }}</h3>
+                    <p>{!! $about->description !!}.</p>
+                   
                 </div>
             </div>
             <div class="col-xl-6">
                 <div class="about__store-thumb">
-                    <img src="{{ asset('frontend/img/Tools & Utilities.png') }}" alt="store">
+                    <img src="{{asset('backend/about/'.$about->image) }}"  alt="store">
+          
                 </div>
             </div>
         </div>
@@ -112,20 +111,41 @@
             <section class="section items-section free-items">
                 <div class="container">
                     <div class="items row g-5 mb-4">
+                        @foreach ( $Products as $product)
+                            
+                       
                         <div class="col-12 col-sm-6 col-lg-3">
                             <div class="items__item">
-                                <img src="img/items-img-1.png" alt="" class="items__img" />
-                                <h5 class="heading name">Microsoft Office</h5>
-                                <h5 class="heading title">Operating Systems & Mac Software</h5>
+                                <img src="{{ asset($product->thumbnail) }}" alt="" class="items__img" />
+                                <h5 class="heading name">{{ $product->product_name }}</h5>
+                                <h5 class="heading title">{{ $product->product_title }}</h5>
                                 <div class="price-list d-flex justify-content-center align-items-center gap-2 mb-1">
-                                    <p class="price">$35.00</p>
-                                    <span class="price newprice">$30.00</span>
+
+                                    @if($product->discount_rate == 0.00)
+										<p class="price">${{ $product->product_price }}</p>
+										@else
+										<p class="price">${{ $product->discount_price }}</p>
+										@endif
+
+										@if($product->discount_rate == 0.00)
+										@else
+										<span class="discount">- @if($product->discount_type == "Flat") $@endif{{ intval($product->discount_rate) }} @if($product->discount_type == "Percent") % @endif</span>
+										@endif
+
+										@if($product->discount_rate == 0.00)
+										@else
+										<span class="old-price">${{ $product->product_price }}</span>
+										@endif
+
+                                    {{-- <p class="price">$35.00</p>
+                                    <span class="price newprice">$30.00</span> --}}
+
+
                                 </div>
 
                                 <div class="items__bottom">
                                     <p class="text mb-2 text-center">
-                                        Lorem ipsum dolor sit amet consectetur. Sollicitudin maecenas vehicula neque
-                                        eget ut fringilla.
+                                        {{ Str::limit($product->product_short_desc, 100, '') }} 
                                     </p>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <button class="btn btn-cart">Add to cart</button>
@@ -135,79 +155,12 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-12 col-sm-6 col-lg-3">
-                            <div class="items__item">
-                                <img src="img/items-img-2.png" alt="" class="items__img" />
-                                <h5 class="heading name">Microsoft Office</h5>
-                                <h5 class="heading title">Operating Systems & Mac Software</h5>
-                                <div class="price-list d-flex justify-content-center align-items-center gap-2 mb-1">
-                                    <p class="price">$35.00</p>
-                                    <span class="price newprice">$30.00</span>
-                                </div>
+                          </div>
 
-                                <div class="items__bottom">
-                                    <p class="text mb-2 text-center">
-                                        Lorem ipsum dolor sit amet consectetur. Sollicitudin maecenas vehicula neque
-                                        eget ut fringilla.
-                                    </p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <button class="btn btn-cart">Add to cart</button>
-                                        <button class="btn btn-wishlist">
-                                            <i class="bi bi-heart"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-6 col-lg-3">
-                            <div class="items__item">
-                                <img src="img/items-img-3.png" alt="" class="items__img" />
-                                <h5 class="heading name">Microsoft Office</h5>
-                                <h5 class="heading title">Operating Systems & Mac Software</h5>
-                                <div class="price-list d-flex justify-content-center align-items-center gap-2 mb-1">
-                                    <p class="price">$35.00</p>
-                                    <span class="price newprice">$30.00</span>
-                                </div>
-
-                                <div class="items__bottom">
-                                    <p class="text mb-2 text-center">
-                                        Lorem ipsum dolor sit amet consectetur. Sollicitudin maecenas vehicula neque
-                                        eget ut fringilla.
-                                    </p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <button class="btn btn-cart">Add to cart</button>
-                                        <button class="btn btn-wishlist">
-                                            <i class="bi bi-heart"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-6 col-lg-3">
-                            <div class="items__item">
-                                <img src="img/items-img-1.png" alt="" class="items__img" />
-                                <h5 class="heading name">Microsoft Office</h5>
-                                <h5 class="heading title">Operating Systems & Mac Software</h5>
-                                <div class="price-list d-flex justify-content-center align-items-center gap-2 mb-1">
-                                    <p class="price">$35.00</p>
-                                    <span class="price newprice">$30.00</span>
-                                </div>
-
-                                <div class="items__bottom">
-                                    <p class="text mb-2 text-center">
-                                        Lorem ipsum dolor sit amet consectetur. Sollicitudin maecenas vehicula neque
-                                        eget ut fringilla.
-                                    </p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <button class="btn btn-cart">Add to cart</button>
-                                        <button class="btn btn-wishlist">
-                                            <i class="bi bi-heart"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                          @endforeach
+                     
+                      
+                     
                     </div>
                     <div class="items__btn">
                         <!-- <a href="#" class="btn btn-more">view more</a> -->

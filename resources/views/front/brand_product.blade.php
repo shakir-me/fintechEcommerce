@@ -104,8 +104,7 @@
 
 									<div class="items__bottom">
 										<p class="text mb-2 text-center">
-											Lorem ipsum dolor sit amet consectetur. Sollicitudin maecenas vehicula neque
-											eget ut fringilla.
+											{{ Str::limit($product->product_short_desc, 100, '') }}
 										</p>
 									</a>
 										<div class="d-flex justify-content-between align-items-center">

@@ -1,3 +1,8 @@
+@php
+	$setting=DB::table('settings')->first();
+//  dd($setting);
+	
+@endphp
 <!DOCTYPE html>
 <html lang="en" class="light">
 	<head>
@@ -39,7 +44,7 @@
 					<div class="container">
 						<div class="nav__wrapper d-flex justify-content-between align-items-center gap-4">
 							<div class="nav__logo d-flex align-items-center gap-3">
-								<a href="{{ url('/') }}"><img src="{{ asset('frontend/img/LOGO.png')}}" alt="logo" /></a>
+								<a href="{{ url('/') }}"><img src="{{asset('backend/setting/'.$setting->image) }}" alt="logo" /></a>
 							</div>
 							<div class="nav__right d-flex align-items-center">
 								<div class="d-flex align-items-center gap-5">
@@ -90,7 +95,7 @@ $carts=Cart::content();
 @endphp
 									<a href="{{ url('cart/index') }}" class="nav__icon cart">
 										<i class="bi bi-basket2"></i>
-										<span class="cart__number">{{ \Cart::count(); }}</span>
+										<span class="cart__number cart-count">{{ \Cart::count(); }}</span>
 										<div class="hovercart">
 											@if($carts->count() > 0)
 											<div class="hovercart-wrapper">
@@ -215,7 +220,7 @@ $carts=Cart::content();
 									<li><a href="plan.html">subscription plan</a></li>
 									<li><a href="404.html">404 Error</a></li>
 									<li><a href="dashboard.html">my Orders</a></li>
-									<li><a href="dashboard.html">my account</a></li>
+									<li><a href="{{ url('user/home') }}">my account</a></li>
 								</ul>
 							</li>
 						</ul>
@@ -228,7 +233,7 @@ $carts=Cart::content();
 					<div class="mobile_wrapper">
 						<div class="mobile_left">
 							<div class="logo">
-								<img src="{{ asset('frontend/img/LOGO.png')}}" alt="logo">
+								<img src="{{asset('backend/setting/'.$setting->image) }}" alt="logo">
 							</div>
 						</div>
 						<div class="mobile_right">
@@ -243,7 +248,7 @@ $carts=Cart::content();
 				<div class="container">
 					<div class="mobile_header">
 						<div class="mobile-logo">
-							<img src="{{ asset('frontend/img/LOGO.png')}}" alt="">
+							<img src="{{asset('backend/setting/'.$setting->image) }}" alt="">
 						</div>
 						<div class="icon">
 							<i class="bi bi-x close_info"></i>
@@ -265,30 +270,29 @@ $carts=Cart::content();
 					<div class="footer row g-5">
 						<div class="col-12 col-sm-6 col-lg-4">
 							<div class="footer__item logo-area">
-								<img src="{{ asset('frontend/img/LOGO.png')}}" alt="" class="logo logo-black mb-3" />
-								<img src="{{ asset('frontend/img/LOGO.png')}}" alt="" class="logo logo-white mb-3" />
+								<img src="{{asset('backend/setting/'.$setting->image) }}" alt="" class="logo logo-black mb-3" />
+								<img src="{{asset('backend/setting/'.$setting->image) }}" alt="" class="logo logo-white mb-3" />
 								<p class="text text-white mb-3">
-									The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for
-									those interested
+									{{$setting->about}}
 								</p>
 								<ul class="social d-flex align-items-center gap-2">
 									<li class="social__item">
-										<a href="#" class="social__link">
+										<a href="{{$setting->facebook}}" target="_blank" class="social__link">
 											<i class="bi bi-facebook"></i>
 										</a>
 									</li>
 									<li class="social__item">
-										<a href="#" class="social__link">
+										<a href="{{$setting->instagram}}" target="_blank" class="social__link">
 											<i class="bi bi-instagram"></i>
 										</a>
 									</li>
 									<li class="social__item">
-										<a href="#" class="social__link">
+										<a href="{{$setting->youtube}}" target="_blank" class="social__link">
 											<i class="bi bi-youtube"></i>
 										</a>
 									</li>
 									<li class="social__item">
-										<a href="#" class="social__link">
+										<a href="{{$setting->twitter}}" target="_blank" class="social__link">
 											<i class="bi bi-twitter"></i>
 										</a>
 									</li>
@@ -334,7 +338,7 @@ $category_more = App\Models\Admin\Category::take(5)->get();
 										<a href="{{ url('/customer-request') }}" class="link">Custom Request</a>
 									</li>
 									<li class="item">
-										<a href="#" class="link">What we do?</a>
+										<a href="{{ url('how-it-work') }}" class="link">How It Work?</a>
 									</li>
 									<li class="item">
 										<a href="{{ url('about-us') }}" class="link">About Us</a>

@@ -10,13 +10,13 @@
 	<div class="page-content">
 		<!--breadcrumb-->
 		<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-			<div class="breadcrumb-title pe-3">Page</div>
+			<div class="breadcrumb-title pe-3">It Work</div>
 			<div class="ps-3">
 				<nav aria-label="breadcrumb">
 					<ol class="breadcrumb mb-0 p-0">
 						<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
 						</li>
-						<li class="breadcrumb-item active" aria-current="page">Page</li>
+						<li class="breadcrumb-item active" aria-current="page">It Work</li>
 					</ol>
 				</nav>
 			</div>
@@ -96,13 +96,13 @@
 							<form action="{{ route('store.page') }}" method="post" enctype="multipart/form-data">
 								@csrf
 								<div class="modal-header">
-									<h5 class="modal-title">Create New Page</h5>
+									<h5 class="modal-title">Create New It Work</h5>
 									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 								</div>
 								<div class="modal-body">
 									<div class="form-group">
 										<div class="col-md-12">
-											<label for="inputFirstName" class="form-label">Page Title <sup class="text-danger">*</sup></label>
+											<label for="inputFirstName" class="form-label"> Title <sup class="text-danger">*</sup></label>
 											<input type="text" class="form-control" placeholder="Enter page title" name="page_title" id="inputFirstName">
 										</div>
 										<br>

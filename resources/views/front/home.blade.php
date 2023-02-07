@@ -96,50 +96,54 @@
 		<p class="text mb-4 text-center">Latest uploaded Ea's or indicators</p>
 
 		<div class="items row g-4 mb-4">
+		
+			
+			@foreach($latestProducts as $key=> $latest)
 			<div class="col-12 col-sm-6 col-lg-3">
-				<div class="items__item">
-					<a href="single.html">
-						<img src="{{ asset('frontend/img/items-img-1.png')}}" alt="" class="items__img" />
-					</a>
-					<h5 class="heading name">Microsoft Office</h5>
-					<h5 class="heading title"><a href="single.html">Operating Systems & Mac Software</a></h5>
-					<div class="price-list d-flex justify-content-center align-items-center gap-2 mb-1">
-						<p class="price">$35.00</p>
-						<span class="price newprice">$30.00</span>
-					</div>
-
-					<div class="items__bottom">
-						<p class="text mb-2 text-center">
-							Lorem ipsum dolor sit amet consectetur. Sollicitudin maecenas vehicula neque
-							eget ut fringilla.
-						</p>
-						<div class="d-flex justify-content-between align-items-center">
-							<a href="#" class="btn btn-cart">Add to cart</a>
-							{{-- <a href="#" class="btn btn-wishlist">
-								<i class="bi bi-heart"></i>
-							</a> --}}
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-12 col-sm-6 col-lg-3">
-				<a href="single.html">
+				<a href="{{ URL::to('product/details/'.$latest->product_slug) }}">
 					<div class="items__item">
-						<img src="{{ asset('frontend/img/items-img-2.png')}}" alt="" class="items__img" />
-						<h5 class="heading name">Microsoft Office</h5>
-						<h5 class="heading title">Operating Systems & Mac Software</h5>
+						<img src="{{ asset($latest->thumbnail) }}" alt="" class="items__img" />
+						<h5 class="heading name">{{ $latest->product_name }}</h5>
+						<h5 class="heading title">{{ $latest->product_title }}</h5>
 						<div class="price-list d-flex justify-content-center align-items-center gap-2 mb-1">
-							<p class="price">$35.00</p>
-							<span class="price newprice">$30.00</span>
+							@if($latest->discount_rate == 0.00)
+							<p class="price newprice">${{ $latest->product_price }}</p>
+							@else
+							<p class="price newprice">${{ $latest->discount_price }}</p>
+							@endif
+
+							@if($latest->discount_rate == 0.00)
+							@else
+							<span class="discount">- @if($latest->discount_type == "Flat") $@endif{{ intval($latest->discount_rate) }} @if($latest->discount_type == "Percent") % @endif</span>
+							@endif
+
+							@if($latest->discount_rate == 0.00)
+							@else
+							<span class="price">${{ $latest->product_price }}</span>
+							@endif
+
+							{{-- <p class="price">$35.00</p>
+							<span class="price newprice">$30.00</span> --}}
 						</div>
 
 						<div class="items__bottom">
 							<p class="text mb-2 text-center">
-								Lorem ipsum dolor sit amet consectetur. Sollicitudin maecenas vehicula neque
-								eget ut fringilla.
+								{{ Str::limit($latest->product_short_desc, 100, '') }}
 							</p>
 							<div class="d-flex justify-content-between align-items-center">
-								<button class="btn btn-cart">Add to cart</button>
+
+								<form action="{{ route('add.cart') }}" method="post" class="addCard">
+									@csrf
+									<input type="hidden" name="product_id" value="{{ $latest->id }}">
+									<input type="hidden" name="product_qty" value="1">
+									@if($latest->discount_rate == 0.00 )
+									<input type="hidden" name="product_price" value="{{ $latest->product_price }}">
+									@else
+									<input type="hidden" name="product_price" value="{{ $latest->discount_price }}">
+									@endif
+									<button class="btn btn-cart" type="submit">Add to cart</button>
+								</form>
+
 								<button class="btn btn-wishlist">
 									<i class="bi bi-heart"></i>
 								</button>
@@ -148,167 +152,15 @@
 					</div>
 				</a>
 			</div>
-			<div class="col-12 col-sm-6 col-lg-3">
-				<a href="single.html">
-					<div class="items__item">
-						<img src="{{ asset('frontend//img/items-img-3.png')}}" alt="" class="items__img" />
-						<h5 class="heading name">Microsoft Office</h5>
-						<h5 class="heading title">Operating Systems & Mac Software</h5>
-						<div class="price-list d-flex justify-content-center align-items-center gap-2 mb-1">
-							<p class="price">$35.00</p>
-							<span class="price newprice">$30.00</span>
-						</div>
-
-						<div class="items__bottom">
-							<p class="text mb-2 text-center">
-								Lorem ipsum dolor sit amet consectetur. Sollicitudin maecenas vehicula neque
-								eget ut fringilla.
-							</p>
-							<div class="d-flex justify-content-between align-items-center">
-								<button class="btn btn-cart">Add to cart</button>
-								<button class="btn btn-wishlist">
-									<i class="bi bi-heart"></i>
-								</button>
-							</div>
-						</div>
-					</div>
-				</a>
-			</div>
-			<div class="col-12 col-sm-6 col-lg-3">
-				<a href="single.html">
-					<div class="items__item">
-						<img src="{{ asset('frontend//img/items-img-4.png')}}" alt="" class="items__img" />
-						<h5 class="heading name">Microsoft Office</h5>
-						<h5 class="heading title">Operating Systems & Mac Software</h5>
-						<div class="price-list d-flex justify-content-center align-items-center gap-2 mb-1">
-							<p class="price">$35.00</p>
-							<span class="price newprice">$30.00</span>
-						</div>
-
-						<div class="items__bottom">
-							<p class="text mb-2 text-center">
-								Lorem ipsum dolor sit amet consectetur. Sollicitudin maecenas vehicula neque
-								eget ut fringilla.
-							</p>
-							<div class="d-flex justify-content-between align-items-center">
-								<button class="btn btn-cart">Add to cart</button>
-								<button class="btn btn-wishlist">
-									<i class="bi bi-heart"></i>
-								</button>
-							</div>
-						</div>
-					</div>
-				</a>
-			</div>
-			<div class="col-12 col-sm-6 col-lg-3">
-				<a href="single.html">
-					<div class="items__item">
-						<img src="{{ asset('frontend/img/items-img-1.png')}}" alt="" class="items__img" />
-						<h5 class="heading name">Microsoft Office</h5>
-						<h5 class="heading title">Operating Systems & Mac Software</h5>
-						<div class="price-list d-flex justify-content-center align-items-center gap-2 mb-1">
-							<p class="price">$35.00</p>
-							<span class="price newprice">$30.00</span>
-						</div>
-
-						<div class="items__bottom">
-							<p class="text mb-2 text-center">
-								Lorem ipsum dolor sit amet consectetur. Sollicitudin maecenas vehicula neque
-								eget ut fringilla.
-							</p>
-							<div class="d-flex justify-content-between align-items-center">
-								<button class="btn btn-cart">Add to cart</button>
-								<button class="btn btn-wishlist">
-									<i class="bi bi-heart"></i>
-								</button>
-							</div>
-						</div>
-					</div>
-				</a>
-			</div>
-			<div class="col-12 col-sm-6 col-lg-3">
-				<a href="single.html">
-					<div class="items__item">
-						<img src="{{ asset('frontend/img/items-img-2.png')}}" alt="" class="items__img" />
-						<h5 class="heading name">Microsoft Office</h5>
-						<h5 class="heading title">Operating Systems & Mac Software</h5>
-						<div class="price-list d-flex justify-content-center align-items-center gap-2 mb-1">
-							<p class="price">$35.00</p>
-							<span class="price newprice">$30.00</span>
-						</div>
-
-						<div class="items__bottom">
-							<p class="text mb-2 text-center">
-								Lorem ipsum dolor sit amet consectetur. Sollicitudin maecenas vehicula neque
-								eget ut fringilla.
-							</p>
-							<div class="d-flex justify-content-between align-items-center">
-								<button class="btn btn-cart">Add to cart</button>
-								<button class="btn btn-wishlist">
-									<i class="bi bi-heart"></i>
-								</button>
-							</div>
-						</div>
-					</div>
-				</a>
-			</div>
-			<div class="col-12 col-sm-6 col-lg-3">
-				<a href="single.html">
-					<div class="items__item">
-						<img src="{{ asset('frontend/img/items-img-3.png')}}" alt="" class="items__img" />
-						<h5 class="heading name">Microsoft Office</h5>
-						<h5 class="heading title">Operating Systems & Mac Software</h5>
-						<div class="price-list d-flex justify-content-center align-items-center gap-2 mb-1">
-							<p class="price">$35.00</p>
-							<span class="price newprice">$30.00</span>
-						</div>
-
-						<div class="items__bottom">
-							<p class="text mb-2 text-center">
-								Lorem ipsum dolor sit amet consectetur. Sollicitudin maecenas vehicula neque
-								eget ut fringilla.
-							</p>
-							<div class="d-flex justify-content-between align-items-center">
-								<button class="btn btn-cart">Add to cart</button>
-								<button class="btn btn-wishlist">
-									<i class="bi bi-heart"></i>
-								</button>
-							</div>
-						</div>
-					</div>
-				</a>
-			</div>
-			<div class="col-12 col-sm-6 col-lg-3">
-				<a href="single.html">
-					<div class="items__item">
-						<img src="{{ asset('frontend/img/items-img-4.png')}}" alt="" class="items__img" />
-						<h5 class="heading name">Microsoft Office</h5>
-						<h5 class="heading title">Operating Systems & Mac Software</h5>
-						<div class="price-list d-flex justify-content-center align-items-center gap-2 mb-1">
-							<p class="price">$35.00</p>
-							<span class="price newprice">$30.00</span>
-						</div>
-
-						<div class="items__bottom">
-							<p class="text mb-2 text-center">
-								Lorem ipsum dolor sit amet consectetur. Sollicitudin maecenas vehicula neque
-								eget ut fringilla.
-							</p>
-							<div class="d-flex justify-content-between align-items-center">
-								<button class="btn btn-cart">Add to cart</button>
-								<button class="btn btn-wishlist">
-									<i class="bi bi-heart"></i>
-								</button>
-							</div>
-						</div>
-					</div>
-				</a>
-			</div>
+		
+	
+			@endforeach
+		
 		</div>
 
 		<div class="items__btn">
 			<!-- <a href="#" class="btn btn-more">view more</a> -->
-			<a href="shop.html" class="btn-one">view more</a>
+			<a href="{{ route('latest.product') }}" class="btn-one">view more</a>
 		</div>
 	</div>
 </section>
@@ -323,23 +175,51 @@
 		</h3>
 
 		<div class="items row g-5 mb-4">
+			@foreach ($freeProducts as $product)
 			<div class="col-12 col-sm-6 col-lg-3">
-				<a href="single.html">							<div class="items__item">
-					<img src="{{ asset('frontend/img/items-img-1.png')}}" alt="" class="items__img" />
-					<h5 class="heading name">Microsoft Office</h5>
-					<h5 class="heading title">Operating Systems & Mac Software</h5>
+				<a href="{{ URL::to('product/details/'.$product->product_slug) }}">							
+					<div class="items__item">
+					<img src="{{ asset($product->thumbnail) }}" alt="" class="items__img" />
+					<h5 class="heading name">{{ $product->product_name }}</h5>
+					<h5 class="heading title">{{ $product->product_title }}</h5>
 					<div class="price-list d-flex justify-content-center align-items-center gap-2 mb-1">
-						<p class="price">$35.00</p>
-						<span class="price newprice">$30.00</span>
+
+
+						@if($product->discount_rate == 0.00)
+										<p class="price newprice">${{ $product->product_price }}</p>
+										@else
+										<p class="price newprice">${{ $product->discount_price }}</p>
+										@endif
+
+										@if($product->discount_rate == 0.00)
+										@else
+										<span class="discount">- @if($product->discount_type == "Flat") $@endif{{ intval($product->discount_rate) }} @if($product->discount_type == "Percent") % @endif</span>
+										@endif
+
+										@if($product->discount_rate == 0.00)
+										@else
+										<span class="price">${{ $product->product_price }}</span>
+										@endif
+						{{-- <p class="price">$35.00</p>
+						<span class="price newprice">$30.00</span> --}}
 					</div>
 
 					<div class="items__bottom">
 						<p class="text mb-2 text-center">
-							Lorem ipsum dolor sit amet consectetur. Sollicitudin maecenas vehicula neque
-							eget ut fringilla.
+							{{ Str::limit($latest->product_short_desc, 100, '') }}
 						</p>
 						<div class="d-flex justify-content-between align-items-center">
-							<button class="btn btn-cart">Add to cart</button>
+							<form action="{{ route('add.cart') }}" method="post" class="addCard">
+								@csrf
+								<input type="hidden" name="product_id" value="{{ $latest->id }}">
+								<input type="hidden" name="product_qty" value="1">
+								@if($latest->discount_rate == 0.00 )
+								<input type="hidden" name="product_price" value="{{ $latest->product_price }}">
+								@else
+								<input type="hidden" name="product_price" value="{{ $latest->discount_price }}">
+								@endif
+								<button class="btn btn-cart" type="submit">Add to cart</button>
+							</form>
 							<button class="btn btn-wishlist">
 								<i class="bi bi-heart"></i>
 							</button>
@@ -348,88 +228,14 @@
 				</div>
 				</a>
 			</div>
-			<div class="col-12 col-sm-6 col-lg-3">
-				<a href="single.html">
-					<div class="items__item">
-						<img src="{{ asset('frontend/img/items-img-2.png')}}" alt="" class="items__img" />
-						<h5 class="heading name">Microsoft Office</h5>
-						<h5 class="heading title">Operating Systems & Mac Software</h5>
-						<div class="price-list d-flex justify-content-center align-items-center gap-2 mb-1">
-							<p class="price">$35.00</p>
-							<span class="price newprice">$30.00</span>
-						</div>
-
-						<div class="items__bottom">
-							<p class="text mb-2 text-center">
-								Lorem ipsum dolor sit amet consectetur. Sollicitudin maecenas vehicula neque
-								eget ut fringilla.
-							</p>
-							<div class="d-flex justify-content-between align-items-center">
-								<button class="btn btn-cart">Add to cart</button>
-								<button class="btn btn-wishlist">
-									<i class="bi bi-heart"></i>
-								</button>
-							</div>
-						</div>
-					</div>
-				</a>
-			</div>
-			<div class="col-12 col-sm-6 col-lg-3">
-			<a href="single.html">
-				<div class="items__item">
-					<img src="{{ asset('frontend/img/items-img-3.png')}}" alt="" class="items__img" />
-					<h5 class="heading name">Microsoft Office</h5>
-					<h5 class="heading title">Operating Systems & Mac Software</h5>
-					<div class="price-list d-flex justify-content-center align-items-center gap-2 mb-1">
-						<p class="price">$35.00</p>
-						<span class="price newprice">$30.00</span>
-					</div>
-
-					<div class="items__bottom">
-						<p class="text mb-2 text-center">
-							Lorem ipsum dolor sit amet consectetur. Sollicitudin maecenas vehicula neque
-							eget ut fringilla.
-						</p>
-						<div class="d-flex justify-content-between align-items-center">
-							<button class="btn btn-cart">Add to cart</button>
-							<button class="btn btn-wishlist">
-								<i class="bi bi-heart"></i>
-							</button>
-						</div>
-					</div>
-				</div>
-			</a>
-			</div>
-			<div class="col-12 col-sm-6 col-lg-3">
-				<a href="single.html">
-					<div class="items__item">
-						<img src="{{ asset('frontend/img/items-img-1.png')}}" alt="" class="items__img" />
-						<h5 class="heading name">Microsoft Office</h5>
-						<h5 class="heading title">Operating Systems & Mac Software</h5>
-						<div class="price-list d-flex justify-content-center align-items-center gap-2 mb-1">
-							<p class="price">$35.00</p>
-							<span class="price newprice">$30.00</span>
-						</div>
-
-						<div class="items__bottom">
-							<p class="text mb-2 text-center">
-								Lorem ipsum dolor sit amet consectetur. Sollicitudin maecenas vehicula neque
-								eget ut fringilla.
-							</p>
-							<div class="d-flex justify-content-between align-items-center">
-								<button class="btn btn-cart">Add to cart</button>
-								<button class="btn btn-wishlist">
-									<i class="bi bi-heart"></i>
-								</button>
-							</div>
-						</div>
-					</div>
-				</a>
-			</div>
+			@endforeach
+			
+		
+			
 		</div>
 		<div class="items__btn">
 			<!-- <a href="#" class="btn btn-more">view more</a> -->
-			<a href="product.html" class="btn-one">view more</a>
+			<a href="{{ url('/free-product') }}" class="btn-one">view more</a>
 		</div>
 	</div>
 </section>
@@ -443,6 +249,9 @@
 		</p>
 
 		<div class="membership row g-5">
+			@foreach ($memberships  as $key=> $member)
+				
+			
 			<div class="col-12 col-sm-6 col-lg-4 col-xl-3">
 				<div class="membership__item Reseller">
 					<div class="membership__top">
@@ -451,17 +260,79 @@
 							class="membership__icon membership__icon-1"
 							alt=""
 						/>
-						<h2 class="heading mb-1">basic Membership</h2>
+						<h2 class="heading mb-1">{{ $member->membership_name }}</h2>
 						<h3 class="heading d-flex flex-column align-items-center">
-							<span class="price">$300</span>
-							<span class="month"> Monthly 10$</span>
+							<span class="price">${{ $member->membership_price }}</span>
+							<span class="month"> Monthly {{ $member->monthly_charge }}$</span>
 						</h3>
 					</div>
 					<h4>Plan Includes:</h4>
+					@if($key == 0)
 					<ul class="membership__list">
 						<li>
 							<i class="bi bi-check-lg"></i>
-							<span class="text">1 Year $100 - $120</span>
+							@if($member->expires_at == 1)
+							<span class="text">Lifetime Membership</span>
+							@elseif($member->expires_at == 2)
+							<span class="text">6 Months Membership</span>
+							@elseif($member->expires_at == 3)
+							<span class="text">1 Year Membership</span>
+							@elseif($member->expires_at == 4)
+							<span class="text">2 Years Membership</span>
+							@endif
+						</li>
+						<li>
+							<i class="bi bi-check-lg"></i>
+							<span class="text"
+								>You can resell my all ea with  lifetime free updates for a one-time fee $350
+								& monthly $100 payment</span
+							>
+						</li>
+						<li>
+							<i class="bi bi-check-lg"></i>
+							<span class="text">25000+ EA Channel</span>
+						</li>
+						<li>
+							<i class="bi bi-check-lg"></i>
+							<span class="text">Source Code Channel</span>
+						</li>
+						<li>
+							<i class="bi bi-check-lg"></i>
+							<span class="text">Can request EA</span>
+						</li>
+					</ul>
+					@elseif($key == 3)
+					<ul class="membership__list">
+						<li>
+							<i class="bi bi-check-lg"></i>
+							@if($member->expires_at == 1)
+							<span class="text">Lifetime Membership</span>
+							@elseif($member->expires_at == 2)
+							<span class="text">6 Months Membership</span>
+							@elseif($member->expires_at == 3)
+							<span class="text">1 Year Membership</span>
+							@elseif($member->expires_at == 4)
+							<span class="text">2 Years Membership</span>
+							@endif
+						</li>
+						<li>
+							<i class="bi bi-check-lg"></i>
+							<span class="text">Everytime you can buy ea  at lower prices</span>
+						</li>
+					</ul>
+					@elseif($key == 1)
+					<ul class="membership__list">
+						<li>
+							<i class="bi bi-check-lg"></i>
+							@if($member->expires_at == 1)
+							<span class="text">Lifetime Membership</span>
+							@elseif($member->expires_at == 2)
+							<span class="text">6 Months Membership</span>
+							@elseif($member->expires_at == 3)
+							<span class="text">1 Year Membership</span>
+							@elseif($member->expires_at == 4)
+							<span class="text">2 Years Membership</span>
+							@endif
 						</li>
 						<li>
 							<i class="bi bi-check-lg"></i>
@@ -479,149 +350,60 @@
 							<span class="text">Private Channel+ Discussion Group</span>
 						</li>
 					</ul>
-
-					<button class="btn btn-membershipt">Purchase</button>
-				</div>
-			</div>
-			<div class="col-12 col-sm-6 col-lg-4 col-xl-3">
-				<div class="membership__item Reseller">
-					<div class="membership__top">
-						<img
-							src="{{ asset('frontend/img/elite.png')}}"
-							class="membership__icon membership__icon-1"
-							alt=""
-						/>
-						<img
-							src="{{ asset('frontend/img/membership-icon-hove.png')}}"
-							class="membership__icon membership__icon-2"
-							alt=""
-						/>
-						<h2 class="heading mb-1">vip Membership</h2>
-						<h3 class="heading d-flex flex-column align-items-center">
-							<span class="price">$300</span>
-							<span class="month"> Monthly 10$</span>
-						</h3>
-					</div>
-					<h4>Plan Includes:</h4>
+					@elseif($key == 2)
 					<ul class="membership__list">
 						<li>
 							<i class="bi bi-check-lg"></i>
-							<span class="text">1 Year $100 - $120</span>
-						</li>
-						<li>
-							<i class="bi bi-check-lg"></i>
-							<span class="text">Lifetime package $1000 -$1500</span>
+							@if($member->expires_at == 1)
+							<span class="text">Lifetime Membership</span>
+							@elseif($member->expires_at == 2)
+							<span class="text">6 Months Membership</span>
+							@elseif($member->expires_at == 3)
+							<span class="text">1 Year Membership</span>
+							@elseif($member->expires_at == 4)
+							<span class="text">2 Years Membership</span>
+							@endif
 						</li>
 						<li>
 							<i class="bi bi-check-lg"></i>
 							<span class="text"
-								>You can get free access to all EAs of my channel with  lifetime free updates
-								for a one-time fee of $300 & monthly $10 payment</span
-							>
-						</li>
-						<li>
-							<i class="bi bi-check-lg"></i>
-							<span class="text">Private Channel+ Discussion Group</span>
+								>You can get free access to all EAs of my channel with future updates for a
+								one-time fee of 200$ payment
+							</span>
 						</li>
 					</ul>
-
-					<button class="btn btn-membershipt">Purchase</button>
+					@endif
+					<form action="{{ route('subscription.page') }}" method="get">
+						<input type="hidden" name="total_subscription_fee" value="{{ $member->membership_price + $member->monthly_charge }}" >
+						<input type="hidden" name="subscription_fee" value="{{ $member->membership_price }}" >
+						<input type="hidden" name="monthly_charge" value="{{ $member->monthly_charge }}" >
+						<input type="hidden" name="subscribe_id" value="{{ $member->id }}">
+						<input type="hidden" name="expired" value="{{ $member->expires_at }}">
+						<input type="hidden" name="life_time_charge" value="{{ $member->life_time_charge }}">
+						@if($member->life_time_charge > 0)
+						<ul class="membership__list">
+							<li>
+								<input type="hidden" name="is_lifetime" value="0">
+								<input type="checkbox" name="is_lifetime" value="1">
+								<span class="text"><b> Lifetime : ${{ $member->life_time_charge }}</b></span>
+							</li>
+						</ul>
+						@else
+						<input type="hidden" name="is_lifetime" value="0">
+						@endif
+						<button type="submit" class="btn btn-membershipt">Purchase</button>
+					</form>
+					
+					
 				</div>
 			</div>
-			<div class="col-12 col-sm-6 col-lg-4 col-xl-3">
-				<div class="membership__item Reseller">
-					<div class="membership__top">
-						<img
-							src="{{ asset('frontend/img/elite.png')}}"
-							class="membership__icon membership__icon-1"
-							alt=""
-						/>
-						<img
-							src="{{ asset('frontend/img/membership-icon-hove.png')}}"
-							class="membership__icon membership__icon-2"
-							alt=""
-						/>
-						<h2 class="heading mb-1">Elite Membership</h2>
-						<h3 class="heading d-flex flex-column align-items-center">
-							<span class="price">$300</span>
-							<span class="month"> Monthly 10$</span>
-						</h3>
-					</div>
-					<h4>Plan Includes:</h4>
-					<ul class="membership__list">
-						<li>
-							<i class="bi bi-check-lg"></i>
-							<span class="text">1 Year $100 - $120</span>
-						</li>
-						<li>
-							<i class="bi bi-check-lg"></i>
-							<span class="text">Lifetime package $1000 -$1500</span>
-						</li>
-						<li>
-							<i class="bi bi-check-lg"></i>
-							<span class="text"
-								>You can get free access to all EAs of my channel with  lifetime free updates
-								for a one-time fee of $300 & monthly $10 payment</span
-							>
-						</li>
-						<li>
-							<i class="bi bi-check-lg"></i>
-							<span class="text">Private Channel+ Discussion Group</span>
-						</li>
-					</ul>
-
-					<button class="btn btn-membershipt">Purchase</button>
-				</div>
-			</div>
-			<div class="col-12 col-sm-6 col-lg-4 col-xl-3">
-				<div class="membership__item Reseller">
-					<div class="membership__top">
-						<img
-							src="{{ asset('frontend/img/elite.png')}}"
-							class="membership__icon membership__icon-1"
-							alt=""
-						/>
-						<img
-							src="{{ asset('frontend/img/membership-icon-hove.png')}}"
-							class="membership__icon membership__icon-2"
-							alt=""
-						/>
-						<h2 class="heading mb-1">premium</h2>
-						<h3 class="heading d-flex flex-column align-items-center">
-							<span class="price">$300</span>
-							<span class="month"> Monthly 10$</span>
-						</h3>
-					</div>
-					<h4>Plan Includes:</h4>
-					<ul class="membership__list">
-						<li>
-							<i class="bi bi-check-lg"></i>
-							<span class="text">1 Year $100 - $120</span>
-						</li>
-						<li>
-							<i class="bi bi-check-lg"></i>
-							<span class="text">Lifetime package $1000 -$1500</span>
-						</li>
-						<li>
-							<i class="bi bi-check-lg"></i>
-							<span class="text"
-								>You can get free access to all EAs of my channel with  lifetime free updates
-								for a one-time fee of $300 & monthly $10 payment</span
-							>
-						</li>
-						<li>
-							<i class="bi bi-check-lg"></i>
-							<span class="text">Private Channel+ Discussion Group</span>
-						</li>
-					</ul>
-
-					<button class="btn btn-membershipt">Purchase</button>
-				</div>
-			</div>
+			@endforeach
+		
+			
 		</div>
 		<div class="items__btn">
 			<!-- <a href="#" class="btn btn-more">view more</a> -->
-			<a href="plan.html" class="btn-one">view more</a>
+			<a href="{{ url('membership') }}" class="btn-one">view more</a>
 		</div>
 	</div>
 </section>
@@ -821,63 +603,27 @@
 			<div class="swiper">
 				<!-- Additional required wrapper -->
 				<div class="swiper-wrapper">
+
+					@foreach ($testimonial as $row)
 					<div class="swiper-slide">
 						<div class="client__item">
 							<figure class="client__profile mb-3">
-								<img src="img/client-img-1.png" alt="" />
+								<img src="{{ asset($row->image) }}" alt="" />
 							</figure>
-							<h3 class="heading">H. Rackham</h3>
-							<p class="text title mb-2">Director Open X</p>
+							<h3 class="heading">{{ $row->name }}</h3>
+							<p class="text title mb-2">{{ $row->designation }}</p>
 
 							<div class="desc">
 								<p class="text mb-4">
-									Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-									Lorem Ipsum has been the industry's standard dummy text ever since the
-									1500s, when an unknown printer took a galley of type and scrambled it to
-									make a type specimen book. It has survived not only five centuries, but also
-									the leap into electronic typesetting, remaining essentially unchanged.
+									{!!  $row->description!!}
 								</p>
 							</div>
 						</div>
 					</div>
-					<div class="swiper-slide">
-						<div class="client__item">
-							<figure class="client__profile mb-3">
-								<img src="img/client-img-1.png" alt="" />
-							</figure>
-							<h3 class="heading">H. Rackham</h3>
-							<p class="text title mb-2">Director Open X</p>
+					@endforeach
+				
+					
 
-							<div class="desc">
-								<p class="text mb-4">
-									Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-									Lorem Ipsum has been the industry's standard dummy text ever since the
-									1500s, when an unknown printer took a galley of type and scrambled it to
-									make a type specimen book. It has survived not only five centuries, but also
-									the leap into electronic typesetting, remaining essentially unchanged.
-								</p>
-							</div>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="client__item">
-							<figure class="client__profile mb-3">
-								<img src="img/client-img-1.png" alt="" />
-							</figure>
-							<h3 class="heading">H. Rackham</h3>
-							<p class="text title mb-2">Director Open X</p>
-
-							<div class="desc">
-								<p class="text mb-4">
-									Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-									Lorem Ipsum has been the industry's standard dummy text ever since the
-									1500s, when an unknown printer took a galley of type and scrambled it to
-									make a type specimen book. It has survived not only five centuries, but also
-									the leap into electronic typesetting, remaining essentially unchanged.
-								</p>
-							</div>
-						</div>
-					</div>
 				</div>
 
 				<!-- If we need navigation buttons -->

@@ -52,7 +52,10 @@
 									<img src="{{ asset($row->image) }}" width="40">
 								</td>
 								<td>{{ $row->designation }}</td>
-								<td>{{ $row->description }}</td>
+								<td>
+									{{-- {{ $row->description }} --}}
+									{{ Str::limit($row->description, 100, '') }}
+								</td>
 								<td>
 									<button class="btn btn-sm btn-info edit" data-bs-toggle="modal" data-bs-target="#editModel" data-id="{{ $row->id }}" >Edit</button>
 

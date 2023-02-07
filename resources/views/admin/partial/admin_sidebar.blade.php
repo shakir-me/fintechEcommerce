@@ -124,7 +124,9 @@
                     </li>
                     <li> <a href="{{ route('index.afeature') }}"><i class="bx bx-right-arrow-alt"></i>Terms Of Service </a>
                     </li>
-                    <li> <a href="{{ route('index.page') }}"><i class="bx bx-right-arrow-alt"></i>Pages</a>
+                    <li> <a href="{{ route('index.page') }}"><i class="bx bx-right-arrow-alt"></i>It Work</a>
+                    </li>
+                    <li> <a href="{{ route('about.us') }}"><i class="bx bx-right-arrow-alt"></i>About Us</a>
                     </li>
                     <li> <a href="{{ route('website.setting') }}"><i class="bx bx-right-arrow-alt"></i>Web Setting</a>
                     </li>

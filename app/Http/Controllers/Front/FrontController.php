@@ -13,7 +13,8 @@ use App\Models\Admin\Membership;
 use App\Models\Contact;
 use App\Models\Admin\Features;
 use App\Models\Admin\Afeature;
-
+use App\Models\Admin\Page;
+use DB;
 class FrontController extends Controller
 {
     /**
@@ -27,6 +28,7 @@ class FrontController extends Controller
         $freeProducts = Product::where('is_free',1)->take(4)->latest()->get();
         $latestProducts = Product::take(8)->latest()->get();
         $memberships = Membership::get();
+        // return response()->json($freeProducts);
         return view('front.home',compact('testimonial','freeProducts','latestProducts','memberships'));
     }
 
@@ -37,7 +39,8 @@ class FrontController extends Controller
      */
     public function membership()
     {
-        $memberships = Membership::latest()->get();
+        // $memberships = Membership::latest()->get();
+        $memberships = Membership::get();
         return view('front.membership',compact('memberships'));
     }
 
@@ -66,9 +69,16 @@ class FrontController extends Controller
      */
     public function latestProduct()
     {   
-        $freeProducts = Product::latest()->get();
+        $freeProducts = Product::latest()->paginate(12);
+        $category_id = '';
+        $start_price = '';
+        $end_price = '';
+        $subcategory_id ='';
+        $brand_id ='';
+        $brands = Brand::all();
         $product_type = 'latest';
-        return view('front.free_product',compact('freeProducts','product_type'));
+        $category = Category::with('product')->get();
+        return view('front.latest_product',compact('freeProducts','product_type','category_id','start_price','end_price','subcategory_id','brand_id','brands','category'));
     }
 
     /**
@@ -257,11 +267,15 @@ class FrontController extends Controller
 
     public function AboutUs()
     {
-        return view('front.about'); 
+
+        $about=DB::table('abouts')->first();
+        $Products = Product::take(8)->latest()->get();
+        return view('front.about',compact('about','Products')); 
     }
 
     public function HowToWork()
     {
-        return view('front.how_to_work'); 
+        $pages=Page::all();
+        return view('front.how_to_work',compact('pages')); 
     }
 }

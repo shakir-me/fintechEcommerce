@@ -20,6 +20,8 @@ use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\SocialController;
 use App\Http\Controllers\Admin\SubscriberController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\ItWorkController;
+use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\RequestProductController as ReqProductController;
 
 //----Front-----
@@ -198,6 +200,9 @@ Route::prefix('admin')->middleware(['auth', 'user-access:admin'])->group(functio
     Route::get('website/setting', [SettingController::class, 'WebSite'])->name('website.setting');
     Route::post('update/setting/{id}',[SettingController::class,'SettingUpdate'])->name('update.setting');
 
+    Route::get('about/us', [AboutController::class, 'AboutUs'])->name('about.us');
+    Route::post('update/about/{id}',[AboutController::class,'AboutUpdate'])->name('update.about');
+
 
 
     //----Category Route----//
@@ -291,6 +296,14 @@ Route::prefix('admin')->middleware(['auth', 'user-access:admin'])->group(functio
         Route::get('edit/{id}',[AfeatureController::class, 'edit'])->name('edit.afeature');
         Route::post('update/{id}',[AfeatureController::class, 'update'])->name('update.afeature');
         Route::delete('delete/{id}',[AfeatureController::class, 'destroy'])->name('delete.afeature');
+    });
+
+    Route::group(['prefix' => 'itwork'], function () {
+        Route::get('/',[ItWorkController::class, 'index'])->name('index.itwork');
+        Route::post('store',[ItWorkController::class, 'store'])->name('store.itwork');
+        Route::get('edit/{id}',[ItWorkController::class, 'edit'])->name('edit.itwork');
+        Route::post('update/{id}',[ItWorkController::class, 'update'])->name('update.itwork');
+        Route::delete('delete/{id}',[ItWorkController::class, 'destroy'])->name('delete.itwork');
     });
 
     //---- Page Feature Route ----//

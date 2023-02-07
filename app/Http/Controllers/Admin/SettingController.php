@@ -41,6 +41,6 @@ class SettingController extends Controller
             'alert-type'=>'success'
              );
            return Redirect()->back()->with($notification);
-;
+
     }
 }

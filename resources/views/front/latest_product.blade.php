@@ -8,10 +8,10 @@
 
 	<!-- breadcrumb  -->
 	<div class="bredcrumb">
-		<h2 class="bredcrumb__title">@if($category_id) {{ $category_id->category_slug }} Product @else Shop Page @endif</h2>
+		<h2 class="bredcrumb__title">@if($category_id) {{ $category_id->category_slug }}  Product @else Latest Product @endif</h2>
 		<ul class="bredcrumb__items">
 			<li>Home <i class="bi bi-chevron-right"></i></li>
-			<li>@if($category_id) {{ $category_id->category_name }} @else Shop Page @endif</li>
+			<li>@if($category_id) {{ $category_id->category_name }} @else Latest Product @endif</li>
 			@if($subcategory_id)
 			<li> <i class="bi bi-chevron-right"></i></li> {{ $subcategory_id->subcategory_name }}</li>
 			@endif
@@ -76,8 +76,8 @@
 						<p class="text text-center">Showing 1-9 of 32 results</p>
 					</div>
 					<div class="items row g-5 mb-4">
-						@if($products->count() > 0)
-						@foreach($products as $product)
+						@if($freeProducts->count() > 0)
+						@foreach($freeProducts as $product)
 
 						{{-- <div class="col-12 col-sm-6 col-lg-4">
 							<a href="single.html">
@@ -113,9 +113,9 @@
 									<h5 class="heading title">{{ $product->product_title }}</h5>
 									<div class="price-list d-flex justify-content-center align-items-center gap-2 mb-1">
 										@if($product->discount_rate == 0.00)
-										<p class="price">${{ $product->product_price }}</p>
+										<p class="price newprice">${{ $product->product_price }}</p>
 										@else
-										<p class="price">${{ $product->discount_price }}</p>
+										<p class="price newprice">${{ $product->discount_price }}</p>
 										@endif
 
 										@if($product->discount_rate == 0.00)
@@ -125,7 +125,7 @@
 
 										@if($product->discount_rate == 0.00)
 										@else
-										<span class="old-price">${{ $product->product_price }}</span>
+										<span class="price">${{ $product->product_price }}</span>
 										@endif
 									</div>
 
@@ -173,7 +173,7 @@
 
 				
 
-				{{-- {{ $products->links() }} --}}
+				{{ $freeProducts->links() }}
 
 				{{-- <button class="btn btn-page active">1</button>
 				<button class="btn btn-page">2</button>
