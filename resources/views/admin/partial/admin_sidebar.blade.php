@@ -60,7 +60,7 @@
                     </li>
                     {{-- <li> <a href="#"><i class="bx bx-right-arrow-alt"></i>Products</a>
                     </li> --}}
-                    <li> <a href="ecommerce-orders.html"><i class="bx bx-right-arrow-alt"></i>Orders</a>
+                    <li> <a href="{{ url('admin/order') }}"><i class="bx bx-right-arrow-alt"></i>Orders</a>
                     </li>
                 </ul>
             </li>

@@ -25,8 +25,10 @@ class WishListController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function all()
     {
+
+        echo"DOne";
         $data = WishList::join('products','wish_lists.product_id','products.id')
                         ->select('wish_lists.id','products.product_name','products.thumbnail','products.product_title','products.product_price','products.discount_rate','products.discount_price')
                         ->where('user_id',Auth::id())->get();
@@ -67,9 +69,10 @@ class WishListController extends Controller
      */
     public function show()
     {
-        $data = WishList::join('products','wish_lists.product_id','products.id')
-                        ->select('wish_lists.id','products.product_name','products.thumbnail','products.product_title','products.product_price','products.discount_rate','products.discount_price')
-                        ->where('user_id',Auth::id())->limit(4)->get();
+        $wishlists = App\Models\User\WishList::join('products','wish_lists.product_id','products.id')->select('products.*','wish_lists.id','wish_lists.product_id')->where('user_id',Auth::id())->get();
+        // $data = WishList::join('products','wish_lists.product_id','products.id')
+        //                 ->select('wish_lists.id','products.product_name','products.thumbnail','products.product_title','products.product_price','products.discount_rate','products.discount_price')
+        //                 ->where('user_id',Auth::id())->limit(4)->get();
         return view('user.wish_list.wish_list',compact('data'));
                        
     }

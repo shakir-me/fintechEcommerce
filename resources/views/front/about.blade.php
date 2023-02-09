@@ -178,8 +178,9 @@
     <div class="about__newsletter-wrapper">
         <span class="about__newsletter-title">Join With Us!</span>
         <p class="about__newsletter-dis">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet, lacus, sit sollicitudin nullam vitae. Tortor, in enim</p>
-        <form action="#">
-            <input type="email" placeholder="Email address" name="email">
+        <form action="{{url('subscriber/store')}}" method="post">
+            @csrf
+            <input type="email" placeholder="Email address" name="email" required>
             <button class="about__newsletter-btn" type="submit">Subscribe Now</button>
         </form>
     </div>

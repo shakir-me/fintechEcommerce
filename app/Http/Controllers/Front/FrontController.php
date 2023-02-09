@@ -14,6 +14,7 @@ use App\Models\Contact;
 use App\Models\Admin\Features;
 use App\Models\Admin\Afeature;
 use App\Models\Admin\Page;
+use App\Models\Admin\Subscriber;
 use DB;
 class FrontController extends Controller
 {
@@ -277,5 +278,19 @@ class FrontController extends Controller
     {
         $pages=Page::all();
         return view('front.how_to_work',compact('pages')); 
+    }
+
+    public function subscriberStore(Request $request)
+    {
+        $subscriber=new Subscriber();
+    
+        $subscriber->email=$request->email;
+        $subscriber->save();
+ 
+        $notification=array(
+         'messege'=>'Subscriber Conatct Sent Please Wait !',
+         'alert-type'=>'success'
+          );
+        return Redirect()->back()->with($notification);
     }
 }

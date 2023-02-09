@@ -85,6 +85,14 @@
                             <input type="text" placeholder="password" name="password">
                             <i class="bi bi-lock login__area-icon"></i>
                         </div>
+
+                        <div class="col-md-6">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" name="remember" id="flexSwitchCheckChecked" {{ old('remember') ? 'checked' : '' }}>
+                                <label class="form-check-label" for="flexSwitchCheckChecked">Remember Me</label>
+                            </div>
+                        </div>
+
                         <div class="login__area-submit">
                             <button class="login__area-submitbtn"  type="submit">submit</button>
                             <a class="login__area-lostpass" href="#">lost password?</a>
@@ -118,6 +126,10 @@
                         </div>
                         <div class="login__area-submit">
                             <button class="login__area-submitbtn"  type="submit">register</button>
+                        </div>
+
+                        <div class="login__area-login">
+                            <a class="login__area-sign" href="{{ route('auth.google') }}"><img src="{{ asset('frontend/') }}/img/google1.png" alt="">continue with google</a>
                         </div>
                     </form>
                 </div>

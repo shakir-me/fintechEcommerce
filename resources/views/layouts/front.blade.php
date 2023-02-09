@@ -44,64 +44,41 @@
 					<div class="container">
 						<div class="nav__wrapper d-flex justify-content-between align-items-center gap-4">
 							<div class="nav__logo d-flex align-items-center gap-3">
-								<a href="{{ url('/') }}"><img src="{{asset('backend/setting/'.$setting->image) }}" alt="logo" /></a>
+								<a href="{{ url('/') }}">
+									<img src="{{asset('backend/setting/'.$setting->image) }}" alt="logo" /></a>
 							</div>
 							<div class="nav__right d-flex align-items-center">
 								<div class="d-flex align-items-center gap-5">
 									<a href="#" class="nav__icon wishlist">
 										<i class="bi bi-heart"></i>
-										<span class="wishlist__number">{{ Helper::countWishlist() }}</span>
+
+										<span class="wishlist__number wishlist-count">{{ Helper::countWishlist() }}</span>
 										<div class="hovercart hovercart-wishlist">
+											@if(Auth::check())
 											<h4 class="hctitle">Wishlist</h4>
-											<div class="hovercart-wrapper">
-												<div class="hovercart-wishlistwrapper">
-												<div class="hovercart-wishthumb">
-													<img class="hover-wish" src="img/close.png" alt="">
-													<img class="wishthumb" src="img/sm-p.png" alt="">
-													<div class="hovercart-content">
-														<strong>Microsoft Office</strong>
-														<p>Operating Systems & Mac
-															Software
-															</p>
-													</div>
-												</div>
-												<span class="cart-title-5">$45.00</span>
-												<span class="cart-title-5">In Stock</span>
-												</div>
+											<div class="wish_list_popup">
+												{{ Helper::wishlistPopup() }}
 											</div>
-											<div class="hovercart-wrapper">
-												<div class="hovercart-wishlistwrapper">
-												<div class="hovercart-wishthumb">
-													<img class="hover-wish" src="{{ asset('frontend/img/close.png')}}" alt="">
-													<img class="wishthumb" src="{{ asset('frontend/img/sm-p.png')}}" alt="">
-													<div class="hovercart-content">
-														<strong>Microsoft Office</strong>
-														<p>Operating Systems & Mac
-															Software
-															</p>
-													</div>
-												</div>
-												<span class="cart-title-5">$45.00</span>
-												<span class="cart-title-5">In Stock</span>
-												</div>
-											</div>
-											<div class="text-center">
-												<span class="btn-three" href="{{ url('/wishlist') }}">view list</span>
-											</div>
+										    @endif
+											
 										</div>
 									</a>
-@php
-$carts=Cart::content();
-@endphp
-									<a href="{{ url('cart/index') }}" class="nav__icon cart">
+
+									<span href="{{ url('cart/index') }}" class="nav__icon cart">
 										<i class="bi bi-basket2"></i>
 										<span class="cart__number cart-count">{{ \Cart::count(); }}</span>
 										<div class="hovercart">
+										<div class="cart_list_popup">
+									
+										</div>
+										</div>
+										{{-- <div class="hovercart">
 											@if($carts->count() > 0)
 											<div class="hovercart-wrapper">
 												<h4 class="hctitle">Added cart</h4>
 												<div>
-													@foreach($carts as $row)
+								
+												 @foreach($carts as $row)
 													<div class="hovercart-hoverwrapper">
 														<img class="hover-close" src="{{ asset('frontend/img/close.png')}}" alt="">
 													<div class="hovercart-thumb">
@@ -114,28 +91,25 @@ $carts=Cart::content();
 														<span>{{ $row->qty }} X ${{ $row->price }}</span>
 													</div>
 													</div>
-													@endforeach
+													@endforeach 
 
 													
-													<div class="hovercart-total bg-total">
+												<div class="hovercart-total bg-total">
 														<span>Total: </span>
 														<span>{{ $row->qty * $row->price }}$ </span>
 													</div>
 													<div class="hovercart-total">
-														<span class="btn-two" href="">Checkout</span>
+														<a class="btn-two" href="">Checkout</a>
 													
-														<span class="btn-two" href="">view cart</span>
+														<a class="btn-two" href="{{ url('/') }}">view cart</a>
 													</div>
 												</div>
 											</div>
 											@else
                                              <h3 style="color:white">Cart is empty</h3>
 											@endif
-
-
-
-										</div>
-									</a>
+										</div> --}}
+									</span>
 									<button class="btn btn-dark">
 										<svg class="icon icon-dark">
 											<use xlink:href="{{ asset('frontend/img/icons.svg#icon-dark')}}"></use>
@@ -409,6 +383,14 @@ $category_more = App\Models\Admin\Category::take(5)->get();
 									<input type="text"  name="password" placeholder="password">
 									<i class="bi bi-lock login__area-icon"></i>
 								</div>
+
+								<div class="col-md-6">
+									<div class="form-check form-switch">
+										<input class="form-check-input" type="checkbox" name="remember" id="flexSwitchCheckChecked" {{ old('remember') ? 'checked' : '' }}>
+										<label class="form-check-label" for="flexSwitchCheckChecked">Remember Me</label>
+									</div>
+								</div>
+
 								<div class="login__area-submit">
 									<button class="login__area-submitbtn"  type="submit">submit</button>
 									<a class="login__area-lostpass" href="{{ route('password.request') }}">lost password?</a>
@@ -434,25 +416,30 @@ $category_more = App\Models\Admin\Category::take(5)->get();
 							<div class="login__area-inner">
 								<h4 class="login__area-title text-center ">register</h4>
 
-								<form action="#">
+								<form action="{{ route('register') }}" method="post">
+									@csrf
 									<div class="login__area-field">
-										<input type="text" placeholder="name">
+										<input type="text" placeholder="name" name="name" class="@error('name') is-invalid @enderror" required>
 										<i class="bi bi-person login__area-icon"></i>
 									</div>
 									<div class="login__area-field">
-										<input type="email" placeholder="email">
+										<input type="email"  name="email" placeholder="email" class="@error('email') is-invalid @enderror">
 										<i class="bi bi-envelope login__area-icon"></i>
 									</div>
 									<div class="login__area-field">
-										<input type="text" placeholder="password">
+										<input type="text" placeholder="password" name="password" class="@error('password') is-invalid @enderror">
 										<i class="bi bi-lock login__area-icon"></i>
 									</div>
 									<div class="login__area-field">
-										<input type="text" placeholder="Confirm password">
+										<input type="text" placeholder="Confirm password" name="password_confirmation" autocomplete="new-password">
 										<i class="bi bi-lock login__area-icon"></i>
 									</div>
 									<div class="login__area-submit">
 										<button class="login__area-submitbtn" type="submit">register</button>
+									</div>
+
+									<div class="login__area-login">
+										<a class="login__area-sign" href="#"><img src="{{ asset('frontend/img/google1.png')}}" alt="">continue with google</a>
 									</div>
 
 								</form>

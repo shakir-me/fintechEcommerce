@@ -159,6 +159,12 @@
 				  <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">specefications</button>
 				</li>
 
+				<li class="nav-item" role="presentation">
+					<button class="nav-link" id="pills-Reviews-tab" data-bs-toggle="pill"
+						data-bs-target="#pills-Reviews" type="button" role="tab" aria-controls="pills-Reviews"
+						aria-selected="false">Reviews</button>
+				</li>
+
 			  </ul>
 			  <div class="tab-content" id="pills-tabContent">
 				<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
@@ -186,6 +192,92 @@
 						</ul>
 					</div>
 				</div>
+
+				<div class="tab-pane fade" id="pills-Reviews" role="tabpanel" aria-labelledby="pills-Reviews-tab"
+				tabindex="0">
+				<div class="reviews__area">
+					<div class="reviews__area-header">
+						<h2 class="reviews__area-title">Reviews</h2>
+					</div>
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="reviews__area-body">
+								<div class="reviews__area-items">
+									<div class="reviews__area-item">
+										<div class="thumb">
+											<img src="{{ asset('/img/reviewer.png') }}" alt="">
+										</div>
+										<div class="content">
+											<h3>MD Rakib Shekh</h3>
+											<span>02 Feb, 2023</span>
+											<p>Lorem ipsum dolor sit amet consectetur. Eros mattis pulvinar
+												ultrices quis. Eu at quis consequat ullamcorper nunc facilisis
+												congue imperdiet.</p>
+										</div>
+										<div class="star">
+											<i class="fa-solid fa-star"></i>
+											<i class="fa-solid fa-star"></i>
+											<i class="fa-solid fa-star"></i>
+											<i class="fa-solid fa-star"></i>
+											<i class="fa-solid fa-star"></i>
+										</div>
+									</div>
+								
+							
+								</div>
+							</div>
+							<div class="reviews__area-footer"></div>
+						</div>
+						<div class="col-lg-6">
+							
+							@if(Auth::check())
+							<div class="reviews__area-login">
+								<h3>Leave your Review</h3>
+								<form action="#">
+									<div class="row">
+										<div class="col-6">
+											<div class="reviews__area-field">
+												<label for="Name">Name</label>
+												<input type="text" name="Name" id="Name"
+													placeholder="Your name">
+											</div>
+										</div>
+										<div class="col-6">
+											<div class="reviews__area-field">
+												<label for="rating">Your Rating</label>
+												<select class="form-select form-select-lg mb-3"
+													aria-label=".form-select-lg example">
+													<option selected>Yur Ratings</option>
+													<option value="1">5 Star</option>
+													<option value="2">4 Star</option>
+													<option value="3">3 Star</option>
+													<option value="4">2 Star</option>
+													<option value="5">1 Star</option>
+												</select>
+											</div>
+										</div>
+										<div class="col-12">
+											<div class="reviews__area-field">
+												<label for="text">Your Rating</label>
+												<textarea name="text" id="text"
+													placeholder="Write down your review here"></textarea>
+											</div>
+										</div>
+									</div>
+								</form>
+								<button class="review-login-btn" type="submit">Submit</button>
+							</div>
+
+							@else
+							<div class="reviews__area-login">
+								<h3>Please Login And your Review</h3>
+								<button class="review-login-btn" type="submit">Submit</button>
+							</div>
+							@endif
+						</div>
+					</div>
+				</div>
+			</div>
 			  </div>
 		</div>
 	</div>

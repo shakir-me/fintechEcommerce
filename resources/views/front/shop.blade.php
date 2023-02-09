@@ -113,9 +113,9 @@
 									<h5 class="heading title">{{ $product->product_title }}</h5>
 									<div class="price-list d-flex justify-content-center align-items-center gap-2 mb-1">
 										@if($product->discount_rate == 0.00)
-										<p class="price">${{ $product->product_price }}</p>
+										<p class="price newprice">${{ $product->product_price }}</p>
 										@else
-										<p class="price">${{ $product->discount_price }}</p>
+										<p class="price newprice">${{ $product->discount_price }}</p>
 										@endif
 
 										@if($product->discount_rate == 0.00)
@@ -125,7 +125,7 @@
 
 										@if($product->discount_rate == 0.00)
 										@else
-										<span class="old-price">${{ $product->product_price }}</span>
+										<span class="price">${{ $product->product_price }}</span>
 										@endif
 									</div>
 
@@ -188,7 +188,7 @@
 @include('front.partial.footer_section')
 
 @push('js')
-{{-- <script>
+<script>
 	$(document).ready(function wishlist()  {
 	    $.ajax({
 	      type: "GET",
@@ -199,6 +199,6 @@
 	      },
 	   	});
 	});
-</script> --}}
+</script>
 @endpush
 @endsection

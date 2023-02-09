@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\SubscriberController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\ItWorkController;
 use App\Http\Controllers\Admin\AboutController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\RequestProductController as ReqProductController;
 
 //----Front-----
@@ -87,6 +88,7 @@ Route::get('/privacy-policy', [FrontController::class, 'PrivacyPolicy']);
 Route::get('/term-service', [FrontController::class, 'TeamAndCondition']);
 Route::get('/about-us', [FrontController::class, 'AboutUs']);
 Route::get('/how-it-work', [FrontController::class, 'HowToWork']);
+Route::post('/subscriber/store', [FrontController::class, 'subscriberStore']);
 
 //---Social Login Route---
 Route::controller(GoogleController::class)->group(function(){
@@ -137,6 +139,9 @@ Route::prefix('user')->middleware(['auth', 'user-access:user','verified'])->grou
 
     Route::get('/home', [HomeController::class, 'index'])->name('user.home');
 
+
+    //order view
+    Route::get('order/view/{id}', [UserController::class, 'OrderView'])->name('user.order.view');
     //----User Profile Route----//
     Route::get('profile', [UserController::class, 'userProfile'])->name('user.profile');
     Route::post('profile/update', [UserController::class, 'userProfileUpdate'])->name('user.update.profile');
@@ -202,6 +207,12 @@ Route::prefix('admin')->middleware(['auth', 'user-access:admin'])->group(functio
 
     Route::get('about/us', [AboutController::class, 'AboutUs'])->name('about.us');
     Route::post('update/about/{id}',[AboutController::class,'AboutUpdate'])->name('update.about');
+
+    Route::group(['prefix' => 'order'], function () {
+        Route::get('/',[OrderController::class, 'ALlOrder'])->name('admin.order');
+        Route::get('view/{id}',[OrderController::class, 'OrderView'])->name('view.view');
+
+    });
 
 
 

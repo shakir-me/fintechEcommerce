@@ -10,6 +10,7 @@
 	$wishlists = App\Models\User\WishList::join('products','wish_lists.product_id','products.id')->select('products.*','wish_lists.id','wish_lists.product_id')->where('user_id',Auth::id())->get();
 	$payments = App\Models\User\Recharge::where('user_id',Auth::id())->latest()->get();
 	$subscribe = App\Models\Admin\Membership::join('subscriptions','memberships.id','subscriptions.subscribe_id')->join('coupons','membership_id','subscriptions.subscribe_id')->select('subscriptions.*','memberships.membership_name','coupons.coupon_name','coupons.coupon_type','coupons.coupon_rate')->where('subscriptions.user_id',Auth::id())->first();
+	// dd($subscribe);
 @endphp
 <!-- breadcrumb  -->
 <div class="bredcrumb">
@@ -73,7 +74,7 @@
 						<button class="nav-link" id="v-pills-top-tab" data-bs-toggle="pill" data-bs-target="#v-pills-top" type="button" role="tab" aria-controls="v-pills-top" aria-selected="false"> <img src="{{ asset('frontend/') }}/img/ic6.png" alt="ic1"> Edit Profile</button>
 						<button class="nav-link" id="v-pills-pass-tab" data-bs-toggle="pill" data-bs-target="#v-pills-pass" type="button" role="tab" aria-controls="v-pills-pass" aria-selected="false"> <img src="{{ asset('frontend/') }}/img/ic5.png" alt="ic1"> Change Password</button>
 
-						<a class="nav-link logout" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><img src="{{ asset('frontend/') }}/img/ic7.png" width="50" alt="ic7"> Logout</span></a>
+						<a class="nav-link logout" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> Logout</span></a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
                         </form>
@@ -122,6 +123,7 @@
 												<th>Total Price</th>
 												<th>Refund</th>
 												<th>Payment By</th>
+												<th>View</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -132,6 +134,9 @@
 												<td>{{ $order->total_price }}</td>
 												<td>{{ $order->refund }}</td>
 												<td>{{ $order->payment_method }}</td>
+												<td>
+													<a href="{{ url('user/order/view',$order->id) }}" class="btn btn-primary">View Ordere</a>
+												</td>
 											</tr>
 											@endforeach
 										</tbody>
@@ -294,7 +299,7 @@
 </div>
 
 <!-- footer -->
-@include('front.partial.footer_section')
+
 
 @push('js')
 

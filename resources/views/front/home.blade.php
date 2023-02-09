@@ -29,7 +29,8 @@
 			<div class="col-12 col-lg-4">
 
 						  <div class="hello text-center">
-							<a href="javascript:void(0)" class="register">
+							@if(Auth::check())
+							<a href="{{ url('user/home') }}">
 								<div class="loader">
 					
 								</div>
@@ -37,6 +38,16 @@
 									<p class="hero-dis">Personal Fintech Account</p>
 								</div>
 							</a>
+							@else
+							<a href="javascript:void(0)" class="login">
+								<div class="loader">
+					
+								</div>
+								<div class="text">
+									<p class="hero-dis">Personal Fintech Account</p>
+								</div>
+							</a>
+							@endif
 						</div>
 					</div>
 				</div> 
@@ -144,9 +155,12 @@
 									<button class="btn btn-cart" type="submit">Add to cart</button>
 								</form>
 
-								<button class="btn btn-wishlist">
+								<a href="#" class="btn btn-wishlist addWishlist" data-id="{{ $latest->id }}">
 									<i class="bi bi-heart"></i>
-								</button>
+								</a>
+								{{-- <button class="btn btn-wishlist">
+									<i class="bi bi-heart"></i>
+								</button> --}}
 							</div>
 						</div>
 					</div>
@@ -206,23 +220,27 @@
 
 					<div class="items__bottom">
 						<p class="text mb-2 text-center">
-							{{ Str::limit($latest->product_short_desc, 100, '') }}
+							{{ Str::limit($product->product_short_desc, 100, '') }}
 						</p>
 						<div class="d-flex justify-content-between align-items-center">
 							<form action="{{ route('add.cart') }}" method="post" class="addCard">
 								@csrf
-								<input type="hidden" name="product_id" value="{{ $latest->id }}">
+								<input type="hidden" name="product_id" value="{{ $product->id }}">
 								<input type="hidden" name="product_qty" value="1">
-								@if($latest->discount_rate == 0.00 )
-								<input type="hidden" name="product_price" value="{{ $latest->product_price }}">
+								@if($product->discount_rate == 0.00 )
+								<input type="hidden" name="product_price" value="{{ $product->product_price }}">
 								@else
-								<input type="hidden" name="product_price" value="{{ $latest->discount_price }}">
+								<input type="hidden" name="product_price" value="{{ $product->discount_price }}">
 								@endif
 								<button class="btn btn-cart" type="submit">Add to cart</button>
 							</form>
-							<button class="btn btn-wishlist">
+
+							<a href="#" class="btn btn-wishlist addWishlist" data-id="{{ $product->id }}">
 								<i class="bi bi-heart"></i>
-							</button>
+							</a>
+							{{-- <button class="btn btn-wishlist">
+								<i class="bi bi-heart"></i>
+							</button> --}}
 						</div>
 					</div>
 				</div>

@@ -12,8 +12,16 @@ class Order extends Model
     /**
      * Get the user that owns the phone.
      */
-    public function order_details()
+
+
+    
+    public function user()
     {
-        return $this->hasMany(OrderDetails::class);
+        return $this->belongsTo('App\Models\User','user_id');
+    }
+
+    public function orderItems()
+    {
+        return $this->hasMany('App\Models\Admin\OrderDetails');
     }
 }

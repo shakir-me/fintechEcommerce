@@ -16,13 +16,14 @@
 		<span>{{ $row->qty }} X ${{ $row->price }}</span>
 	</div>
 	</div>
+
+	@endforeach
 	<div class="hovercart-total bg-total">
 		<span>Total: </span>
-		<span>{{ $row->qty * $row->price }}$ </span>
+		<span>$ {{ Cart::subtotal() }} </span>
 	</div>
-	@endforeach
+	
 	<div class="hovercart-total">
-		
 		<span class="btn-two" href="#">Checkout</span>
 		<a href="{{ route('index.cart') }}"> <span class="btn-two">view cart</span></a>
 	</div>

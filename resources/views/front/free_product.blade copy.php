@@ -24,9 +24,9 @@
 						<h5 class="heading title">{{ $freeProduct->product_title }}</h5>
 						<div class="price-list d-flex justify-content-center align-items-center gap-2 mb-1">
 							@if($freeProduct->discount_rate == 0.00)
-							<p class="price">${{ $freeProduct->product_price }}</p>
+							<p class="price newprice">${{ $freeProduct->product_price }}</p>
 							@else
-							<p class="price">${{ $freeProduct->discount_price }}</p>
+							<p class="price newprice">${{ $freeProduct->discount_price }}</p>
 							@endif
 
 							@if($freeProduct->discount_rate == 0.00)
@@ -36,7 +36,7 @@
 
 							@if($freeProduct->discount_rate == 0.00)
 							@else
-							<span class="old-price">${{ $freeProduct->product_price }}</span>
+							<span class="price">${{ $freeProduct->product_price }}</span>
 							@endif
 						</div>
 

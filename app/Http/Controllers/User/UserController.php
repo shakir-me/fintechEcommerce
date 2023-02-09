@@ -131,4 +131,10 @@ class UserController extends Controller
     {
         //
     }
+
+
+    public function OrderView($id)
+    {
+        return view('user.orderview');
+    }
 }
