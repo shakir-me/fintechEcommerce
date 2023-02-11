@@ -13,7 +13,7 @@
 	->join('coupons','membership_id','subscriptions.subscribe_id')
 	->select('subscriptions.*','memberships.membership_name','coupons.coupon_name','coupons.coupon_type','coupons.coupon_rate')
 	->where('subscriptions.user_id',Auth::id())->first();
-	// dd($subscribe);
+	 //dd($subscribe);
 
 @endphp
 <!-- breadcrumb  -->
@@ -47,6 +47,13 @@
 <!-- dashboard  -->
 @php
 	      $userDetails= App\Models\User::where('email',Auth::user()->email)->first();
+		  $subcription=DB::table('subscriptions')->where('user_id',Auth::user()->id)->first();
+
+		  $membership=DB::table('memberships')->where('id',$subcription->subscribe_id)->first();
+		  $MembershpProducts=DB::table('products')->where('membership_id',$membership->id)->get();
+		//   explode
+         // dd($MembershpProducts);
+		//   dd(Auth::user()->id);
 @endphp
 <div class="dashboard">
 	<div class="container">

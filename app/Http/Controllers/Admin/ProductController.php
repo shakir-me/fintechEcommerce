@@ -162,6 +162,7 @@ class ProductController extends Controller
         $data->brand_id           = $request->brand_id;
         $data->specification      = json_encode($request->specification);
         $data->specification_ans  = json_encode($request->specification_ans);
+        $data->membership_id  = json_encode($request->membership_id);
         $data->description        = $request->description;
         $data->tag                = $request->tag;
 
@@ -174,7 +175,7 @@ class ProductController extends Controller
         $data->discount_price   = Helper::discount($p_price , $d_rate , $d_type);
         //-----/Discount------
 
-        $data->membership_id    = $request->membership_id;
+        // $data->membership_id    = $request->membership_id;
         $data->visibility       = $request->visibility;
         $data->is_free          = $request->is_free;
 
