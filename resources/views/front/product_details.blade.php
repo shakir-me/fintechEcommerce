@@ -83,13 +83,38 @@
 							<span class="single__product-pricebtn">${{ $product->discount_price }}</span>
 							@endif
 						</div>
+						@php
+						$avgrating=0;
+			     		@endphp
+
+                    @foreach ($product->orderItems->where('rstatus',1) as $orderItem )
+						@php
+							$avgrating=$avgrating + $orderItem->review->rating;
+						@endphp
+						@endforeach
+
 						<div class="single__product-star">
-							<span><i class="bi bi-star-fill"></i></span>
-							<span><i class="bi bi-star-fill"></i></span>
-							<span><i class="bi bi-star-fill"></i></span>
-							<span><i class="bi bi-star-fill"></i></span>
-							<span><i class="far fa-star"></i></span>
-							<span class="single__product-reviewtitle">(1 customer review)</span>
+						 @for ($i=1; $i<=5; $i++)
+                            @if ($i<=$avgrating)
+				
+						   <span><i class="bi bi-star-fill "></i></span>
+						
+						   
+							@else
+					
+							<span><i class="far fa-star "></i></span>
+							
+							@endif
+                                        
+							@endfor 
+					
+
+							
+							<span class="single__product-reviewtitle">
+								({{ $product->orderItems->where('rstatus',1)->count() }} customer review)
+						
+								
+							</span>
 						</div>
 						<div class="single__product-feature">
 							<p>{{ $product->product_short_desc }}</p>
@@ -102,6 +127,7 @@
 						<h4 class="single__product-title2">Ask a Question!
 						</h4>
 						<form action="{{ route('add.cart') }}" method="post" class="addCard">
+							<input type="text" value="{{ $product->membership_id }}">
 							@csrf
 							<div class="viewcontent__action single_action pt-30">
 								<p class="single__product-increment single__product-cart"><i class="bi bi-plus"></i><span class="qty">1</span><i class="bi bi-dash"></i></p>
@@ -200,27 +226,27 @@
 						<h2 class="reviews__area-title">Reviews</h2>
 					</div>
 					<div class="row">
+						@foreach ($product->orderItems->where('rstatus',1) as $orderItem )
 						<div class="col-lg-6">
 							<div class="reviews__area-body">
 								<div class="reviews__area-items">
 									<div class="reviews__area-item">
 										<div class="thumb">
-											<img src="{{ asset('/img/reviewer.png') }}" alt="">
+											<img src="{{ asset($orderItem->order->user->image) }}" alt="">
+											{{-- <img src="{{asset('backend/images')}}/{{$orderItem->order->user->image}}" alt=""> --}}
 										</div>
 										<div class="content">
-											<h3>MD Rakib Shekh</h3>
-											<span>02 Feb, 2023</span>
-											<p>Lorem ipsum dolor sit amet consectetur. Eros mattis pulvinar
-												ultrices quis. Eu at quis consequat ullamcorper nunc facilisis
-												congue imperdiet.</p>
+											<h3>{{ $orderItem->order->user->name }}</h3>
+											<span>{{ Carbon\Carbon::parse($orderItem->review->created_at)->format('d F Y') }}</span>
+											<p>{{ $orderItem->review->comment }}.</p>
 										</div>
 										<div class="star">
-											<i class="fa-solid fa-star"></i>
-											<i class="fa-solid fa-star"></i>
-											<i class="fa-solid fa-star"></i>
-											<i class="fa-solid fa-star"></i>
-											<i class="fa-solid fa-star"></i>
+
+
+											<i class="fa-solid fa-star {{ $orderItem->review->rating }} "></i>
+									
 										</div>
+										{{-- {{ $orderItem->review->rating }} --}}
 									</div>
 								
 							
@@ -228,9 +254,11 @@
 							</div>
 							<div class="reviews__area-footer"></div>
 						</div>
-						<div class="col-lg-6">
+						@endforeach
+
+						{{-- <div class="col-lg-6">
 							
-							@if(Auth::check())
+						
 							<div class="reviews__area-login">
 								<h3>Leave your Review</h3>
 								<form action="#">
@@ -268,13 +296,9 @@
 								<button class="review-login-btn" type="submit">Submit</button>
 							</div>
 
-							@else
-							<div class="reviews__area-login">
-								<h3>Please Login And your Review</h3>
-								<button class="review-login-btn" type="submit">Submit</button>
-							</div>
-							@endif
-						</div>
+				
+						
+						</div> --}}
 					</div>
 				</div>
 			</div>
@@ -319,9 +343,7 @@
 								</p>
 							</a>
 								<div class="d-flex justify-content-between align-items-center">
-									<button class="btn btn-search">
-										<i class="bi bi-search"></i>
-									</button>
+							
 									<form action="{{ route('add.cart') }}" method="post" class="addCard">
 										@csrf
 										<input type="hidden" name="product_id" value="{{ $r_product->id }}">

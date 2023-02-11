@@ -187,7 +187,7 @@ class PaypalController extends Controller
                     $subscribe->monthly_charge      = session('is_lifetime') == 1 ? 0.00 : session('monthly_charge');
                     $subscribe->payment_method      = 'Paypal';
                     $subscribe->save();
-                    User::where('id',$user_id)->update(['subscrbe_id' => session('subscribe_id')]);
+                    User::where('id',$user_id)->update(['subscribe_id' => session('subscribe_id')]);
 
                     $notification = array(
                         'messege'=>'Membership upgrade successfull !' ,

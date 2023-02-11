@@ -53,6 +53,9 @@
 					@if($subscribe)
 						<span class="dashboard__header-location">Membership: <span class="badge @if($subscribe->subscribe_id == 1) bg-primary @elseif($subscribe->subscribe_id == 2) bg-success @elseif($subscribe->subscribe_id == 3) bg-info @else bg-danger @endif" >{{ $subscribe->membership_name }} </span></span>
 					@else
+					
+
+					
 						<span class="dashboard__header-location">Membership: <span class="badge bg-secondary" >General Member </span></span>
 					@endif
 					
@@ -71,6 +74,7 @@
 						<button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false"> <img src="{{ asset('frontend/') }}/img/ic2.png" alt="ic1"> my Orders <span class="dashboard__main-count">{{ $orders->count() }}</span></button>
 						<button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false"> <img src="{{ asset('frontend/') }}/img/ic3.png" alt="ic1">  My wallet</button>
 						<button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false"> <img src="{{ asset('frontend/') }}/img/ic4.png" alt="ic1"> My wishlist <span class="dashboard__main-count">{{ $wishlists->count() }}</span></button>
+						<button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false"> <img src="{{ asset('frontend/') }}/img/ic4.png" alt="ic1">Membership Product <span class="dashboard__main-count"></span></button>
 						<button class="nav-link" id="v-pills-top-tab" data-bs-toggle="pill" data-bs-target="#v-pills-top" type="button" role="tab" aria-controls="v-pills-top" aria-selected="false"> <img src="{{ asset('frontend/') }}/img/ic6.png" alt="ic1"> Edit Profile</button>
 						<button class="nav-link" id="v-pills-pass-tab" data-bs-toggle="pill" data-bs-target="#v-pills-pass" type="button" role="tab" aria-controls="v-pills-pass" aria-selected="false"> <img src="{{ asset('frontend/') }}/img/ic5.png" alt="ic1"> Change Password</button>
 
@@ -86,52 +90,31 @@
 							<div class="dashboard__profile-content">
 								<div class="dashboard__profile-header">
 									<div class="dashboard__profile-thumb">
-										{{-- <img src="{{ asset(Auth::user()->image) }}" alt=""> --}}
+										<img src="{{ asset(Auth::user()->image) }}" alt="">
 									</div>
 									<div class="dashboard__profile-content">
-									
-                                        <a href="{{ url('user/home') }}" class="btn btn-primary">  Order view</a>
+										<button class="dashboard__header-btn"> contact us</button>
 									</div>
 								</div>
 								<div class="dashboard__profile-body">
-								
-									<span class="dashboard__profile-bltitle">Order List</span>
-									<table class="table table-striped">
-										<thead>
-											<tr>
-												<th>Order Id</th>
-                                                <th>Product Name</th>
-                                                <th>Product Qty </th>
-                                                <th>Product Price</th>
-                                                <th>Unit Price</th>
-                                                <th>Create At</th>
-                                                <th>Order Review</th>
-											</tr>
-										</thead>
-										<tbody>
-                                            @foreach($order->orderItems as $item)
-											<tr class="border-bottom">
-                                                <td>{{ $item->id }}</td>
-                                                <td>{{ $item->product_name }}</td>
-                                                <td>{{ $item->product_qty }}</td>
-                                                <td>{{ $item->product_price }}</td>
-                                                <td>{{ $item->unit_price }}</td>
-                                                <td>{{ $item->created_at }}</td>
-												<td>
-													<a href="{{ url('user/review',$item->id) }}" class="btn btn-primary">Order Review</a>
-												</td>
-											</tr>
-											@endforeach
-										</tbody>
-									</table>
-								
+									<span>Deatils</span>
+									<div class="dashboard__profile-item">
+										<span>Name:</span>
+										<h4>{{ Auth::user()->name }}</h4>
+									</div>
+									<div class="dashboard__profile-item">
+										<span>email:</span>
+										<h4>{{ Auth::user()->email }}</h4>
+									</div>
+									@if($subscribe)
+									<div class="bg-secondary p-2 text-white">
+										<span> {{ $subscribe->coupon_rate }} @if($subscribe->coupon_type == "Percent") % @else $ @endif Discount Coupon For {{ $subscribe->membership_name }} : 
+										<input class="form-label" value="{{ $subscribe->coupon_name }}" ></span>
+									</div>
+									@endif
 								</div>
 							</div>
 						</div>
-
-
-
-
 						<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
 							<div class="dashboard__profile-content">
 								<div class="dashboard__profile-order">

@@ -98,7 +98,8 @@ class FrontController extends Controller
         $category = Category::with('product')->get();
         $products = Product::paginate(12);
         $brands = Brand::all();
-        return view('front.shop',compact('category','start_price','end_price','products','brands','category_id','subcategory_id','brand_id'));
+        $members = Membership::all();
+        return view('front.shop',compact('category','start_price','end_price','products','brands','category_id','subcategory_id','brand_id','members'));
     }
 
 
@@ -117,7 +118,8 @@ class FrontController extends Controller
         $category    = Category::with('product')->get();
         $products    = Product::where('category_id',$category_id->id)->paginate(12);
         $brands = Brand::all();
-        return view('front.category_product',compact('category','products','category_id','start_price','end_price','brands','subcategory_id'));
+        $members = Membership::all();
+        return view('front.category_product',compact('category','products','category_id','start_price','end_price','brands','subcategory_id','members'));
     }
 
 
@@ -136,7 +138,8 @@ class FrontController extends Controller
         $category    = Category::with('product')->get();
         $products    = Product::where('subcategory_id',$subcategory_id->id)->get();
         $brands = Brand::all();
-        return view('front.subcategory_product',compact('category','products','category_id','start_price','end_price','brands','subcategory_id'));
+        $members = Membership::all();
+        return view('front.subcategory_product',compact('category','products','category_id','start_price','end_price','brands','subcategory_id','members'));
     }
 
     /**
@@ -155,7 +158,8 @@ class FrontController extends Controller
         $category    = Category::with('product')->get();
         $brands = Brand::all();
         $products    = Product::whereBetween('product_price',[$start_price , $end_price])->paginate(12);
-        return view('front.price_filter',compact('category','products','category_id','start_price','end_price','brands','subcategory_id','brand_id'));
+        $members = Membership::all();
+        return view('front.price_filter',compact('category','products','category_id','start_price','end_price','brands','subcategory_id','brand_id','members'));
     }
 
 
@@ -293,4 +297,22 @@ class FrontController extends Controller
           );
         return Redirect()->back()->with($notification);
     }
+
+    public function MenberProduct($id)
+    {   
+     
+
+        $start_price = '';
+        $end_price = '';
+        $category_id = "";
+        $subcategory_id = "";
+        $category    = Category::with('product')->get();
+        $products    = Product::where('membership_id',$id)->paginate(12);
+        $members = Membership::all();
+
+        //return response()->json($products);
+        return view('front.member_product',compact('members','products','start_price','end_price','category_id','subcategory_id','category'));
+    }
+
+    
 }

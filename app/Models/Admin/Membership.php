@@ -22,4 +22,11 @@ class Membership extends Model
         'life_time_charge',
         'monthly_charge',
     ];
+
+
+    
+
+
+   
+
 }

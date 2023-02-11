@@ -71,7 +71,8 @@ class ProductController extends Controller
         $data->description        = $request->description;
         $data->tag                = $request->tag;
         $data->buying_price       = $request->buying_price;
-        $data->membership_id      = $request->membership_id;
+        // $data->membership_id      = $request->membership_id;
+        $data->membership_id  = json_encode($request->membership_id);
         $data->visibility         = $request->visibility;
         $data->is_free            = $request->is_free;
 

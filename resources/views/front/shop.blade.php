@@ -58,14 +58,25 @@
 						</form>
 					</div>
 
+					<br>
+					<br>
+
+	@php
+	$userDetails= App\Models\User::where('email',Auth::user()->email)->first();
+    @endphp
+
+       @if ($userDetails->subscribe_id == NULL)
+	   @else
 					<div class="categories__item">
-						<h4 class="heading mb-2">Brands</h4>
+						<h4 class="heading mb-2">Member Product</h4>
 						<div class="categories__btns">
-							@foreach($brands as $brand)
-							<a href="{{ URL::to('/'.$brand->brand_slug.'/brand/product') }}" class="btn">{{ $brand->brand_name }}</a>
+							@foreach($members as $member)
+							<a href="{{ url('member/product',$member->id) }}" class="btn">{{ $member->membership_name }}</a>
 							@endforeach
 						</div>
 					</div>
+@endif
+
 				</div>
 
 				<div class="shop__right">
@@ -149,7 +160,7 @@
 												@endif
 												<button class="btn btn-cart" type="submit">Add to cart</button>
 											</form>
-											<button class="btn btn-wishlist">
+											<button class="btn btn-wishlist addWishlist" data-id="{{ $product->id }}">
 												<i class="bi bi-heart"></i>
 											</button>
 										</div>

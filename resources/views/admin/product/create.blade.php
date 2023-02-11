@@ -88,7 +88,7 @@
 						</div>
 						<div class="mb-3 select2-sm col-md-4">
 							<label class="form-label">For Membership <sup class="text-danger">*</sup></label>
-							<select class="single-select" name="membership_id">
+							<select class="single-select" name="membership_id[]" multiple>
 								<option value="" selected>For All Package</option>
 								@foreach($packages as $pack)
 								<option value="{{ $pack->id }}">For {{ $pack->membership_name }}</option>

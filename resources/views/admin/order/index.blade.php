@@ -36,7 +36,6 @@
 								<th>Order NO</th>
 								<th>Total Qty</th>
 								<th>Total Price</th>
-								<th>Coupon Amount</th>
 								<th>Payment Method </th>
 								<th>Refund </th>
 								<th>Coupon Amount </th>
@@ -53,7 +52,6 @@
                                 <td>{{ $order->order_no  }}</td>
                                 <td>{{ $order->total_qty  }}</td>
                                 <td>{{ $order->total_price  }}</td>
-                                <td>{{ $order->coupon_amount  }}</td>
                                 <td>{{ $order->payment_method  }}</td>
                                 <td>{{ $order->refund  }}</td>
                                 <td>{{ $order->coupon_amount  }}</td>
@@ -72,7 +70,7 @@
                                 <th>Order NO</th>
 								<th>Total Qty</th>
 								<th>Total Price</th>
-								<th>Coupon Amount</th>
+							
 								<th>Payment Method </th>
 								<th>Refund </th>
                                 <th>Coupon Amount </th>

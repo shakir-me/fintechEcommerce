@@ -90,6 +90,9 @@ Route::get('/about-us', [FrontController::class, 'AboutUs']);
 Route::get('/how-it-work', [FrontController::class, 'HowToWork']);
 Route::post('/subscriber/store', [FrontController::class, 'subscriberStore']);
 
+
+Route::get('/member/product/{id}', [FrontController::class, 'MenberProduct']);
+
 //---Social Login Route---
 Route::controller(GoogleController::class)->group(function(){
     Route::get('auth/google', 'redirectToGoogle')->name('auth.google');
@@ -142,6 +145,9 @@ Route::prefix('user')->middleware(['auth', 'user-access:user','verified'])->grou
 
     //order view
     Route::get('order/view/{id}', [UserController::class, 'OrderView'])->name('user.order.view');
+    Route::get('review/{id}', [UserController::class, 'Review'])->name('user.review');
+    Route::post('review/store', [UserController::class, 'ReviewStore'])->name('user.review.store');
+
     //----User Profile Route----//
     Route::get('profile', [UserController::class, 'userProfile'])->name('user.profile');
     Route::post('profile/update', [UserController::class, 'userProfileUpdate'])->name('user.update.profile');

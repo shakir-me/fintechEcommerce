@@ -157,10 +157,11 @@
 					</ul>
 					@endif
 					<form action="{{ route('subscription.page') }}" method="get">
+					
 						<input type="hidden" name="total_subscription_fee" value="{{ $member->membership_price + $member->monthly_charge }}" >
 						<input type="hidden" name="subscription_fee" value="{{ $member->membership_price }}" >
 						<input type="hidden" name="monthly_charge" value="{{ $member->monthly_charge }}" >
-						<input type="hidden" name="subscribe_id" value="{{ $member->id }}">
+						<input type="text" name="subscribe_id" value="{{ $member->id }}">
 						<input type="hidden" name="expired" value="{{ $member->expires_at }}">
 						<input type="hidden" name="life_time_charge" value="{{ $member->life_time_charge }}">
 						@if($member->life_time_charge > 0)

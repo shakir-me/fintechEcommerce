@@ -15,4 +15,6 @@ class Review extends Model
     {
         return $this->belongsTo(OrderDetails::class);
     }
+
+   
 }

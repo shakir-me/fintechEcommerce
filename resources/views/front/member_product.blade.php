@@ -58,7 +58,11 @@
 						</form>
 					</div>
 
-					@php
+					
+					<br>
+					<br>
+
+                    @php
                     $userDetails= App\Models\User::where('email',Auth::user()->email)->first();
                     @endphp
                 
@@ -74,7 +78,6 @@
                                     </div>
                 @endif
 
-
 				</div>
 
 				<div class="shop__right">
@@ -87,7 +90,8 @@
 					<div class="items row g-5 mb-4">
 						@if($products->count() > 0)
 						@foreach($products as $product)
-						<div class="col-12 col-sm-6 col-xl-4 col-xxl-3">
+
+							<div class="col-12 col-sm-6 col-xl-4 col-xxl-3">
 								<a href="{{ URL::to('product/details/'.$product->product_slug) }}">
 								<div class="items__item">
 									<img src="{{ asset($product->thumbnail) }}" alt="" class="items__img" />
@@ -113,15 +117,14 @@
 
 									<div class="items__bottom">
 										<p class="text mb-2 text-center">
-											Lorem ipsum dolor sit amet consectetur. Sollicitudin maecenas vehicula neque
-											eget ut fringilla.
+											{{ Str::limit($product->product_short_desc, 100, '') }}
 										</p>
 									</a>
 										<div class="d-flex justify-content-between align-items-center">
 											<button class="btn btn-search">
 												<i class="bi bi-search"></i>
 											</button>
-											<form  action="{{ route('add.cart') }}" method="post" class="d-flex justify-content-center align-items-center mx-auto addCard">
+											<form action="{{ route('add.cart') }}" method="post" class="addCard">
 												@csrf
 												<input type="hidden" name="product_id" value="{{ $product->id }}">
 												<input type="hidden" name="product_qty" value="1">
@@ -132,7 +135,7 @@
 												@endif
 												<button class="btn btn-cart" type="submit">Add to cart</button>
 											</form>
-											<button class="btn btn-wishlist addWishlist" data-id="{{ $product->id }}">
+											<button class="btn btn-wishlist">
 												<i class="bi bi-heart"></i>
 											</button>
 										</div>
@@ -143,7 +146,7 @@
 						@endforeach
 						@else
 						<div class="text-center">
-							<p class="text-secondary"> Product Not Fond In @if($category_id) {{ $category_id->category_name }} @elseif($brand_id) {{ $brand_id->brand_name }} ! @endif </p>
+							<p class="text-secondary"> Product Not Fond In  !  </p>
 						</div>
 						@endif
 					</div>
@@ -156,12 +159,6 @@
 
 				
 
-				{{ $products->links() }}
-
-				{{-- <button class="btn btn-page active">1</button>
-				<button class="btn btn-page">2</button>
-				<button class="btn btn-page">3</button>
-				<button class="btn btn-page"><i class="bi bi-chevron-right"></i></button> --}}
 			</div>
 		</div>
 	</div>
@@ -171,7 +168,7 @@
 @include('front.partial.footer_section')
 
 @push('js')
-{{-- <script>
+<script>
 	$(document).ready(function wishlist()  {
 	    $.ajax({
 	      type: "GET",
@@ -182,6 +179,6 @@
 	      },
 	   	});
 	});
-</script> --}}
+</script>
 @endpush
 @endsection

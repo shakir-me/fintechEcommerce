@@ -84,54 +84,39 @@
 					<div class="tab-content" id="v-pills-tabContent">
 						<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
 							<div class="dashboard__profile-content">
-								<div class="dashboard__profile-header">
-									<div class="dashboard__profile-thumb">
-										{{-- <img src="{{ asset(Auth::user()->image) }}" alt=""> --}}
-									</div>
-									<div class="dashboard__profile-content">
-									
-                                        <a href="{{ url('user/home') }}" class="btn btn-primary">  Order view</a>
-									</div>
-								</div>
-								<div class="dashboard__profile-body">
-								
-									<span class="dashboard__profile-bltitle">Order List</span>
-									<table class="table table-striped">
-										<thead>
-											<tr>
-												<th>Order Id</th>
-                                                <th>Product Name</th>
-                                                <th>Product Qty </th>
-                                                <th>Product Price</th>
-                                                <th>Unit Price</th>
-                                                <th>Create At</th>
-                                                <th>Order Review</th>
-											</tr>
-										</thead>
-										<tbody>
-                                            @foreach($order->orderItems as $item)
-											<tr class="border-bottom">
-                                                <td>{{ $item->id }}</td>
-                                                <td>{{ $item->product_name }}</td>
-                                                <td>{{ $item->product_qty }}</td>
-                                                <td>{{ $item->product_price }}</td>
-                                                <td>{{ $item->unit_price }}</td>
-                                                <td>{{ $item->created_at }}</td>
-												<td>
-													<a href="{{ url('user/review',$item->id) }}" class="btn btn-primary">Order Review</a>
-												</td>
-											</tr>
-											@endforeach
-										</tbody>
-									</table>
-								
-								</div>
+							<h3>Please Review Now</h3>
+                            <div class="row">
+                                <form action="{{ url('user/review/store') }}" method="post">
+                                    @csrf
+                                    <input type="hidden" value="{{ $review->id }}" name="order_detail_id">
+                                        <div class="mb-6 col-md-6">
+                                            <label for="formFile" class="form-label">Ratting <sup class="text-danger">*</sup></label>
+                                            <select  required name="rating" class="form-control">
+                                                <option>Please Select Ratting</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select>
+                                        
+                                        </div>
+
+                            <div class="modal-body">
+                                <div class="col-md-12">
+                                    <label for="inputFirstName" class="form-label">Description <sup class="text-danger">*</sup></label>
+                                    <textarea name="comment" rows="4" class="form-control" required></textarea>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                            
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                            </div>
 							</div>
 						</div>
-
-
-
-
 						<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
 							<div class="dashboard__profile-content">
 								<div class="dashboard__profile-order">

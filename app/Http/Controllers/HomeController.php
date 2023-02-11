@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Admin\Product;
 class HomeController extends Controller
 {
     /**
@@ -23,7 +23,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('user.home');
+
+       
+        //  $products=Product::pluck("membership_id");
+        //  return response()->json($products);
+        $products = Product::whereIn('membership_id', [1,2,3,4,5,6])
+        ->get();
+      
+
+        //return response()->json($products);
+        return view('user.home',compact('products'));
     }
 
     /**

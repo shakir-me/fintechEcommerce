@@ -9,8 +9,12 @@
 	$orders = App\Models\Admin\Order::where('user_id',Auth::id())->latest()->get();
 	$wishlists = App\Models\User\WishList::join('products','wish_lists.product_id','products.id')->select('products.*','wish_lists.id','wish_lists.product_id')->where('user_id',Auth::id())->get();
 	$payments = App\Models\User\Recharge::where('user_id',Auth::id())->latest()->get();
-	$subscribe = App\Models\Admin\Membership::join('subscriptions','memberships.id','subscriptions.subscribe_id')->join('coupons','membership_id','subscriptions.subscribe_id')->select('subscriptions.*','memberships.membership_name','coupons.coupon_name','coupons.coupon_type','coupons.coupon_rate')->where('subscriptions.user_id',Auth::id())->first();
+	$subscribe = App\Models\Admin\Membership::join('subscriptions','memberships.id','subscriptions.subscribe_id')
+	->join('coupons','membership_id','subscriptions.subscribe_id')
+	->select('subscriptions.*','memberships.membership_name','coupons.coupon_name','coupons.coupon_type','coupons.coupon_rate')
+	->where('subscriptions.user_id',Auth::id())->first();
 	// dd($subscribe);
+
 @endphp
 <!-- breadcrumb  -->
 <div class="bredcrumb">
@@ -41,6 +45,9 @@
 		@endif
 	</div>
 <!-- dashboard  -->
+@php
+	      $userDetails= App\Models\User::where('email',Auth::user()->email)->first();
+@endphp
 <div class="dashboard">
 	<div class="container">
 		<div class="dashboard__header">
@@ -50,11 +57,23 @@
 				</div>
 				<div class="dashboard__header-content">
 					<h4 class="dashboard__header-name">{{ Auth::user()->name }}</h4>
-					@if($subscribe)
+					<h4 class="dashboard__header-name">
+					@if ($userDetails->subscribe_id == NULL)
+                    Normal User
+                  @else
+                    {{ $userDetails->member->membership_name }}
+                  @endif
+
+
+				</h4>
+					{{-- @if($subscribe)
 						<span class="dashboard__header-location">Membership: <span class="badge @if($subscribe->subscribe_id == 1) bg-primary @elseif($subscribe->subscribe_id == 2) bg-success @elseif($subscribe->subscribe_id == 3) bg-info @else bg-danger @endif" >{{ $subscribe->membership_name }} </span></span>
 					@else
+					
+
+					
 						<span class="dashboard__header-location">Membership: <span class="badge bg-secondary" >General Member </span></span>
-					@endif
+					@endif --}}
 					
 					<button class="dashboard__header-balance">${{ Auth::user()->balance }}</button>
 				</div>
@@ -71,6 +90,11 @@
 						<button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false"> <img src="{{ asset('frontend/') }}/img/ic2.png" alt="ic1"> my Orders <span class="dashboard__main-count">{{ $orders->count() }}</span></button>
 						<button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false"> <img src="{{ asset('frontend/') }}/img/ic3.png" alt="ic1">  My wallet</button>
 						<button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false"> <img src="{{ asset('frontend/') }}/img/ic4.png" alt="ic1"> My wishlist <span class="dashboard__main-count">{{ $wishlists->count() }}</span></button>
+						@if ($userDetails->subscribe_id == NULL)
+						@else
+
+						<button class="nav-link" id="v-pills-top-tab" data-bs-toggle="pill" data-bs-target="#v-pills-product" type="button" role="tab" aria-controls="v-pills-top" aria-selected="false"> <img class="black-img" src="{{ asset('frontend/') }}/img/membership.png" alt="ic1"> Membership Product</button>
+						@endif
 						<button class="nav-link" id="v-pills-top-tab" data-bs-toggle="pill" data-bs-target="#v-pills-top" type="button" role="tab" aria-controls="v-pills-top" aria-selected="false"> <img src="{{ asset('frontend/') }}/img/ic6.png" alt="ic1"> Edit Profile</button>
 						<button class="nav-link" id="v-pills-pass-tab" data-bs-toggle="pill" data-bs-target="#v-pills-pass" type="button" role="tab" aria-controls="v-pills-pass" aria-selected="false"> <img src="{{ asset('frontend/') }}/img/ic5.png" alt="ic1"> Change Password</button>
 
@@ -289,6 +313,71 @@
 									<button class="dashboard__header-btn" type="submit">Update</button>
 								</form>
 							</div>
+						</div>
+						<div class="tab-pane fade" id="v-pills-product" role="tabpanel" aria-labelledby="v-pills-top-product">
+							<div class="items row" id="dashboard-member-product">
+
+							
+									
+								 @foreach ($products as $product )
+									
+								 
+								<div class="col-12 col-sm-6 col-lg-3">
+									<div class="items__item">
+										<a href="{{ URL::to('product/details/'.$product->product_slug) }}">
+											<img src="{{ asset($product->thumbnail) }}" alt="Product" class="items__img" />
+										</a>
+
+									
+										<h5 class="heading name">Microsoft Office</h5>
+										<h5 class="heading title"><a href="{{ URL::to('product/details/'.$product->product_slug) }}">{{ $product->product_name }}</a></h5>
+										<div class="price-list d-flex justify-content-center align-items-center gap-2 mb-1">
+											<p class="price">$35.00</p>
+											@if($product->discount_rate == 0.00)
+											<p class="price newprice">${{ $product->product_price }}</p>
+											@else
+											<p class="price newprice">${{ $product->discount_price }}</p>
+											@endif
+	
+											@if($product->discount_rate == 0.00)
+											@else
+											<span class="discount">- @if($product->discount_type == "Flat") $@endif{{ intval($product->discount_rate) }} @if($product->discount_type == "Percent") % @endif</span>
+											@endif
+	
+											@if($product->discount_rate == 0.00)
+											@else
+											<span class="price">${{ $product->product_price }}</span>
+											@endif
+										</div>
+		
+										<div class="items__bottom">
+											<p class="text mb-2 text-center">
+												{{ Str::limit($product->product_short_desc, 100, '') }}
+											</p>
+											<div class="d-flex justify-content-between align-items-center">
+												<form action="{{ route('add.cart') }}" method="post" class="addCard">
+													@csrf
+													<input type="hidden" name="product_id" value="{{ $product->id }}">
+													<input type="hidden" name="product_qty" value="1">
+													@if($product->discount_rate == 0.00 )
+													<input type="hidden" name="product_price" value="{{ $product->product_price }}">
+													@else
+													<input type="hidden" name="product_price" value="{{ $product->discount_price }}">
+													@endif
+													<button class="btn btn-cart" type="submit">Add to cart</button>
+												</form>
+												<button class="btn btn-wishlist addWishlist" data-id="{{ $product->id }}">
+													<i class="bi bi-heart"></i>
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								@endforeach
+	
+								
+							</div>
+						
 						</div>
 						<div class="tab-pane fade" id="v-pills-log" role="tabpanel" aria-labelledby="v-pills-log-tab">...</div>
 					  </div>

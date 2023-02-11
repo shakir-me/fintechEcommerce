@@ -2,15 +2,32 @@
 const btnDark = document.querySelector('.btn-dark');
 const btnLight = document.querySelector('.btn-light');
 const html = document.querySelector('html');
+ 
+// const load_func=()=>{
+// 	window.addEventListener('storage',()=>{
+// 		if(localStorage.getItem('data-theme')){
+// 			console.log(localStorage.getItem('data-theme'))
+// 			html.classList.add('dark');
+// 			html.classList.remove('light');
+// 		}else{
+// 			html.classList.remove('dark');
+// 			html.classList.add('light');
+// 		}
+// 	})
+// }
+// load_func()
 
 btnDark.addEventListener('click', () => {
 	html.classList.remove('light');
 	html.classList.add('dark');
+	localStorage.setItem("data-theme","dark")
 });
 
 btnLight.addEventListener('click', () => {
 	html.classList.remove('dark');
 	html.classList.add('light');
+	localStorage.setItem("data-theme","light")
+
 });
 
 // shop pgae sidebar

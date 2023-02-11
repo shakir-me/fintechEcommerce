@@ -110,6 +110,7 @@
 											@endif
 										</div> --}}
 									</span>
+										
 									<button class="btn btn-dark">
 										<svg class="icon icon-dark">
 											<use xlink:href="{{ asset('frontend/img/icons.svg#icon-dark')}}"></use>
@@ -179,7 +180,7 @@
 							<li class="nav__item">
 								<a href="{{ url('customer-request') }}" class="nav__link">Custom Request</a>
 							</li>
-							<li class="nav__item mobile-dropdown">
+							{{-- <li class="nav__item mobile-dropdown">
 								<a href="#" class="nav__link"> Pages <i class="bi bi-chevron-down"></i></a>
 								<ul class="nav__dropdown">
 									<li><a href="shop.html">All Products</a></li>
@@ -196,7 +197,7 @@
 									<li><a href="dashboard.html">my Orders</a></li>
 									<li><a href="{{ url('user/home') }}">my account</a></li>
 								</ul>
-							</li>
+							</li> --}}
 						</ul>
 					</div>
 				</div>

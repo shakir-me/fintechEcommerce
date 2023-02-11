@@ -137,13 +137,13 @@
 							<span class="price newprice">$30.00</span> --}}
 						</div>
 
-						<div class="items__bottom">
+						<div class="items__bottom mx-auto">
 							<p class="text mb-2 text-center">
 								{{ Str::limit($latest->product_short_desc, 100, '') }}
 							</p>
-							<div class="d-flex justify-content-between align-items-center">
+							<div class="d-flex justify-content-between align-items-center mx-auto">
 
-								<form action="{{ route('add.cart') }}" method="post" class="addCard">
+								<form  action="{{ route('add.cart') }}" method="post" class="d-flex w-full justify-content-center align-items-center mx-auto addCard">
 									@csrf
 									<input type="hidden" name="product_id" value="{{ $latest->id }}">
 									<input type="hidden" name="product_qty" value="1">
@@ -152,7 +152,10 @@
 									@else
 									<input type="hidden" name="product_price" value="{{ $latest->discount_price }}">
 									@endif
-									<button class="btn btn-cart" type="submit">Add to cart</button>
+									<div class="d-flex  justify-content-between align-items-center mx-auto">
+
+										<button class="btn btn-cart mx-auto" type="submit">Add to cart </button>
+									</div>
 								</form>
 
 								<a href="#" class="btn btn-wishlist addWishlist" data-id="{{ $latest->id }}">
@@ -235,12 +238,9 @@
 								<button class="btn btn-cart" type="submit">Add to cart</button>
 							</form>
 
-							<a href="#" class="btn btn-wishlist addWishlist" data-id="{{ $product->id }}">
+							<button class="btn btn-wishlist addWishlist" data-id="{{ $product->id }}">
 								<i class="bi bi-heart"></i>
-							</a>
-							{{-- <button class="btn btn-wishlist">
-								<i class="bi bi-heart"></i>
-							</button> --}}
+							</button>
 						</div>
 					</div>
 				</div>

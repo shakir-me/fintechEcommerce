@@ -58,14 +58,23 @@
 						</form>
 					</div>
 
-					<div class="categories__item">
-						<h4 class="heading mb-2">Brands</h4>
-						<div class="categories__btns">
-							@foreach($brands as $brand)
-							<a href="{{ URL::to('/'.$brand->brand_slug.'/brand/product') }}" class="btn">{{ $brand->brand_name }}</a>
-							@endforeach
-						</div>
-					</div>
+					@php
+                    $userDetails= App\Models\User::where('email',Auth::user()->email)->first();
+                    @endphp
+                
+                       @if ($userDetails->subscribe_id == NULL)
+                       @else
+                                    <div class="categories__item">
+                                        <h4 class="heading mb-2">Member Product</h4>
+                                        <div class="categories__btns">
+                                            @foreach($members as $member)
+                                            <a href="{{ url('member/product',$member->id) }}" class="btn">{{ $member->membership_name }}</a>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                @endif
+
+
 				</div>
 
 				<div class="shop__right">
@@ -108,10 +117,8 @@
 										</p>
 									</a>
 										<div class="d-flex justify-content-between align-items-center">
-											<button class="btn btn-search">
-												<i class="bi bi-search"></i>
-											</button>
-											<form action="{{ route('add.cart') }}" method="post" class="addCard">
+											
+											<form  action="{{ route('add.cart') }}" method="post" class="d-flex justify-content-center align-items-center mx-auto addCard">
 												@csrf
 												<input type="hidden" name="product_id" value="{{ $product->id }}">
 												<input type="hidden" name="product_qty" value="1">
@@ -120,9 +127,14 @@
 												@else
 												<input type="hidden" name="product_price" value="{{ $product->discount_price }}">
 												@endif
-												<button class="btn btn-cart" type="submit">Add to cart</button>
+
+												<button class="btn btn-cart text-center" type="submit">  Add to cart</button>
 											</form>
-											<button class="btn btn-wishlist">
+											{{-- <button class="btn btn-wishlist">
+												<i class="bi bi-heart"></i>
+												 
+											</button> --}}
+											<button class="btn btn-wishlist addWishlist" data-id="{{ $product->id }}">
 												<i class="bi bi-heart"></i>
 											</button>
 										</div>

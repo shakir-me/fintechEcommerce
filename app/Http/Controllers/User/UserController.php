@@ -5,6 +5,9 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Admin\Order;
+use App\Models\Admin\OrderDetails;
+use App\Models\Review;
 use Auth;
 use Helper;
 use Hash;
@@ -135,6 +138,33 @@ class UserController extends Controller
 
     public function OrderView($id)
     {
-        return view('user.orderview');
+        $order=Order::find($id);
+     
+        return view('user.orderview',compact('order'));
+    }
+
+    public function Review($id)
+    {
+        $review=OrderDetails::find($id);
+        //return response()->json($review);
+        return view('user.review',compact('review'));
+    }
+
+    public function ReviewStore(Request $request)
+    {
+        $review = new Review;
+        $review->rating = $request->rating;
+        $review->comment = $request->comment;
+        $review->order_detail_id = $request->order_detail_id;
+        // return response()->json($review);
+        $review->save();
+        $notification = array(
+            'messege'=> "Review Added Successfully.",
+            'alert-type'=>'success'
+        );
+
+         return Redirect()->route('user.home')->with($notification); 
+        // return response()->json($page);
+     
     }
 }

@@ -73,4 +73,15 @@ class Product extends Model
     {
         return $this->belongsTo(WishList::class);
     }
+
+
+    public function orderItems()
+    {
+    
+        return $this->hasMany('App\Models\Admin\OrderDetails','product_id');
+    }
+
+    
+
+
 }

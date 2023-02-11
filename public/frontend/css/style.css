@@ -6237,3 +6237,13 @@ input.increment_decrement.input-increment {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+
+
+/* wish lish hover  */
+
+.items__item:hover .btn-wishlist {
+  display: block !important; 
+}
+
+ 

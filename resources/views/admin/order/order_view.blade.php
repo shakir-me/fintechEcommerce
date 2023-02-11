@@ -29,32 +29,91 @@
 		</div>
 		<!--end breadcrumb-->
 		<hr/>
-		@include('alert.alert')
+
+		<div class="card">
+			<div class="card-body">
+	               <h3>Order Information</h3>
+					<div class="row">
+						<div class="col-md-3">
+							<label for="inputFirstName" class="form-label">Order Number</label>
+							<input type="text" class="form-control"  value="{{ $order->order_no }}"  readonly>
+						</div>
+						<div class="col-md-3">
+							<label for="inputLastName" class="form-label">Total Qty </label>
+							<input type="text" class="form-control" value="{{ $order->total_qty }}"  readonly>
+						</div>
+						<div class="col-md-3">
+							<label for="inputLastName" class="form-label">Total Price </label>
+							<input type="text" class="form-control" value="{{ $order->total_price }}"  readonly>
+						</div>
+			
+						<div class="col-md-3">
+							<label for="inputLastName" class="form-label">Coupon Amount </label>
+							<input type="text" class="form-control" value="{{ $order->coupon_amount }}"  readonly>
+						</div>
+			
+					
+			
+						<div class="col-md-3">
+							<label for="inputLastName" class="form-label">Refund </label>
+							<input type="text" class="form-control" value="{{ $order->refund }}"  readonly>
+						</div>
+
+						<div class="col-md-3">
+							<label for="inputLastName" class="form-label">Coupon Amount </label>
+							<input type="text" class="form-control" value="{{ $order->coupon_amount }}"  readonly>
+						</div>
+
+						<div class="col-md-3">
+							<label for="inputLastName" class="form-label">Coupon </label>
+							<input type="text" class="form-control" value="{{ $order->coupon }}"  readonly>
+						</div>
+
+						<div class="col-md-3">
+							<label for="inputLastName" class="form-label">Payment Method </label>
+							<input type="text" class="form-control" value="{{ $order->payment_method }}"  readonly>
+						</div>
+
+			
+			
+
+			
+					</div>
+				
+
+					
+					
+					<br>
+				
+				</form>
+			</div>
+		</div>
+	
 		<div class="card">
 			<div class="card-body">
 				<div class="table-responsive">
 					<table id="example2" class="table table-striped table-bordered">
 						<thead>
 							<tr>
-								<th width="5%">SL</th>
+						
+								<th>Order Id</th>
 								<th>Product Name</th>
-								<th>Order NO</th>
-								<th>Total Qty</th>
-								<th>Total Price</th>
-								<th>Coupon Amount</th>
-								<th>Payment Method </th>
-								<th>Refund </th>
-								<th>Coupon Amount </th>
-								<th>Coupon Name</th>
-
-								<th width="15%">Action</th>
+								<th>Product Qty </th>
+								<th>Product Price</th>
+								<th>Unit Price</th>
+								<th>Create At</th>
 							</tr>
 						</thead>
 						<tbody>
                             @foreach($order->orderItems as $item)
 							<tr>
-								<td width="5%">{{ $item->id }}</td>
-                                <td>{{  }}</td>
+								
+                                <td>{{ $item->order_id }}</td>
+                                <td>{{ $item->product_name }}</td>
+                                <td>{{ $item->product_qty }}</td>
+                                <td>{{ $item->product_price }}</td>
+                                <td>{{ $item->unit_price }}</td>
+                                <td>{{ $item->created_at }}</td>
 								
       
                               
@@ -64,17 +123,11 @@
 						</tbody>
 						<tfoot>
 							<tr>
-								<th>SL</th>
-								<th>User Name</th>
-                                <th>Order NO</th>
-								<th>Total Qty</th>
-								<th>Total Price</th>
-								<th>Coupon Amount</th>
-								<th>Payment Method </th>
-								<th>Refund </th>
-                                <th>Coupon Amount </th>
-								<th>Coupon Name</th>
-								<th width="15%">Action</th>
+								<th>Order Id</th>
+								<th>Product Name</th>
+								<th>Product Qty </th>
+								<th>Product Price</th>
+								<th>Unit Price</th>
 							</tr>
 						</tfoot>
 					</table>
