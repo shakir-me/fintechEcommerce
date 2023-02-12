@@ -105,6 +105,8 @@
                                                 <th>Product Price</th>
                                                 <th>Unit Price</th>
                                                 <th>Create At</th>
+                                                <th>Update At</th>
+                                           
                                                 <th>Order Review</th>
 											</tr>
 										</thead>
@@ -116,7 +118,15 @@
                                                 <td>{{ $item->product_qty }}</td>
                                                 <td>{{ $item->product_price }}</td>
                                                 <td>{{ $item->unit_price }}</td>
-                                                <td>{{ $item->created_at }}</td>
+                                                <td>
+													{{  Carbon\Carbon::parse($item->created_at)->format('d F Y')  }}
+												</td>
+                                                <td>
+													{{  Carbon\Carbon::parse($item->updated_at)->format('d F Y')  }}
+												
+												</td>
+
+												
 												<td>
 													<a href="{{ url('user/review',$item->id) }}" class="btn btn-primary">Order Review</a>
 												</td>
@@ -156,6 +166,7 @@
 												<td>{{ $order->refund }}</td>
 												<td>{{ $order->payment_method }}</td>
 												<td>
+													<a href="" ></a>
 													<a href="{{ url('user/order/view',$order->id) }}" class="btn btn-primary">View Ordere</a>
 												</td>
 											</tr>

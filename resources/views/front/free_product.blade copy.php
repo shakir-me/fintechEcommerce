@@ -73,6 +73,15 @@
 	<br>
 </section>
 <!-- footer -->
-
-
+@push('js')
+<script>
+	$(document).ready(function()  {
+	
+	
+		$("#sort").on("change",function(){
+			this.form.submit();
+		});
+	});
+	</script>
+@endpush
 @endsection

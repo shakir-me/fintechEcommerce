@@ -58,6 +58,8 @@
 									    @method('DELETE')
 									    <button class="btn btn-sm btn-danger" id="delete" type="submit">Delete</button>
 									</form>
+
+									<a href="{{ url('admin/request-product/detail',$row->id) }}" class="btn btn-info">Details</a>
 								</td>
 							</tr>
 							@endforeach

@@ -78,9 +78,23 @@
                     <div class="menu-title">Request Product</div>
                 </a>
                 <ul>
-                    <li> <a href="{{ route('index.request.product') }}"><i class="bx bx-right-arrow-alt"></i>New Request</a>
+
+
+                    <li> <a href="{{ route('index.productrequest') }}"><i class="bx bx-right-arrow-alt"></i>Add Product  Request</a>
                     </li>
-                    <li> <a href="{{ route('old.request.product') }}"><i class="bx bx-right-arrow-alt"></i>Old Request</a>
+
+
+                    <li> <a href="{{ route('add.productrequest') }}"><i class="bx bx-right-arrow-alt"></i>All Product  Request</a>
+                    </li>
+
+{{-- 
+                    <li> <a href="{{ route('index.request.product') }}"><i class="bx bx-right-arrow-alt"></i>New Request</a>
+                    </li> --}}
+
+
+                    <li> <a href="{{ route('index.request.product') }}"><i class="bx bx-right-arrow-alt"></i>New Request Customer</a>
+                    </li>
+                    <li> <a href="{{ route('old.request.product') }}"><i class="bx bx-right-arrow-alt"></i>Old Request Customer</a>
                     </li>
                 </ul>
             </li>

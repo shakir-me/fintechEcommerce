@@ -24,6 +24,23 @@
 			<div class="shop">
 				<div class="categories">
 					<button class="btn-close-categories"><i class="bi bi-x"></i></button>
+
+					<div class="categories__item mb-2">
+						<h4 class="heading mb-2">SORT BY</h4>
+						<ul class="categories__list">
+						<form  name="sortArts" id="sortArts">
+							<select name="sort" id="sort"  class="form-control form-select">
+								<option value="">Select Please</option>
+								<option value="product_popular" @if(isset($_GET['sort']) && $_GET['sort']=="product_popular") selected="" @endif>Popularity</option>
+								<option value="product_ratting" @if(isset($_GET['sort']) && $_GET['sort']=="product_ratting") selected="" @endif>Average ratting</option>
+								<option value="product_news" @if(isset($_GET['sort']) && $_GET['sort']=="product_news") selected="" @endif>Newness</option>
+								<option value="price_low_to_high" @if(isset($_GET['sort']) && $_GET['sort']=="price_low_to_high") selected="" @endif>Price low To High</option>
+								<option value="price_high_to_low" @if(isset($_GET['sort']) && $_GET['sort']=="price_high_to_low") selected="" @endif>Price High  To High</option>
+								</select>
+							</select>
+						</form>
+					</div>
+
 					<div class="categories__item mb-2">
 						<h4 class="heading mb-2">Product categories</h4>
 						<ul class="categories__list">
@@ -90,32 +107,6 @@
 						@if($products->count() > 0)
 						@foreach($products as $product)
 
-						{{-- <div class="col-12 col-sm-6 col-lg-4">
-							<a href="single.html">
-								<div class="items__item">
-								<img src="{{ asset('frontend/img/items-img-1.png')}}" alt="" class="items__img" />
-								<h5 class="heading name">Microsoft Office</h5>
-								<h5 class="heading title">Operating Systems & Mac Software</h5>
-								<div class="price-list d-flex justify-content-center align-items-center gap-2 mb-1">
-									<p class="price">$35.00</p>
-									<span class="price newprice">$30.00</span>
-								</div>
-			
-								<div class="items__bottom">
-									<p class="text mb-2 text-center">
-										Lorem ipsum dolor sit amet consectetur. Sollicitudin maecenas vehicula neque
-										eget ut fringilla.
-									</p>
-									<div class="d-flex justify-content-between align-items-center">
-										<button class="btn btn-cart">Add to cart</button>
-										<button class="btn btn-wishlist">
-											<i class="bi bi-heart"></i>
-										</button>
-									</div>
-								</div>
-							</div>
-							</a>
-						</div> --}}
 							<div class="col-12 col-sm-6 col-xl-4 col-xxl-3">
 								<a href="{{ URL::to('product/details/'.$product->product_slug) }}">
 								<div class="items__item">
@@ -171,7 +162,7 @@
 						@endforeach
 						@else
 						<div class="text-center">
-							<p class="text-secondary"> Product Not Fond In @if($category_id) {{ $category_id->category_name }} @elseif($brand_id) {{ $brand_id->brand_name }} ! @endif </p>
+							<p class="text-secondary"> Product Not Fond In </p>
 						</div>
 						@endif
 					</div>
@@ -210,6 +201,15 @@
 	      },
 	   	});
 	});
+</script>
+<script>
+$(document).ready(function()  {
+
+
+	$("#sort").on("change",function(){
+		this.form.submit();
+	});
+});
 </script>
 @endpush
 @endsection

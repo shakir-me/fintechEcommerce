@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User\RequestProduct;
+use App\Models\RequestBooking;
 
 class RequestProductController extends Controller
 {
@@ -15,7 +15,7 @@ class RequestProductController extends Controller
      */
     public function index()
     {
-        $data = RequestProduct::where('status',1)->latest()->get();
+        $data = RequestBooking::where('status',1)->latest()->get();
         $status ="new";
         return view('admin.request_product.index',compact('data','status'));
     }
@@ -28,7 +28,7 @@ class RequestProductController extends Controller
      */
     public function indexOld()
     {
-        $data = RequestProduct::where('status',2)->latest()->get();
+        $data = RequestBooking::where('status',2)->latest()->get();
         $status ="old";
         return view('admin.request_product.index',compact('data','status'));
     }
@@ -62,8 +62,8 @@ class RequestProductController extends Controller
      */
     public function show($id)
     {
-        $data = RequestProduct::where('id',$id)->first();
-        RequestProduct::where('id',$id)->update(['status' => 2]);
+        $data = RequestBooking::where('id',$id)->first();
+        RequestBooking::where('id',$id)->update(['status' => 2]);
         return view('admin.request_product.view',compact('data'));
     }
 
@@ -75,7 +75,10 @@ class RequestProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = RequestBooking::where('id',$id)->first();
+
+        //return response()->json($data);
+        return view('admin.request_product.detail',compact('data'));
     }
 
     /**
@@ -98,7 +101,7 @@ class RequestProductController extends Controller
      */
     public function destroy($id)
     {
-        RequestProduct::find($id)->delete();
+        RequestBooking::find($id)->delete();
 
         $notification=array(
             'messege'=>'Successfully Deleted !',
@@ -107,4 +110,7 @@ class RequestProductController extends Controller
            return Redirect()->back()->with($notification);
        
     }
+
+
+   
 }

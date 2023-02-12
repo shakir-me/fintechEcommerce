@@ -75,6 +75,7 @@ class ProductController extends Controller
         $data->membership_id  = json_encode($request->membership_id);
         $data->visibility         = $request->visibility;
         $data->is_free            = $request->is_free;
+        $data->status            = 1;
 
         $thumbnail = $request->thumbnail;
         if($thumbnail){
@@ -165,6 +166,7 @@ class ProductController extends Controller
         $data->membership_id  = json_encode($request->membership_id);
         $data->description        = $request->description;
         $data->tag                = $request->tag;
+        $data->status            = 1;
 
         //----Discount-----
         $p_price = $data->product_price;

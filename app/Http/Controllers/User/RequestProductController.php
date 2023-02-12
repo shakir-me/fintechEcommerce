@@ -37,23 +37,26 @@ class RequestProductController extends Controller
      */
     public function storeRequestProduct(Request $request)
     {
-        if(Auth::check()){
+
+
+ 
+        // if(Auth::check()){
             
-            $data = new RequestProduct();
-            $data->user_id          = Auth::id();
-            $data->name             = $request->name;
-            $data->email            = $request->email;
-            $data->software_name    = $request->software_name;
-            $data->trading_security = $request->trading_security;
-            $data->details          = $request->details;
-            $data->status          =1;
-            $data->save(); 
+        //     $data = new RequestProduct();
+        //     $data->user_id          = Auth::id();
+        //     $data->name             = $request->name;
+        //     $data->email            = $request->email;
+        //     $data->software_name    = $request->software_name;
+        //     $data->trading_security = $request->trading_security;
+        //     $data->details          = $request->details;
+        //     $data->status          =1;
+        //     $data->save(); 
 
-            return redirect()->back()->with('success','We Accept Your Request. Thnks !');
+        //     return redirect()->back()->with('success','We Accept Your Request. Thnks !');
 
-        }else{
-            return redirect()->route('login')->with('error','Please Login First For Requesting Product !');
-        }
+        // }else{
+        //     return redirect()->route('login')->with('error','Please Login First For Requesting Product !');
+        // }
     }
 
     /**

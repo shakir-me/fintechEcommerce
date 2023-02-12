@@ -24,4 +24,10 @@ class Order extends Model
     {
         return $this->hasMany('App\Models\Admin\OrderDetails');
     }
+
+    public function product()
+    {
+        return $this->belongsTo('App\Models\Product','product_name');
+    }
+
 }

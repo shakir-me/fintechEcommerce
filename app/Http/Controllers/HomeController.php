@@ -35,6 +35,11 @@ class HomeController extends Controller
         return view('user.home',compact('products'));
     }
 
+    public function RequestBook(Request $request)
+    {
+        
+    }
+
     /**
      * Show the application dashboard.
      *

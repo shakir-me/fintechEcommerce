@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\ItWorkController;
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\ProductRequestController;
 use App\Http\Controllers\Admin\RequestProductController as ReqProductController;
 
 //----Front-----
@@ -68,7 +69,7 @@ All Front Routes List
 --------------------------------------------
 --------------------------------------------*/
 
-
+Route::get('product/search', [FrontController::class, 'search'])->name('product.search');
 Route::get('/', [FrontController::class, 'index'])->name('home');
 Route::get('/membership', [FrontController::class, 'membership'])->name('membership');
 Route::get('/free-product', [FrontController::class, 'freeProduct'])->name('free.product');
@@ -84,6 +85,7 @@ Route::post('store/request/product',[RequestProductController::class, 'storeRequ
 
 Route::get('/contact-us', [FrontController::class, 'ContatctUs']);
 Route::post('/contact-store', [FrontController::class, 'ContatctStore']);
+Route::post('/request-store', [FrontController::class, 'RequestStore']);
 Route::get('/privacy-policy', [FrontController::class, 'PrivacyPolicy']);
 Route::get('/term-service', [FrontController::class, 'TeamAndCondition']);
 Route::get('/about-us', [FrontController::class, 'AboutUs']);
@@ -142,7 +144,7 @@ Route::prefix('user')->middleware(['auth', 'user-access:user','verified'])->grou
 
     Route::get('/home', [HomeController::class, 'index'])->name('user.home');
 
-
+  
     //order view
     Route::get('order/view/{id}', [UserController::class, 'OrderView'])->name('user.order.view');
     Route::get('review/{id}', [UserController::class, 'Review'])->name('user.review');
@@ -342,6 +344,18 @@ Route::prefix('admin')->middleware(['auth', 'user-access:admin'])->group(functio
         Route::delete('delete/{id}',[SocialController::class, 'destroy'])->name('delete.social');
     });
 
+
+    Route::group(['prefix' => 'productrequest'], function () {
+        Route::get('/',[ProductRequestController::class, 'index'])->name('index.productrequest');
+        Route::get('add',[ProductRequestController::class, 'add'])->name('add.productrequest');
+        Route::post('store',[ProductRequestController::class, 'store'])->name('store.productrequest');
+        Route::get('edit/{id}',[ProductRequestController::class, 'edit'])->name('edit.productrequest');
+        Route::post('update/{id}',[ProductRequestController::class, 'update'])->name('update.productrequest');
+        Route::delete('delete/{id}',[ProductRequestController::class, 'destroy'])->name('delete.productrequest');
+    });
+
+
+
     //---- Subscriber Route ----//
     Route::group(['prefix' => 'subscriber'], function () {
         Route::get('/',[SubscriberController::class, 'index'])->name('index.subscriber');
@@ -356,6 +370,8 @@ Route::prefix('admin')->middleware(['auth', 'user-access:admin'])->group(functio
         Route::get('/index',[ReqProductController::class, 'index'])->name('index.request.product');
         Route::get('/old',[ReqProductController::class, 'indexOld'])->name('old.request.product');
         Route::get('/view/{id}',[ReqProductController::class, 'show']);
+
+        Route::get('detail/{id}',[ReqProductController::class, 'edit']);
         Route::delete('delete/request/product/{id}',[ReqProductController::class, 'destroy'])->name('delete.request.product');
     });
 

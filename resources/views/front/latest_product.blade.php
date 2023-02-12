@@ -24,6 +24,24 @@
 			<div class="shop">
 				<div class="categories">
 					<button class="btn-close-categories"><i class="bi bi-x"></i></button>
+
+					<div class="categories__item mb-2">
+						<h4 class="heading mb-2">SORT BY</h4>
+						<ul class="categories__list">
+						<form  name="sortArts" id="sortArts">
+							<select name="sort" id="sort"  class="form-control form-select">
+								<option value="">Select Please</option>
+								<option value="product_popular" @if(isset($_GET['sort']) && $_GET['sort']=="product_popular") selected="" @endif>Popularity</option>
+								<option value="product_ratting" @if(isset($_GET['sort']) && $_GET['sort']=="product_ratting") selected="" @endif>Average ratting</option>
+								<option value="product_news" @if(isset($_GET['sort']) && $_GET['sort']=="product_news") selected="" @endif>Newness</option>
+								<option value="price_low_to_high" @if(isset($_GET['sort']) && $_GET['sort']=="price_low_to_high") selected="" @endif>Price low To High</option>
+								<option value="price_high_to_low" @if(isset($_GET['sort']) && $_GET['sort']=="price_high_to_low") selected="" @endif>Price High  To High</option>
+								</select>
+							</select>
+						</form>
+					</div>
+
+
 					<div class="categories__item mb-2">
 						<h4 class="heading mb-2">Product categories</h4>
 						<ul class="categories__list">
@@ -58,14 +76,7 @@
 						</form>
 					</div>
 
-					<div class="categories__item">
-						<h4 class="heading mb-2">Brands</h4>
-						<div class="categories__btns">
-							@foreach($brands as $brand)
-							<a href="{{ URL::to('/'.$brand->brand_slug.'/brand/product') }}" class="btn">{{ $brand->brand_name }}</a>
-							@endforeach
-						</div>
-					</div>
+				
 				</div>
 
 				<div class="shop__right">
@@ -185,7 +196,7 @@
 </div>
 
 <!-- footer -->
-@include('front.partial.footer_section')
+
 
 @push('js')
 {{-- <script>
@@ -200,5 +211,17 @@
 	   	});
 	});
 </script> --}}
+
+<script>
+	$(document).ready(function()  {
+	
+	
+		$("#sort").on("change",function(){
+			this.form.submit();
+		});
+	});
+	</script>
+
+
 @endpush
 @endsection

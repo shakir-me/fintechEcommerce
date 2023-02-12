@@ -12,16 +12,18 @@
 						Discover Thousands of easy to set up, expert advisors, Indicators made by world
 						class developers
 					</p>
-					<form action="#" class="header__search d-flex align-items-center">
+					<form action="{{ route('product.search') }}" class="header__search d-flex align-items-center">
 						<label for="search">
 							<i class="bi bi-search"></i>
 						</label>
-						<input type="text" id="search" class="w-100" placeholder="Search here..." />
-						<select name="" id="">
-							<option value="All products">All products</option>
-							<option value="All products">All products</option>
-							<option value="All products">All products</option>
-							<option value="All products">All products</option>
+						<input type="text" name="search" id="search" class="w-100" placeholder="Search here..." />
+			
+				
+		
+						<select name="category_id" >
+							@foreach ($categories as $category)
+							<option value="{{ $category->category_name }}">{{ $category->category_name }}</option>
+							@endforeach		
 						</select>
 					</form>
 				</div>
@@ -435,136 +437,105 @@
 			system, simply let us know!
 		</p>
 
+		
 		<div class="custom__form">
 			<div class="row">
+				@if(Auth::check())
 				<div class="col-lg-12">
 					<h3 class="custom__form-title">Software Request Form</h3>
-					<form action="#">
+					<form action="{{ url('request-store') }}" method="post" enctype="multipart/form-data">
+						@csrf
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="custom__form-field">
 									<label for="name">Name <span>*</span></label>
-									<input type="text" name="fname" id="name">
+									<input type="text" name="name" id="name" value="{{ Auth::user()->name }}">
 								</div>
 							</div>
 							<div class="col-lg-6">
 								<div class="custom__form-field">
 									<label for="name">Email  <span>*</span></label>
-									<input type="text" name="lname" id="lname">
+									<input type="email" name="email" id="email" value="{{ Auth::user()->email }}">
 								</div>
 							</div>
 						</div>
 						<div class="row">
-							<h3 class="custom__form-mark">What would you like to do? *</h3>
+							@foreach ($requestProducts as $requestProduct )
+								
+						
+							<h3 class="custom__form-mark">{{ $requestProduct->name }}? *</h3>
 							<div class="col-lg-4">
-								<div class="custom__form-markcheck">
-									<input type="checkbox" name="a" id="a">
-									<label for="a">Build Indicator</label>
+								<div class="">
+									<input type="checkbox" name="value[]"  value="{{ $requestProduct->one }}">
+									<label for="a">{{ $requestProduct->one }}</label>
 								</div>
 							</div>
 							<div class="col-lg-4">
-								<div class="custom__form-markcheck">
-									<input type="checkbox" name="a" id="b">
-									<label for="b">Build Indicator</label>
+								<div class="">
+									<input type="checkbox" name="value[]" value="{{ $requestProduct->two }}">
+									<label for="b">{{ $requestProduct->two }}</label>
 								</div>
 							</div>
 							<div class="col-lg-4">
-								<div class="custom__form-markcheck">
-									<input type="checkbox" name="a" id="c">
-									<label for="c">Build Indicator</label>
+								<div class="">
+									<input type="checkbox" name="value[]" value="{{ $requestProduct->three }}">
+									<label for="c">{{ $requestProduct->three }}</label>
 								</div>
 							</div>
 							<div class="col-lg-4">
-								<div class="custom__form-markcheck">
-									<input type="checkbox" name="a" id="d">
-									<label for="d">Build Indicator</label>
+								<div class="">
+									<input type="checkbox" name="value[]" value="{{ $requestProduct->four }}">
+									<label for="d">{{ $requestProduct->four }}</label>
 								</div>
 							</div>
 							<div class="col-lg-4">
-								<div class="custom__form-markcheck">
-									<input type="checkbox" name="a" id="e">
-									<label for="e">Build Indicator</label>
+								<div class="">
+									<input type="checkbox" name="value[]" value="{{ $requestProduct->five }}">
+									<label for="e">{{ $requestProduct->five }}</label>
 								</div>
 							</div>
 							<div class="col-lg-4">
-								<div class="custom__form-markcheck">
-									<input type="checkbox" name="a" id="f">
-									<label for="f">Build Indicator</label>
+								<div class="">
+									<input type="checkbox" name="value[]" value="{{ $requestProduct->six }}">
+									<label for="f">{{ $requestProduct->six }}</label>
 								</div>
 							</div>
+							@endforeach
 						</div>
-						<div class="row">
-							<h3 class="custom__form-mark">Select Platform *</h3>
-							<div class="col-lg-4">
-								<div class="custom__form-markcheck">
-									<input type="checkbox" name="a" id="g">
-									<label for="g">Build Indicator</label>
-								</div>
-							</div>
-							<div class="col-lg-4">
-								<div class="custom__form-markcheck">
-									<input type="checkbox" name="a" id="h">
-									<label for="h">Build Indicator</label>
-								</div>
-							</div>
-							<div class="col-lg-4">
-								<div class="custom__form-markcheck">
-									<input type="checkbox" name="a" id="i">
-									<label for="i">Build Indicator</label>
-								</div>
-							</div>
-							<div class="col-lg-4">
-								<div class="custom__form-markcheck">
-									<input type="checkbox" name="a" id="j">
-									<label for="j">Build Indicator</label>
-								</div>
-							</div>
-							<div class="col-lg-4">
-								<div class="custom__form-markcheck">
-									<input type="checkbox" name="a" id="k">
-									<label for="k">Build Indicator</label>
-								</div>
-							</div>
-							<div class="col-lg-4">
-								<div class="custom__form-markcheck">
-									<input type="checkbox" name="a" id="l">
-									<label for="l">Build Indicator</label>
-								</div>
-							</div>
-						</div>
+					
 						<div class="custom__form-field">
 							<label for="name">Software Information</label>
-							<input type="text" name="fname" id="name">
+							<input type="text" name="software_name" id="software_name" required placeholder="Software Name">
 						</div>
 						<div class="custom__form-field">
 							<label for="name">Upload a zip file describing your EA or Indicator Strategy</label>
-							<input type="text" name="fname" id="name">
+							<input type="file" name="imageone" id="name">
 						</div>
 						<div class="custom__form-field">
 							<label for="name">Upload EA or Indicator</label>
-							<input type="text" name="fname" id="name">
+							<input type="file" name="imagetwo" id="name">
 						</div>
 						<div class="custom__form-field">
 							<label for="name">Anything Else we need to know?</label>
-							<textarea>
+							<textarea name="details">
 
 							</textarea>
 						</div>
 						<div class="custom__form-field">
 							<label for="name">Broker Information</label>
-							<input type="text" name="broker" id="broker">
+							<input type="text" name="author_name" id="author_name">
 						</div>
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="custom__form-field">
 									<label for="name">Broker Name </label>
-									<input type="text" name="banme" id="banme">
+									<input type="text" name="baker_name" id="baker_name">
 								</div>
 							</div>
 							<div class="col-lg-6">
 								<div class="custom__form-field">
 									<label for="name">Securities to Trade</label>
-									<input type="text" name="Trade" id="Trade" placeholder="EURUSD, GBPUSD">
+									<input type="text" name="trading_security" id="trading_security" placeholder="EURUSD, GBPUSD">
 								</div>
 							</div>
 						</div>
@@ -572,13 +543,13 @@
 							<div class="col-lg-6">
 								<div class="custom__form-field">
 									<label for="name">Trading Account Type (Create Demo account and upload details)</label>
-									<input type="text" name="Account" id="Account" placeholder="ECN MT4 Demo">
+									<input type="text" name="trading_account" id="trading_account" placeholder="ECN MT4 Demo">
 								</div>
 							</div>
 							<div class="col-lg-6">
 								<div class="custom__form-field">
 									<label for="name">Trading Server</label>
-									<input type="text" name="Trade" id="Trade" placeholder="Alpari-Trade03">
+									<input type="text" name="trading_server" id="trading_server" placeholder="Alpari-Trade03">
 								</div>
 							</div>
 						</div>
@@ -592,13 +563,13 @@
 							<div class="col-lg-4">
 								<div class="custom__form-field">
 									<label for="name">Metatrader Password</label>
-									<input type="text" name="Metatrader" id="Metatrader" placeholder="bsiwibdbuihu8">
+									<input type="text" name="" id="Metatrader" placeholder="bsiwibdbuihu8">
 								</div>
 							</div>
 							<div class="col-lg-4">
 								<div class="custom__form-field">
 									<label for="name">Deposit Currency</label>
-									<input type="text" name="Deposit" id="Deposit" placeholder="USD">
+									<input type="text" name="deposite_amount" id="deposite_amount" placeholder="USD">
 								</div>
 							</div>
 						</div>
@@ -607,6 +578,13 @@
 						</div>
 					</form>
 				</div>
+				@else
+				<h3>Please Sing up and Request Product</h3>
+				<div class="custom__form-field">
+					<a href="{{ url('/register') }}" class="btn btn-primary">Sing Up</a>
+				</div>
+				
+				@endif
 			</div>
 		</div>
 	</div>
