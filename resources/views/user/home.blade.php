@@ -9,6 +9,7 @@
 	$orders = App\Models\Admin\Order::where('user_id',Auth::id())->latest()->get();
 	$wishlists = App\Models\User\WishList::join('products','wish_lists.product_id','products.id')->select('products.*','wish_lists.id','wish_lists.product_id')->where('user_id',Auth::id())->get();
 	$payments = App\Models\User\Recharge::where('user_id',Auth::id())->latest()->get();
+	$payment = App\Models\User\Recharge::where('user_id',Auth::id())->sum('amount');
 	$subscribe = App\Models\Admin\Membership::join('subscriptions','memberships.id','subscriptions.subscribe_id')
 	->join('coupons','membership_id','subscriptions.subscribe_id')
 	->select('subscriptions.*','memberships.membership_name','coupons.coupon_name','coupons.coupon_type','coupons.coupon_rate')
@@ -24,16 +25,28 @@
 		<li>my account</li>
 	</ul>
 </div>
+
+@php
+	      $userDetails= App\Models\User::where('email',Auth::user()->email)->first();
+		  $subcription=DB::table('subscriptions')->where('user_id',Auth::user()->id)->first();
+
+		  $membership=DB::table('memberships')->where('id',$subcription->subscribe_id)->first();
+		  $MembershpProducts=DB::table('products')->where('membership_id',$membership->id)->get();
+
+		//   Category::whereJsonContains('category_id', json_decode($events->category_id))->where('id', '!=', $events->id)->get();
+
+@endphp
+
 	<div class="container">
-		@if($subscribe)
-			@if($subscribe->monthly_charge_date != Null)
+		@if($userDetails)
+			@if($userDetails->monthly_charge_date != Null)
 				@if(date('Y-m-d') > date('Y-m-d', strtotime('-5 day', strtotime($subscribe->monthly_charge_date))) && date('Y-m-d') < $subscribe->monthly_charge_date)
 				<div class="alert alert-warning border-0 bg-warning alert-dismissible fade show">
 					<div class="text-dark"> Your <span style="font-weight: bolder;"> "{{ $subscribe->membership_name }}" </span> monthly payment date is expired soon <span style="font-weight: bolder;">( {{ date('d-m-Y',strtotime($subscribe->monthly_charge_date)) }} )</span>.Please pay <span style="font-weight: bolder;"> ${{ $subscribe->monthly_charge }} </span> monthly charge to continue service . <span><a class="badgr bg-info" style="padding:5px;" href="">For Pay</a></span> </div>
 					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>
 				@endif
-				@if(date('Y-m-d') > $subscribe->monthly_charge_date)
+				@if(date('Y-m-d') > $userDetails->monthly_charge_date)
 				<div class="alert alert-danger border-0 bg-danger alert-dismissible fade show">
 					<div class="text-white"> Your <span style="font-weight: bolder;"> "{{ $subscribe->membership_name }}" </span>monthly payment date is expired <span style="font-weight: bolder;">( {{ date('d-m-Y',strtotime($subscribe->monthly_charge_date)) }} )</span>.  Please pay <span style="font-weight: bolder;"> ${{ $subscribe->monthly_charge }} </span> monthly charge to Reactive service . <span style="float:right;"><a class="badgr bg-info p-1 mr-1 " href="">For Pay</a></span> </div>
 					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -45,16 +58,7 @@
 		@endif
 	</div>
 <!-- dashboard  -->
-@php
-	      $userDetails= App\Models\User::where('email',Auth::user()->email)->first();
-		  $subcription=DB::table('subscriptions')->where('user_id',Auth::user()->id)->first();
 
-		  $membership=DB::table('memberships')->where('id',$subcription->subscribe_id)->first();
-		  $MembershpProducts=DB::table('products')->where('membership_id',$membership->id)->get();
-		//   explode
-         // dd($MembershpProducts);
-		//   dd(Auth::user()->id);
-@endphp
 <div class="dashboard">
 	<div class="container">
 		<div class="dashboard__header">
@@ -82,7 +86,7 @@
 						<span class="dashboard__header-location">Membership: <span class="badge bg-secondary" >General Member </span></span>
 					@endif --}}
 					
-					<button class="dashboard__header-balance">${{ Auth::user()->balance }}</button>
+					<button class="dashboard__header-balance">${{  $payment  }}</button>
 				</div>
 			</div>
 		</div>
@@ -329,7 +333,7 @@
 								 @foreach ($products as $product )
 									
 								 
-								<div class="col-12 col-sm-6 col-lg-3">
+								<div class="col-12 col-sm-6 col-lg-4">
 									<div class="items__item">
 										<a href="{{ URL::to('product/details/'.$product->product_slug) }}">
 											<img src="{{ asset($product->thumbnail) }}" alt="Product" class="items__img" />
@@ -339,22 +343,21 @@
 										<h5 class="heading name">Microsoft Office</h5>
 										<h5 class="heading title"><a href="{{ URL::to('product/details/'.$product->product_slug) }}">{{ $product->product_name }}</a></h5>
 										<div class="price-list d-flex justify-content-center align-items-center gap-2 mb-1">
-											<p class="price">$35.00</p>
 											@if($product->discount_rate == 0.00)
-											<p class="price newprice">${{ $product->product_price }}</p>
-											@else
-											<p class="price newprice">${{ $product->discount_price }}</p>
-											@endif
-	
-											@if($product->discount_rate == 0.00)
-											@else
-											<span class="discount">- @if($product->discount_type == "Flat") $@endif{{ intval($product->discount_rate) }} @if($product->discount_type == "Percent") % @endif</span>
-											@endif
-	
-											@if($product->discount_rate == 0.00)
-											@else
-											<span class="price">${{ $product->product_price }}</span>
-											@endif
+										<p class="price newprice">${{ $product->product_price }}</p>
+										@else
+										<p class="price newprice">${{ $product->discount_price }}</p>
+										@endif
+
+										@if($product->discount_rate == 0.00)
+										@else
+										<span class="discount">- @if($product->discount_type == "Flat") $@endif{{ intval($product->discount_rate) }} @if($product->discount_type == "Percent") % @endif</span>
+										@endif
+
+										@if($product->discount_rate == 0.00)
+										@else
+										<span class="price">${{ $product->product_price }}</span>
+										@endif
 										</div>
 		
 										<div class="items__bottom">
@@ -362,7 +365,7 @@
 												{{ Str::limit($product->product_short_desc, 100, '') }}
 											</p>
 											<div class="d-flex justify-content-between align-items-center">
-												<form action="{{ route('add.cart') }}" method="post" class="addCard">
+												<form action="{{ route('add.cart') }}" method="post" class="d-flex justify-content-center align-items-center mx-auto addCard">
 													@csrf
 													<input type="hidden" name="product_id" value="{{ $product->id }}">
 													<input type="hidden" name="product_qty" value="1">

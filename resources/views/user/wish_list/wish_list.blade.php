@@ -14,18 +14,22 @@
 			<p>{{ $row->product_title }}</p>
 		</div>
 	</div>
-	@if($row->product_price == 0.00)
+	{{-- @if($row->product_price == 0.00)
 	<span>${{ $row->product_price }}</span>
 	@else
 	<span>${{ $row->discount_price }}</span>
-	@endif
-	<span>In Stock</span>
+	@endif --}}
+
 	</div>
 </div>
+
+
 @endforeach
 <div class="text-center">
-	<span class="btn-three" href="#">view list</span>
+	<a class="btn-three" href="{{ url('user/home') }}">view list</a>
 </div>
+
+
 @else
 <div class="text-center">
 	<p class="text-white">Empty !</p>

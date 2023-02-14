@@ -158,11 +158,12 @@ Route::prefix('user')->middleware(['auth', 'user-access:user','verified'])->grou
 
 
     //----Wishlist Route----
-    Route::get('wishlist',[WishListController::class, 'store'])->name('index.wishlist');
+    Route::get('wishlist',[WishListController::class, 'all'])->name('index.wishlist');
     Route::get('add/wish-list/{id}',[WishListController::class, 'store'])->name('add.wishlist');
     Route::get('count/wishlist',[WishListController::class, 'wishCount']);
     Route::get('show/wishlist',[WishListController::class, 'show']);
     Route::delete('delete/wishlist/{id}',[WishListController::class, 'destroy'])->name('delete.wishlist');
+    Route::get('view/wishlist',[WishListController::class, 'view']);
 
     //----Apply coupon Route----//
     Route::post('apply/coupon',[CartController::class, 'applyCoupon'])->name('apply.coupon');

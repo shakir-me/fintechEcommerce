@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 12, 2023 at 11:17 AM
+-- Generation Time: Feb 14, 2023 at 11:20 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -334,10 +334,10 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `order_no`, `total_qty`, `total_price`, `coupon_amount`, `payment_status`, `payment_method`, `coupon`, `created_at`, `updated_at`, `refund`, `balance`) VALUES
-(6, 2, '230209012654', 1, '500.00', 0, NULL, 'Paypal', '', '2023-02-09 07:28:08', '2023-02-09 07:28:08', '50', NULL),
-(7, 3, '230209041712', 1, '200.00', 0, NULL, 'Paypal', '', '2023-02-09 10:17:29', '2023-02-09 10:17:29', '20', NULL),
-(8, 4, '230209050128', 1, '500.00', 0, NULL, 'Paypal', '', '2023-02-09 11:02:35', '2023-02-09 11:02:35', '50', NULL),
-(9, 3, '230209050409', 1, '500.00', 0, NULL, 'Paypal', '', '2023-02-09 11:04:27', '2023-02-09 11:04:27', '50', NULL);
+(16, 2, '230214040129', 3, '705.00', 0, NULL, 'Paypal', '', '2023-02-14 10:13:00', '2023-02-14 10:13:00', '70.5', NULL),
+(17, 2, '230214041410', 3, '705.00', 0, NULL, 'Paypal', '', '2023-02-14 10:14:25', '2023-02-14 10:14:25', '70.5', NULL),
+(18, 2, '230214041518', 3, '705.00', 0, NULL, 'Paypal', '', '2023-02-14 10:15:39', '2023-02-14 10:15:39', '70.5', NULL),
+(19, 2, '230214041653', 3, '705.00', 0, NULL, 'Paypal', '', '2023-02-14 10:17:10', '2023-02-14 10:17:10', '70.5', NULL);
 
 -- --------------------------------------------------------
 
@@ -363,10 +363,9 @@ CREATE TABLE `order_details` (
 --
 
 INSERT INTO `order_details` (`id`, `order_id`, `product_name`, `product_qty`, `product_price`, `unit_price`, `created_at`, `updated_at`, `rstatus`, `product_id`) VALUES
-(8, 6, 'New Software Livewire', '1', '500', 500, '2023-02-09 07:28:08', '2023-02-09 07:28:08', 1, 8),
-(9, 7, 'New App  Mobile', '1', '200', 200, '2023-02-09 10:17:29', '2023-02-09 10:17:29', 1, NULL),
-(10, 8, 'New Software Livewire', '1', '500', 500, '2023-02-09 11:02:35', '2023-02-09 11:02:35', 1, NULL),
-(11, 9, 'New Software Livewire', '1', '500', 500, '2023-02-09 11:04:27', '2023-02-09 11:04:27', 1, NULL);
+(12, 19, 'Semi-Auto Computer', '1', '300', 300, '2023-02-14 10:17:10', '2023-02-14 10:17:10', 1, NULL),
+(13, 19, 'Operating Systems Dell', '1', '400', 400, '2023-02-14 10:17:10', '2023-02-14 10:17:10', 1, NULL),
+(14, 19, 'Operating Systems & Mac Software', '1', '5', 5, '2023-02-14 10:17:10', '2023-02-14 10:17:10', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -510,7 +509,7 @@ INSERT INTO `recharges` (`id`, `user_id`, `amount`, `payment_method`, `trans_id`
 
 CREATE TABLE `request_bookings` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `software_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -585,7 +584,7 @@ CREATE TABLE `reviews` (
 --
 
 INSERT INTO `reviews` (`id`, `rating`, `comment`, `order_detail_id`, `created_at`, `updated_at`) VALUES
-(4, 4, 'Flutter Course for Beginners – 37-hour Cross Platform App Development TutorialFlutter Course for Beginners – 37-hour Cross Platform App Development Tutorial', 8, '2023-02-09 07:28:37', '2023-02-09 07:28:37');
+(5, 2, 'kkk', 12, '2023-02-14 10:18:08', '2023-02-14 10:18:08');
 
 -- --------------------------------------------------------
 
@@ -750,7 +749,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `type`, `name`, `email`, `mobile`, `address`, `image`, `phone`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `google_id`, `balance`, `subscribe_id`) VALUES
 (1, 'admin', 'Fintech', 'admin@gmail.com', '01740125204', 'Dhaka Mirpur 2', 'backend/assets/images/63db4f91b42cc.webp', 1740125204, NULL, '$2y$10$SRls1QAH1nf.J5LPaw6Sfu9.qt4wN6rkD20CwCYFoyuGf/qWCv9wa', NULL, '2023-02-02 05:08:41', '2023-02-02 10:37:12', NULL, NULL, NULL),
-(2, 'user', 'shakir khan', 'user@gmail.com', '01740125204', 'Dhaka Mirpur', 'backend/assets/images/63e0d9f38bbd4.webp', 1740125204, '2023-02-02 06:27:48', '$2y$10$WpbHdU7NZXq85l.WRVpS2u0NWt6mCPU.ZMIqsTuzz3UJHKtakGRpS', NULL, '2023-02-02 05:08:41', '2023-02-11 07:04:51', NULL, NULL, '3'),
+(2, 'user', 'shakir khan', 'user@gmail.com', '01740125204', 'Dhaka Mirpur', 'backend/assets/images/63e0d9f38bbd4.webp', 1740125204, '2023-02-02 06:27:48', '$2y$10$WpbHdU7NZXq85l.WRVpS2u0NWt6mCPU.ZMIqsTuzz3UJHKtakGRpS', NULL, '2023-02-02 05:08:41', '2023-02-14 10:17:10', NULL, NULL, '3'),
 (3, 'user', 'shakir ahmed', 'shakir@gmail.com', NULL, NULL, 'backend/assets/images/63e4c4da99025.webp', NULL, '2023-02-08 06:30:57', '$2y$10$OZ.KY6tlJuHeWiOKLq3JgurwvH4aXrYoe/BPf/GmOPj545xkYhnDi', NULL, '2023-02-08 06:30:32', '2023-02-09 11:04:27', NULL, NULL, '5'),
 (4, 'user', 'Text', 'test@gmail.com', NULL, NULL, 'backend/assets/images/63e4d25477472.webp', NULL, '2023-02-08 06:47:06', '$2y$10$amZQqYywIu/M.exNWGCTX.l7WypJJPpcH4obZDPOkRkV7dXSb6qkq', NULL, '2023-02-08 06:38:51', '2023-02-09 11:02:35', NULL, NULL, NULL);
 
@@ -776,7 +775,9 @@ INSERT INTO `wish_lists` (`id`, `product_id`, `user_id`, `created_at`, `updated_
 (9, 9, 3, NULL, NULL),
 (10, 8, 3, NULL, NULL),
 (11, 7, 3, NULL, NULL),
-(27, 2, 2, NULL, NULL);
+(40, 8, 2, NULL, NULL),
+(43, 2, 2, NULL, NULL),
+(44, 10, 2, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -1046,13 +1047,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `pages`
@@ -1094,7 +1095,7 @@ ALTER TABLE `request_products`
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `settings`
@@ -1142,7 +1143,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `wish_lists`
 --
 ALTER TABLE `wish_lists`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- Constraints for dumped tables

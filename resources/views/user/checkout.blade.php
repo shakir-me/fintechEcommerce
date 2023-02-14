@@ -22,16 +22,22 @@
 							<div class="col-lg-12">
 								<div class="contact__form-field field-2">
 									<label>Amount</label>
+
+							
 									<input type="number" name="price" readonly value="{{ number_format($data['price'] , 2) }}">
 									<input type="hidden" name="qty" readonly value="{{ $data['qty'] }}">
 									<input type="hidden" name="order_no" readonly value="{{ date('ymdhis') }}">
 									@foreach($data['url'] as $key=> $product)
+									
 									<input type="hidden" name="product_url[]" value="{{ $product }}">
-									<input type="hidden" name="product_name[]" value="{{ $data['product_name'][$key] }}">
+									<input type="text" name="product_name[]" value="{{ $data['product_name'][$key] }}">
 									<input type="hidden" name="product_qty[]" value="{{ $data['product_qty'][$key] }}">
 									<input type="hidden" name="unit_price[]" value="{{ $data['unit_price'][$key] }}">
+									<input type="text" name="product_id[]" value="{{ $data['product_id'][$key]}}">
 									@endforeach
 								</div>
+
+							
 							</div>
 						</div>
 						<div class="contact__form-field-2">

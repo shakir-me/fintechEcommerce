@@ -77,7 +77,7 @@
 
 					<br>
 					<br>
-
+	@if(Auth::check())
 	@php
 	$userDetails= App\Models\User::where('email',Auth::user()->email)->first();
     @endphp
@@ -92,8 +92,11 @@
 							@endforeach
 						</div>
 					</div>
-@endif
+       @endif
 
+	   @else
+
+	   @endif
 				</div>
 
 				<div class="shop__right">
@@ -137,10 +140,10 @@
 										</p>
 									</a>
 										<div class="d-flex justify-content-between align-items-center">
-											<button class="btn btn-search">
+											{{-- <button class="btn btn-search">
 												<i class="bi bi-search"></i>
-											</button>
-											<form action="{{ route('add.cart') }}" method="post" class="addCard">
+											</button> --}}
+											<form action="{{ route('add.cart') }}" method="post" class="d-flex justify-content-center align-items-center mx-auto addCard">
 												@csrf
 												<input type="hidden" name="product_id" value="{{ $product->id }}">
 												<input type="hidden" name="product_qty" value="1">

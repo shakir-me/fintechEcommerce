@@ -61,9 +61,11 @@ class CheckoutController extends Controller
                 $orderDetails = New OrderDetails;
                 $orderDetails->order_id = $order_id;
                 $orderDetails->product_name = $request->product_name[$key];
+                $orderDetails->product_id = $request->product_id[$key];
                 $orderDetails->product_qty = $request->product_qty[$key];
                 $orderDetails->unit_price = $request->unit_price[$key];
                 $orderDetails->product_price = $request->unit_price[$key] * $request->product_qty[$key];
+              
                 $orderDetails->save();
 
             }

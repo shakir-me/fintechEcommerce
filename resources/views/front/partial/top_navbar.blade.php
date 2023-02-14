@@ -5,6 +5,7 @@
 				<div class="nav__logo d-flex align-items-center gap-3">
 					<a href="{{ url('/') }}"><img src="{{ asset('frontend/') }}/img/LOGO.png" alt="logo" /></a>
 				</div>
+				
 				<div class="nav__right d-flex align-items-center">
 					<div class="d-flex align-items-center gap-5">
 						<a href="#" class="nav__icon wishlist">
@@ -50,6 +51,8 @@
 						@endif
 					</div>
 				</div>
+
+
 			</div>
 		</div>
 	</div>

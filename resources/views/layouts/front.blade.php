@@ -1,10 +1,11 @@
+
 @php
 	$setting=DB::table('settings')->first();
 //  dd($setting);
-	
+$payments = App\Models\User\Recharge::where('user_id',Auth::id())->sum('amount');
 @endphp
 <!DOCTYPE html>
-<html lang="en" class="light">
+<html lang="en" class="dark">
 	<head>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -49,20 +50,20 @@
 							</div>
 							<div class="nav__right d-flex align-items-center">
 								<div class="d-flex align-items-center gap-5">
-									<a href="#" class="nav__icon wishlist">
+									<span href="#" class="nav__icon wishlist">
 										<i class="bi bi-heart"></i>
 
 										<span class="wishlist__number wishlist-count">{{ Helper::countWishlist() }}</span>
 										<div class="hovercart hovercart-wishlist">
 											@if(Auth::check())
-											<h4 class="hctitle">Wishlist</h4>
+											
 											<div class="wish_list_popup">
 												{{ Helper::wishlistPopup() }}
 											</div>
 										    @endif
 											
 										</div>
-									</a>
+									</span>
 
 									<span href="{{ url('cart/index') }}" class="nav__icon cart">
 										<i class="bi bi-basket2"></i>
@@ -72,43 +73,7 @@
 									
 										</div>
 										</div>
-										{{-- <div class="hovercart">
-											@if($carts->count() > 0)
-											<div class="hovercart-wrapper">
-												<h4 class="hctitle">Added cart</h4>
-												<div>
-								
-												 @foreach($carts as $row)
-													<div class="hovercart-hoverwrapper">
-														<img class="hover-close" src="{{ asset('frontend/img/close.png')}}" alt="">
-													<div class="hovercart-thumb">
-														<img src="{{ asset($row->options->image) }}" width="50" alt="">
-													</div>
-													<div class="hovercart-content">
-														<strong>{{ $row->name }}</strong>
-														<p>{{ $row->options->title }}
-															</p>
-														<span>{{ $row->qty }} X ${{ $row->price }}</span>
-													</div>
-													</div>
-													@endforeach 
-
-													
-												<div class="hovercart-total bg-total">
-														<span>Total: </span>
-														<span>{{ $row->qty * $row->price }}$ </span>
-													</div>
-													<div class="hovercart-total">
-														<a class="btn-two" href="">Checkout</a>
-													
-														<a class="btn-two" href="{{ url('/') }}">view cart</a>
-													</div>
-												</div>
-											</div>
-											@else
-                                             <h3 style="color:white">Cart is empty</h3>
-											@endif
-										</div> --}}
+							
 									</span>
 										
 									<button class="btn btn-dark">
@@ -122,8 +87,8 @@
 										</svg>
 									</button>
 									@if(Auth::check())
-									<a class="link logout" href="{{ route('user.home') }}">{{ Auth::user()->name }}</a>
-						            <button class="dashboard__header-balance">${{ Auth::user()->balance }}</button>
+									<a class="link logout" href="{{ route('user.home') }}" style="color:white">   {{ Auth::user()->name }}</a>
+						            <button class="dashboard__header-balance">${{ $payments }}</button>
 									@else
 									<a href="#" class="link login">login</a>
 									<a href="#" class="link login-two register">register</a>
@@ -377,11 +342,11 @@ $category_more = App\Models\Admin\Category::take(5)->get();
 							<form action="{{ route('login') }}" method="post">
 								@csrf
 								<div class="login__area-field">
-									<input type="text" placeholder="name" name="email">
+									<input type="email" placeholder="Enter Your Email" name="email">
 									<i class="bi bi-person login__area-icon"></i>
 								</div>
 								<div class="login__area-field">
-									<input type="text"  name="password" placeholder="password">
+									<input type="password"  name="password" placeholder="password">
 									<i class="bi bi-lock login__area-icon"></i>
 								</div>
 
@@ -397,7 +362,7 @@ $category_more = App\Models\Admin\Category::take(5)->get();
 									<a class="login__area-lostpass" href="{{ route('password.request') }}">lost password?</a>
 								</div>
 								<div class="login__area-login">
-									<a class="login__area-sign" href="#"><img src="{{ asset('frontend/img/google1.png')}}" alt="">continue with google</a>
+									<a class="login__area-sign" href="{{ route('auth.google') }}"><img src="{{ asset('frontend/img/google1.png')}}" alt="">continue with google</a>
 								</div>
 							</form>
 						</div>
@@ -428,11 +393,11 @@ $category_more = App\Models\Admin\Category::take(5)->get();
 										<i class="bi bi-envelope login__area-icon"></i>
 									</div>
 									<div class="login__area-field">
-										<input type="text" placeholder="password" name="password" class="@error('password') is-invalid @enderror">
+										<input type="password" placeholder="password" name="password" class="@error('password') is-invalid @enderror">
 										<i class="bi bi-lock login__area-icon"></i>
 									</div>
 									<div class="login__area-field">
-										<input type="text" placeholder="Confirm password" name="password_confirmation" autocomplete="new-password">
+										<input type="password" placeholder="Confirm password" name="password_confirmation" autocomplete="new-password">
 										<i class="bi bi-lock login__area-icon"></i>
 									</div>
 									<div class="login__area-submit">
@@ -440,7 +405,7 @@ $category_more = App\Models\Admin\Category::take(5)->get();
 									</div>
 
 									<div class="login__area-login">
-										<a class="login__area-sign" href="#"><img src="{{ asset('frontend/img/google1.png')}}" alt="">continue with google</a>
+										<a class="login__area-sign" href="{{ route('auth.google') }}"><img src="{{ asset('frontend/img/google1.png')}}" alt="">continue with google</a>
 									</div>
 
 								</form>

@@ -30,6 +30,7 @@ class PaypalController extends Controller
         session(['qty'            => $request->qty,
                  'price'          => $request->price,
                  'url'            => $request->product_url,
+                 'product_id'     => $request->product_id,
                  'product_name'   => $request->product_name,
                  'product_qty'    => $request->product_qty,
                  'unit_price'     => $request->unit_price,
@@ -42,6 +43,7 @@ class PaypalController extends Controller
                  'monthly_charge' => $request->monthly_charge,
                  'is_lifetime'    => $request->is_lifetime,
                  'expired'        => $request->expired,
+               
 
                 ]);
 
@@ -134,9 +136,12 @@ class PaypalController extends Controller
                     $orderDetails = New OrderDetails;
                     $orderDetails->order_id      = $order_id;
                     $orderDetails->product_name  = session('product_name')[$key];
+                    //  $orderDetails->product_id  = session('product_id')[$key];
                     $orderDetails->product_qty   = session('product_qty')[$key];
                     $orderDetails->unit_price    = session('unit_price')[$key];
                     $orderDetails->product_price = session('unit_price')[$key] * session('product_qty')[$key];
+
+                    //return response()->json($orderDetails);
                     $orderDetails->save();
 
                 }

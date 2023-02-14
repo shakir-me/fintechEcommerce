@@ -143,7 +143,7 @@
 							<p class="text mb-2 text-center">
 								{{ Str::limit($latest->product_short_desc, 100, '') }}
 							</p>
-							<div class="d-flex justify-content-between align-items-center mx-auto">
+							<div class="d-flex justify-content-between align-items-center">
 
 								<form  action="{{ route('add.cart') }}" method="post" class="d-flex w-full justify-content-center align-items-center mx-auto addCard">
 									@csrf
@@ -228,7 +228,7 @@
 							{{ Str::limit($product->product_short_desc, 100, '') }}
 						</p>
 						<div class="d-flex justify-content-between align-items-center">
-							<form action="{{ route('add.cart') }}" method="post" class="addCard">
+							<form action="{{ route('add.cart') }}" method="post" class="d-flex w-full justify-content-center align-items-center mx-auto addCard">
 								@csrf
 								<input type="hidden" name="product_id" value="{{ $product->id }}">
 								<input type="hidden" name="product_qty" value="1">
@@ -440,7 +440,7 @@
 		
 		<div class="custom__form">
 			<div class="row">
-				@if(Auth::check())
+				
 				<div class="col-lg-12">
 					<h3 class="custom__form-title">Software Request Form</h3>
 					<form action="{{ url('request-store') }}" method="post" enctype="multipart/form-data">
@@ -449,13 +449,13 @@
 							<div class="col-lg-6">
 								<div class="custom__form-field">
 									<label for="name">Name <span>*</span></label>
-									<input type="text" name="name" id="name" value="{{ Auth::user()->name }}">
+									<input type="text" name="name" id="name" >
 								</div>
 							</div>
 							<div class="col-lg-6">
 								<div class="custom__form-field">
 									<label for="name">Email  <span>*</span></label>
-									<input type="email" name="email" id="email" value="{{ Auth::user()->email }}">
+									<input type="email" name="email" id="email">
 								</div>
 							</div>
 						</div>
@@ -578,13 +578,7 @@
 						</div>
 					</form>
 				</div>
-				@else
-				<h3>Please Sing up and Request Product</h3>
-				<div class="custom__form-field">
-					<a href="{{ url('/register') }}" class="btn btn-primary">Sing Up</a>
-				</div>
 				
-				@endif
 			</div>
 		</div>
 	</div>

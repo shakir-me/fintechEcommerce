@@ -127,7 +127,7 @@
 						<h4 class="single__product-title2">Ask a Question!
 						</h4>
 						<form action="{{ route('add.cart') }}" method="post" class="addCard">
-							<input type="text" value="{{ $product->membership_id }}">
+				
 							@csrf
 							<div class="viewcontent__action single_action pt-30">
 								<p class="single__product-increment single__product-cart"><i class="bi bi-plus"></i><span class="qty">1</span><i class="bi bi-dash"></i></p>
@@ -339,7 +339,9 @@
 
 							<div class="items__bottom">
 								<p class="text mb-2 text-center">
-									{{ $r_product->product_short_desc }}
+									{{-- {{ $r_product->product_short_desc }} --}}
+
+									{{ Str::limit($r_product->product_short_desc, 100, '') }}
 								</p>
 							</a>
 								<div class="d-flex justify-content-between align-items-center">

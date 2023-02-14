@@ -72,7 +72,7 @@
 							</div>
 						</form>
 					</div>
-
+					@if(Auth::check())
 					@php
                     $userDetails= App\Models\User::where('email',Auth::user()->email)->first();
                     @endphp
@@ -88,6 +88,9 @@
                                         </div>
                                     </div>
                 @endif
+
+				@else
+				@endif
 
 
 				</div>

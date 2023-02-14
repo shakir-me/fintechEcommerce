@@ -12,6 +12,7 @@
 	</div>
 	<div class="hovercart-content">
 		<strong>{{ $row->name }}</strong>
+
 		<p>{{ $row->options->title }}</p>
 		<span>{{ $row->qty }} X ${{ $row->price }}</span>
 	</div>

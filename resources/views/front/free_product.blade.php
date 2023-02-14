@@ -94,20 +94,20 @@
 								<div class="price-list d-flex justify-content-center align-items-center gap-2 mb-1">
 
 									@if($freeProduct->discount_rate == 0.00)
-							        <p class="price">${{ $freeProduct->product_price }}</p>
+									<p class="price newprice">${{ $freeProduct->product_price }}</p>
 									@else
-									<span class="price newprice">${{ $freeProduct->discount_price }}</span> 
+									<p class="price newprice">${{ $freeProduct->discount_price }}</p>
 									@endif
 
 									@if($freeProduct->discount_rate == 0.00)
-										@else
-										<span class="price newprice">@if($freeProduct->discount_type == "Flat") $@endif{{ intval($freeProduct->discount_rate) }} @if($freeProduct->discount_type == "Percent") % @endif</span> 
-										
-										@endif
-										@if($freeProduct->discount_rate == 0.00)
-										@else
-										<span class="price">${{ $freeProduct->product_price }}</span> 
-										@endif
+									@else
+									<span class="discount">- @if($freeProduct->discount_type == "Flat") $@endif{{ intval($freeProduct->discount_rate) }} @if($freeProduct->discount_type == "Percent") % @endif</span>
+									@endif
+
+									@if($freeProduct->discount_rate == 0.00)
+									@else
+									<span class="price">${{ $freeProduct->product_price }}</span>
+									@endif
 								</div>
 	
 								<div class="items__bottom">
@@ -117,18 +117,26 @@
 									</p>
 									<div class="d-flex justify-content-between align-items-center">
 
-                                     <form class="text-center">
-										<button class="btn btn-cart" type="submit">Add to cart</button>
-									 </form>
-									
+										<form action="{{ route('add.cart') }}" method="post" class="d-flex justify-content-center align-items-center mx-auto addCard">
+											@csrf
+											<input type="hidden" name="product_id" value="{{ $freeProduct->id }}">
+											<input type="hidden" name="product_qty" value="1">
+											@if($freeProduct->discount_rate == 0.00 )
+											<input type="hidden" name="product_price" value="{{ $freeProduct->product_price }}">
+											@else
+											<input type="hidden" name="product_price" value="{{ $freeProduct->discount_price }}">
+											@endif
+											<button class="btn btn-cart" type="submit">Add to cart</button>
+										</form>
+										<button class="btn btn-wishlist addWishlist" data-id="{{ $freeProduct->id }}">
+											<i class="bi bi-heart"></i>
+										</button>
 									
 
 										
 
 
-										<button class="btn btn-wishlist" >hjgjh
-											<i class="bi bi-heart"></i>
-										</button>
+										
 									</div>
 								</div>
 							</div>

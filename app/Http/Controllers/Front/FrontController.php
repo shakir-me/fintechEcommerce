@@ -371,7 +371,8 @@ $products=$products->paginate(12);
      */
     public function customerRequest()
     {
-        return view('front.customer_request');
+        $requestProducts = RequestProduct::get();
+        return view('front.customer_request',compact('requestProducts'));
     }
 
     /**

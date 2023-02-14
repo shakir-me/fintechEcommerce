@@ -46,6 +46,7 @@
 									</div>
 									<div>
 										<span>{{ $row->name }}</span>
+										{{-- <strong>{{ $row->id }}</strong> --}}
 										<h5>{{ $row->options->title }}</h5>
 									</div>
 								</div>
@@ -136,6 +137,7 @@
 							<input type="hidden" name="product_name[]" value="{{ $row->name }}">
 							<input type="hidden" name="product_qty[]" value="{{ $row->qty }}">
 							<input type="hidden" name="unit_price[]" value="{{ $row->price }}">
+							<input type="hidden" name="product_id[]" value="{{ $row->id }}">
 							@endforeach
 
 							@else
@@ -147,7 +149,10 @@
 							<input type="hidden" name="product_name[]" value="{{ $row->name }}">
 							<input type="hidden" name="product_qty[]" value="{{ $row->qty }}">
 							<input type="hidden" name="unit_price[]" value="{{ $row->price }}">
+							<input type="hidden" name="product_id[]" value="{{ $row->id }}">
 							@endforeach
+
+							
 						
 						@endif
 						<button class="cart__area-coupon w-100 m-0" type="submit">product to checkout</button>

@@ -146,10 +146,8 @@
 										</p>
 									</a>
 										<div class="d-flex justify-content-between align-items-center">
-											<button class="btn btn-search">
-												<i class="bi bi-search"></i>
-											</button>
-											<form action="{{ route('add.cart') }}" method="post" class="addCard">
+											
+											<form action="{{ route('add.cart') }}" method="post" class="d-flex justify-content-center align-items-center mx-auto addCard">
 												@csrf
 												<input type="hidden" name="product_id" value="{{ $product->id }}">
 												<input type="hidden" name="product_qty" value="1">
@@ -160,9 +158,10 @@
 												@endif
 												<button class="btn btn-cart" type="submit">Add to cart</button>
 											</form>
-											<button class="btn btn-wishlist">
+											<button class="btn btn-wishlist addWishlist" data-id="{{ $product->id }}">
 												<i class="bi bi-heart"></i>
 											</button>
+										
 										</div>
 									</div>
 								</div>

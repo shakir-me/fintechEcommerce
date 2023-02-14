@@ -118,6 +118,9 @@
                                                 <td>{{ $item->product_qty }}</td>
                                                 <td>{{ $item->product_price }}</td>
                                                 <td>{{ $item->unit_price }}</td>
+
+
+                                            
                                                 <td>
 													{{  Carbon\Carbon::parse($item->created_at)->format('d F Y')  }}
 												</td>
@@ -128,7 +131,7 @@
 
 												
 												<td>
-													<a href="{{ url('user/review',$item->id) }}" class="btn btn-primary">Order Review</a>
+													<a href="{{ url('user/review',$item->id) }}" class="btn btn-primary">Review</a>
 												</td>
 											</tr>
 											@endforeach

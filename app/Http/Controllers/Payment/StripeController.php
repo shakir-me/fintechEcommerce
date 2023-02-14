@@ -113,6 +113,9 @@ class StripeController extends Controller
                     $orderDetails->product_qty = session('product_qty')[$key];
                     $orderDetails->unit_price = session('unit_price')[$key];
                     $orderDetails->product_price = session('unit_price')[$key] * session('product_qty')[$key];
+
+                    $orderDetails->product_id = session('product_id')[$key];
+                
                     $orderDetails->save();
 
                 }

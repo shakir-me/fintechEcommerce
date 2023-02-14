@@ -78,11 +78,11 @@
                     <form action="{{ route('login') }}" method="post">
                         @csrf
                         <div class="login__area-field">
-                            <input type="text" placeholder="Enter email" name="email" value="{{ old('email') }}">
+                            <input type="email" placeholder="Enter email" name="email" value="{{ old('email') }}">
                             <i class="bi bi-person login__area-icon"></i>
                         </div>
                         <div class="login__area-field">
-                            <input type="text" placeholder="password" name="password">
+                            <input type="password" placeholder="password" name="password">
                             <i class="bi bi-lock login__area-icon"></i>
                         </div>
 
@@ -117,11 +117,11 @@
                             <i class="bi bi-envelope login__area-icon"></i>
                         </div>
                         <div class="login__area-field">
-                            <input type="text" placeholder="Password" name="password" class="@error('password') is-invalid @enderror">
+                            <input type="password" placeholder="Password" name="password" class="@error('password') is-invalid @enderror">
                             <i class="bi bi-lock login__area-icon"></i>
                         </div>
                         <div class="login__area-field">
-                            <input type="text" placeholder="Confirm password" name="password_confirmation" autocomplete="new-password">
+                            <input type="password" placeholder="Confirm password" name="password_confirmation" autocomplete="new-password">
                             <i class="bi bi-lock login__area-icon"></i>
                         </div>
                         <div class="login__area-submit">
