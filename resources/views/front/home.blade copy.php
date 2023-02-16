@@ -7,12 +7,15 @@
 		<div class="header__wrapper row g-5 row-md-lg-2">
 			<div class="col-12 col-lg-8">
 				<div class="header__content">
-					@if(isset($homepages[0]['title']))
+				@if(isset($homepages[0]['title']))
+
 					<h1 class="heading mb-3">{{ $homepages[0]['title'] }}</h1>
 					<p class="text">
-						{{ $homepages[0]['details'] }}
+					{{ $homepages[0]['details'] }}
 					</p>
-              @endif
+					@endif
+
+
 					<form action="{{ route('product.search') }}" class="header__search d-flex align-items-center">
 						<label for="search">
 							<i class="bi bi-search"></i>
@@ -62,19 +65,16 @@
 <section class="section about-section">
 	<div class="container">
 		<h2 class="heading mb-5 text-center d-none d-lg-block">
-			@if(isset($homepages[1]['title']))
-			{{ $homepages[1]['title'] }} <br />
-			{{ $homepages[1]['details'] }}
-
-			@endif
+		@if(isset($homepages[1]['title']))
+		{{ $homepages[0]['title'] }} <br />
+		{{ $homepages[0]['details'] }}
+		
 		</h2>
 		<h2 class="heading mb-5 text-center d-lg-none">
-			@if(isset($homepages[1]['title']))
-			{{ $homepages[1]['title'] }} 
-			{{ $homepages[1]['details'] }}
-
+		@if(isset($homepages[1]['title']))
+		{{ $homepages[1]['title'] }}
+		{{ $homepages[1]['details'] }}
 			@endif
-		
 
 		</h2>
 		<div class="about row g-5">
@@ -102,11 +102,10 @@
 <!-- latest items -->
 <section class="section items-section">
 	<div class="container">
-		@if(isset($homepages[2]['title']))
-		<h2 class="heading text-center">{{ $homepages[2]['title'] }} </h2>
-		<p class="text mb-4 text-center">	{{ $homepages[2]['details'] }}</p>
-     @endif
-
+	@if(isset($homepages[2]['title']))
+		<h2 class="heading text-center">{{ $homepages[2]['title'] }}</h2>
+		<p class="text mb-4 text-center">{{ $homepages[2]['details'] }}</p>
+@endif
 		<div class="items row g-4 mb-4">
 		
 			
@@ -186,10 +185,10 @@
 <!-- latest items -->
 <section class="section items-section free-items">
 	<div class="container">
-		@if(isset($homepages[3]['title']))
+	@if(isset($homepages[3]['title']))
 		<h2 class="heading text-center">{{ $homepages[3]['title'] }}</h2>
 		<h3 class="heading mb-4 text-center">
-			{!! $homepages[3]['details'] !!}
+		{{ $homepages[3]['details'] }}
 		</h3>
 		@endif
 
@@ -263,11 +262,10 @@
 <!-- membership section -->
 <section class="section membership-section">
 	<div class="container">
-		@if(isset($homepages[4]['title']))
-		<h2 class="heading center mb-1 text-center">{{ $homepages[4]['title'] }}</h2>
-		<p class="text mb-4 text-center">{!! $homepages[4]['details'] !!}</p>
-
-		@endif
+		<h2 class="heading center mb-1 text-center">Fintech Membership</h2>
+		<p class="text mb-4 text-center">
+			Enjoy millions of expert advisors, indicators & more with Fintech
+		</p>
 
 		<div class="membership row g-5">
 			@foreach ($memberships  as $key=> $member)
@@ -432,12 +430,11 @@
 <!-- request section -->
 <section class="section request-sction">
 	<div class="container">
-		@if(isset($homepages[5]['title']))
-		<h2 class="heading mb-2 text-center">{{ $homepages[5]['title'] }}</h2>
+		<h2 class="heading mb-2 text-center">Request for any custom trading software</h2>
 		<p class="text mb-4 text-center">
-			{!! $homepages[5]['details'] !!}
+			If you would like to enquire about the availability of any trading software, strategy or
+			system, simply let us know!
 		</p>
-		@endif
 
 		
 		<div class="custom__form">
@@ -619,7 +616,12 @@
 				</div>
 
 				<!-- If we need navigation buttons -->
-				
+				<div class="swiper-button-prev">
+					<i class="bi bi-chevron-left"></i>
+				</div>
+				<div class="swiper-button-next">
+					<i class="bi bi-chevron-right"></i>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -627,6 +629,54 @@
 
 @push('js')
 
+          <script>
+		
+	
+			$('.addCard').on('submit', function(e) {
+			    e.preventDefault();
+			    $('.loading').removeClass('d-none');
+			    var url = $(this).attr('action');
+			    var request = $(this).serialize();
+			    $.ajax({
+			        url: url,
+			        type: 'post',
+			        data: new FormData(this),
+			        contentType: false,
+			        cache: false,
+			        processData: false,
+						success:function(data){
+							toastr.options = {
+							  "closeButton": true,
+							  "progressBar": true,
+							}
+							toastr.success(data);
+
+							 $.ajax({
+							   type: "GET",
+							   url: "cart/show",
+							   success: function (data) {
+							      $('.cart_list_popup').html(data)	
+							   },
+							});
+							
+							 $.ajax({
+							   type: "GET",
+							   url: "cart/count",
+							   success: function (data) {
+							      $('.cart-count').text(data)	
+							   },
+							});
+						},
+					});
+				});
+
+			
+			
+
+		
+	
+		  </script>
+  
 @endpush
 
 @endsection

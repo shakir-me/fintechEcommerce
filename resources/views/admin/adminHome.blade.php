@@ -1,6 +1,14 @@
 @extends('layouts.app')
   
 @section('admin_content')
+@php
+    $order = App\Models\Admin\Order::all();
+    $product = App\Models\Admin\Product::all();
+    $orders = App\Models\Admin\Order::latest()->limit(10)->get();
+    $product_price = App\Models\Admin\Product::sum('product_price');
+    $buying_price = App\Models\Admin\Product::sum('buying_price');
+    $order_payment = App\Models\Admin\Order::sum('total_price');
+@endphp
 <!--wrapper-->
 <div class="wrapper">
     <!--sidebar wrapper -->
@@ -14,19 +22,33 @@
                             <div class="d-flex align-items-center">
                                 <div>
                                     <p class="mb-0 text-secondary">Total Order</p>
-                                    <h4 class="my-1">$4805</h4>
+                                    <h4 class="my-1">no{{count($order)}}</h4>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="col">
+                    <div class="card radius-10">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div>
+                                    <p class="mb-0 text-secondary">Total Order Price</p>
+                                    <h4 class="my-1">$ {{  $order_payment  }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col">
                     <div class="card radius-10">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div>
                                     <p class="mb-0 text-secondary">Total Product</p>
-                                    <h4 class="my-1">$4805</h4>
+                                    <h4 class="my-1">no:{{  count($product)  }}</h4>
                                 </div>
                             </div>
                         </div>
@@ -37,8 +59,21 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div>
-                                    <p class="mb-0 text-secondary">This Month Sell Product</p>
-                                    <h4 class="my-1">$4805</h4>
+                                    <p class="mb-0 text-secondary">Total  Product  Price</p>
+                                    <h4 class="my-1">${{ $product_price }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card radius-10">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div>
+                                    <p class="mb-0 text-secondary">Total  Product Buying  Price</p>
+                                    <h4 class="my-1">${{ $buying_price }}</h4>
                                 </div>
                             </div>
                         </div>
@@ -74,7 +109,7 @@
                             <div class="d-flex align-items-center">
                                 <div>
                                     <p class="mb-0 text-secondary">This Month Earning</p>
-                                    <h4 class="my-1">$4805</h4>
+                                    <h4 class="my-1">$4867</h4>
                                 </div>
                             </div>
                         </div>
@@ -87,7 +122,7 @@
                             <div class="d-flex align-items-center">
                                 <div>
                                     <p class="mb-0 text-secondary">This Year Earning</p>
-                                    <h4 class="my-1">$4805</h4>
+                                    <h4 class="my-1">$40</h4>
                                 </div>
                             </div>
                         </div>
@@ -120,43 +155,35 @@
                         <table class="table align-middle mb-0">
                             <thead class="table-light">
                                 <tr>
-                                    <th>Order No</th>
-                                    <th>User Name</th>
-                                    <th>Total Quantity</th>
+                                    <th>User  Name</th>
+                                    <th>Order NO</th>
+                                    <th>Total Qty</th>
                                     <th>Total Price</th>
-                                    <th>Coupon Amount</th>
-                                    <th>Payment Status</th>
-                                    <th>Payment Method</th>
-                                    <th>Coupon</th>
-                                    <th>Action</th>
+                                    <th>Payment Method </th>
+                                    <th>Refund </th>
+                                    <th>Coupon Amount </th>
+                                    <th>Coupon Name</th>
+								   <th width="15%">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>#897656</td>
+                                @foreach ($orders as  $order)
                                     
-                                    <td>Brooklyn Zeo</td>
-                                    <td>3</td>
-                                    <td>$64.00</td>
-                                    <td>
-                                      100
-                                    </td>
-
-                                    <td>
-                                        Pending
-                                      </td>
-
-                                      <td>
-                                        Paypal
-                                      </td>
-
-                                      <td>
-                                        Coupon
-                                      </td>
-                                    <td>
-                                        <a href="" class="btn btn-primary">view</a>
-                                    </td>
+                             
+                                <tr>
+                                <td>{{ $order->user->name  }}</td>
+                                <td>{{ $order->order_no  }}</td>
+                                <td>{{ $order->total_qty  }}</td>
+                                <td>{{ $order->total_price  }}</td>
+                                <td>{{ $order->payment_method  }}</td>
+                                <td>{{ $order->refund  }}</td>
+                                <td>{{ $order->coupon_amount  }}</td>
+                                <td>{{ $order->coupon  }}</td>
+                               <td>
+                                <a href="{{ url('admin/order/view',$order->id) }}" class="btn btn-primary">Order View</a>
+                               </td>
                                 </tr>
+                                @endforeach
                       
                     
                               

@@ -144,6 +144,14 @@
                     </li>
                     <li> <a href="{{ route('website.setting') }}"><i class="bx bx-right-arrow-alt"></i>Web Setting</a>
                     </li>
+
+                    <li> <a href="{{ route('index.homepage') }}"><i class="bx bx-right-arrow-alt"></i>Home Page</a>
+                    </li>
+
+                    <li> <a href="{{ route('index.market') }}"><i class="bx bx-right-arrow-alt"></i>Market Place</a>
+                    </li>
+
+                   
                 </ul>
             </li>
             {{-- <li>

@@ -24,6 +24,8 @@ use App\Http\Controllers\Admin\ItWorkController;
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductRequestController;
+use App\Http\Controllers\Admin\MarketController;
+use App\Http\Controllers\Admin\HomePageController;
 use App\Http\Controllers\Admin\RequestProductController as ReqProductController;
 
 //----Front-----
@@ -354,6 +356,28 @@ Route::prefix('admin')->middleware(['auth', 'user-access:admin'])->group(functio
         Route::post('update/{id}',[ProductRequestController::class, 'update'])->name('update.productrequest');
         Route::delete('delete/{id}',[ProductRequestController::class, 'destroy'])->name('delete.productrequest');
     });
+
+      //----market Route----//
+      Route::group(['prefix' => 'market'], function () {
+        Route::get('/',[MarketController::class, 'index'])->name('index.market');
+        Route::get('add',[MarketController::class, 'add'])->name('add.market');
+        Route::post('store',[MarketController::class, 'store'])->name('store.market');
+        Route::get('edit/{id}',[MarketController::class, 'edit'])->name('edit.market');
+        Route::post('update/{id}',[MarketController::class, 'update'])->name('update.market');
+        Route::get('delete/{id}',[MarketController::class, 'delete'])->name('delete.market');
+    });
+
+    //router homepage
+
+    Route::group(['prefix' => 'homepage'], function () {
+        Route::get('/',[HomePageController::class, 'index'])->name('index.homepage');
+        Route::get('add',[HomePageController::class, 'add'])->name('add.homepage');
+        Route::post('store',[HomePageController::class, 'store'])->name('store.homepage');
+        Route::get('edit/{id}',[HomePageController::class, 'edit'])->name('edit.homepage');
+        Route::post('update/{id}',[HomePageController::class, 'update'])->name('update.homepage');
+        Route::get('delete/{id}',[HomePageController::class, 'delete'])->name('delete.homepage');
+    });
+
 
 
 

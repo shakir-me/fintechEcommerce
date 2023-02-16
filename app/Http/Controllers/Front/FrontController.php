@@ -17,6 +17,8 @@ use App\Models\Admin\Page;
 use App\Models\Admin\Subscriber;
 use App\Models\User\RequestProduct;
 use App\Models\RequestBooking;
+use App\Models\MarketPlace;
+use App\Models\HomePage;
 use Auth;
 use DB;
 use Image;
@@ -29,14 +31,20 @@ class FrontController extends Controller
      */
     public function index()
     {   
+
+      
+    //    return response()->json($users);
         $testimonial = Testimonial::all();
         $freeProducts = Product::where('is_free',1)->take(4)->latest()->get();
         $latestProducts = Product::take(8)->latest()->get();
         $memberships = Membership::get();
         $requestProducts = RequestProduct::get();
         $categories = Category::get();
-        //return response()->json($requestProducts);
-        return view('front.home',compact('testimonial','freeProducts','latestProducts','memberships','requestProducts','categories'));
+        $marketPlaces = MarketPlace::get();
+        $homepages = HomePage::get()->toArray();
+       //return response()->json($homepages);
+       
+        return view('front.home',compact('testimonial','freeProducts','latestProducts','memberships','requestProducts','categories','marketPlaces','homepages'));
     }
 
     /**
@@ -442,7 +450,9 @@ $products=$products->paginate(12);
 
         $about=DB::table('abouts')->first();
         $Products = Product::take(8)->latest()->get();
-        return view('front.about',compact('about','Products')); 
+
+        $homepages = HomePage::get()->toArray();
+        return view('front.about',compact('about','Products','homepages')); 
     }
 
     public function HowToWork()
@@ -523,6 +533,8 @@ $products=$products->paginate(12);
         ->orWhere('product_price', 'like', '%'.$search.'%')
         ->orderBy('id', 'desc')
         ->paginate(12);
+
+        
         $members = Membership::all();
 
 

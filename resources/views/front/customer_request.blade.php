@@ -4,7 +4,7 @@
 @push('css')
 @endpush
 
-@if(Auth::check())
+
 <section class="custom__area">
 	<div class="container">
 		<div class="row g-0">
@@ -220,9 +220,7 @@
 		</div>
 	</div>
 </section>
-@else
-  <h3 align:center>Register first</h3>
-@endif
+
 
 <!-- footer -->
 

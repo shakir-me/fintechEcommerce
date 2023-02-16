@@ -8,10 +8,10 @@
 
 	<!-- breadcrumb  -->
 	<div class="bredcrumb">
-		<h2 class="bredcrumb__title">@if($category_id) {{ $category_id->category_slug }} Product @else Shop Page @endif</h2>
+		<h2 class="bredcrumb__title">@if($category_id) {{ $category_id->category_slug }} Product @else Search Page @endif</h2>
 		<ul class="bredcrumb__items">
 			<li>Home <i class="bi bi-chevron-right"></i></li>
-			<li>@if($category_id) {{ $category_id->category_name }} @else Shop Page @endif</li>
+			<li>@if($category_id) {{ $category_id->category_name }} @else Search  Page @endif</li>
 			@if($subcategory_id)
 			<li> <i class="bi bi-chevron-right"></i></li> {{ $subcategory_id->subcategory_name }}</li>
 			@endif
@@ -24,6 +24,7 @@
 			<div class="shop">
 				<div class="categories">
 					<button class="btn-close-categories"><i class="bi bi-x"></i></button>
+
 					<div class="categories__item mb-2">
 						<h4 class="heading mb-2">Product categories</h4>
 						<ul class="categories__list">
@@ -87,38 +88,13 @@
 						<button class="btn-category">
 							<svg class="icon"><use xlink:href="{{ asset('frontend/') }}/img/icons.svg#icon-bars"></use></svg>
 						</button>
-						<p class="text text-center">Showing 1-9 of 32 results</p>
+						{{-- <p class="text text-center">Showing 1-9 of 32 results</p> --}}
 					</div>
 					<div class="items row g-5 mb-4">
 						@if($products->count() > 0)
 						@foreach($products as $product)
 
-						{{-- <div class="col-12 col-sm-6 col-lg-4">
-							<a href="single.html">
-								<div class="items__item">
-								<img src="{{ asset('frontend/img/items-img-1.png')}}" alt="" class="items__img" />
-								<h5 class="heading name">Microsoft Office</h5>
-								<h5 class="heading title">Operating Systems & Mac Software</h5>
-								<div class="price-list d-flex justify-content-center align-items-center gap-2 mb-1">
-									<p class="price">$35.00</p>
-									<span class="price newprice">$30.00</span>
-								</div>
-			
-								<div class="items__bottom">
-									<p class="text mb-2 text-center">
-										Lorem ipsum dolor sit amet consectetur. Sollicitudin maecenas vehicula neque
-										eget ut fringilla.
-									</p>
-									<div class="d-flex justify-content-between align-items-center">
-										<button class="btn btn-cart">Add to cart</button>
-										<button class="btn btn-wishlist">
-											<i class="bi bi-heart"></i>
-										</button>
-									</div>
-								</div>
-							</div>
-							</a>
-						</div> --}}
+					
 							<div class="col-12 col-sm-6 col-xl-4 col-xxl-3">
 								<a href="{{ URL::to('product/details/'.$product->product_slug) }}">
 								<div class="items__item">
@@ -152,7 +128,7 @@
 											<button class="btn btn-search">
 												<i class="bi bi-search"></i>
 											</button>
-											<form action="{{ route('add.cart') }}" method="post" class="addCard">
+											<form action="{{ route('add.cart') }}" method="post" class="d-flex justify-content-center align-items-center mx-auto addCard">
 												@csrf
 												<input type="hidden" name="product_id" value="{{ $product->id }}">
 												<input type="hidden" name="product_qty" value="1">
@@ -187,7 +163,7 @@
 
 				
 
-				{{-- {{ $products->links() }} --}}
+				{{ $products->links() }}
 
 				{{-- <button class="btn btn-page active">1</button>
 				<button class="btn btn-page">2</button>
@@ -214,5 +190,15 @@
 	   	});
 	});
 </script>
+
+<script>
+	$(document).ready(function()  {
+	
+	
+		$("#sort").on("change",function(){
+			this.form.submit();
+		});
+	});
+	</script>
 @endpush
 @endsection

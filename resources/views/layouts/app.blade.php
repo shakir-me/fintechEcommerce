@@ -138,6 +138,15 @@
            });
    </script>
 
+   <script>
+    $(document).ready(function() {
+    $('#summernote, #summernote').summernote({
+        height: 280, 
+    });
+  });
+</script>
+  
+
     @stack('js')
 </body>
 

@@ -39,7 +39,7 @@ $payments = App\Models\User\Recharge::where('user_id',Auth::id())->sum('amount')
 
 	</head>
 	<body>
-		<main class="main">
+		<main style="overflow: hidden" class="main">
 			<nav class="nav">
 				<div class="main-nav">
 					<div class="container">
@@ -305,25 +305,11 @@ $category_more = App\Models\Admin\Category::take(5)->get();
 									<li class="item">
 										<a href="{{ url('/privacy-policy') }}" class="link">Privacy policy</a>
 									</li>
-									<li class="item">
-										<a href="#" class="link">Status</a>
-									</li>
+								
 								</ul>
 							</div>
 						</div>
-						<!-- <div class="col-12 col-sm-12 col-lg-3">
-							<div class="footer__item company">
-								<h3 class="heading mb-2">Stay up to date</h3>
-								<p class="text mb-3">
-									The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for
-									those interested
-								</p>
-								<div class="footer__btns d-flex align-items-center gap-2">
-									<a href="#" class="btn btn-docs">View Docs</a>
-									<a href="#" class="btn btn-api">API Docs</a>
-								</div>
-							</div>
-						</div> -->
+						
 					</div>
 				</div>
 			</footer>
@@ -572,7 +558,7 @@ $category_more = App\Models\Admin\Category::take(5)->get();
 			   	});
 			});
 		</script>
-		{{-- <script>
+		<script>
 			$(document).ready(function show(){
 				 $.ajax({
 				   type: "GET",
@@ -582,7 +568,7 @@ $category_more = App\Models\Admin\Category::take(5)->get();
 				   },
 				});
 			})
-		</script> --}}
+		</script>
 
 		<script>
 			$(document).ready(function(){

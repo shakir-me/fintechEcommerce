@@ -190,7 +190,7 @@
 </div>
 
 <!-- footer -->
-@include('front.partial.footer_section')
+
 
 @push('js')
 <script>

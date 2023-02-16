@@ -46,28 +46,37 @@
                     <img src="{{ asset('frontend/img/ab1.png')}}" alt="ab1">
                 </div>
                 <div class="about__features-content">
-                    <h4 class="about__features-title">Increased Revenue Stream</h4>
-                    <p class="about__features-dis">We’ll reimburse the cost of any lost MonkProtected orders.</p>
+                    @if(isset($homepages[6]['title']))
+                    <h4 class="about__features-title">{{ $homepages[6]['title'] }}</h4>
+                    <p class="about__features-dis">	{!! $homepages[6]['details'] !!}.</p>
+                    @endif
                 </div>
             </div>
+
             <div class="about__features-item">
                 <div class="about__features-thumb">
                     <img src="{{ asset('frontend/img/ab2.png')}}" alt="ab1">
                 </div>
                 <div class="about__features-content">
-                    <h4 class="about__features-title">Increased Revenue Stream</h4>
-                    <p class="about__features-dis">We’ll reimburse the cost of any lost MonkProtected orders.</p>
+                    @if(isset($homepages[7]['title']))
+                    <h4 class="about__features-title">{{ $homepages[7]['title'] }}</h4>
+                    <p class="about__features-dis">{!! $homepages[7]['details'] !!}.</p>
+                    @endif
                 </div>
             </div>
+
             <div class="about__features-item">
                 <div class="about__features-thumb">
                     <img src="{{ asset('frontend/img/ab3.png')}}" alt="ab1">
                 </div>
                 <div class="about__features-content">
-                    <h4 class="about__features-title">Higher Customer Retention</h4>
-                    <p class="about__features-dis">We’ll reimburse the cost of any lost MonkProtected orders.</p>
+                    @if(isset($homepages[8]['title']))
+                    <h4 class="about__features-title">{{ $homepages[8]['title'] }}</h4>
+                    <p class="about__features-dis">{!! $homepages[8]['details'] !!}.</p>
+                    @endif
                 </div>
             </div>
+
         </div>
     </div>
 </div>
@@ -77,22 +86,26 @@
     <div class="container">
         <div class="about__have-section">
             <span class="about__store-subtitle">WE HAVE GOT</span>
-            <h2 class="about__store-title">Everything you need to automate
-                your trading</h2>
+            @if(isset($homepages[9]['title']))
+            <h2 class="about__store-title">{{ $homepages[9]['title'] }}</h2>
+                @endif
         </div>
         <div class="row">
             <div class="col-lg-6">
+                @if(isset($homepages[10]['title']))
                 <div class="about__have-item">
-                    <span class="about__have-title">Become a perfect trader</span>
-                    <p class="about__have-dis">Lorem ipsum dolor sit amet consectetur. Sit nunc id mauris nibh bibendum tellus nec sit. Orci proin dolor ipsum mi et sit condimentum pulvinar. Purus facilisis eget sed dictum donec commodo. Enim pellentesque ac eget tristique. Aliquet mattis aliquam id aliquet. Iaculis nunc nisi mus egestas euismod at.</p>
-                    <a href="#" class="about__have-btn">FIND THE RIGHT PRODUCT FOR YOU <i class="bi bi-arrow-right"></i></a>
+                    <span class="about__have-title">{{ $homepages[10]['title'] }}</span>
+                    <p class="about__have-dis">{!! $homepages[10]['details'] !!}.</p>
+                    {{-- <a href="#" class="about__have-btn">FIND THE RIGHT PRODUCT FOR YOU <i class="bi bi-arrow-right"></i></a> --}}
                 </div>
+                @endif
             </div>
             <div class="col-lg-6">
                 <div class="about__have-item">
-                    <span class="about__have-title">Get legitimate softwares</span>
-                    <p class="about__have-dis">Lorem ipsum dolor sit amet consectetur. Sit nunc id mauris nibh bibendum tellus nec sit. Orci proin dolor ipsum mi et sit condimentum pulvinar. Purus facilisis eget sed dictum donec commodo. Enim pellentesque ac eget tristique. Aliquet mattis aliquam id aliquet. Iaculis nunc nisi mus egestas euismod at.</p>
-                    <a href="#" class="about__have-btn">GET STARTED <i class="bi bi-arrow-right"></i></a>
+                    @if(isset($homepages[11]['title']))
+                    <span class="about__have-title">{{ $homepages[11]['title'] }}</span>
+                    <p class="about__have-dis">{!! $homepages[11]['details'] !!}.</p>
+                    @endif
                 </div>
             </div>
         </div>
@@ -103,9 +116,11 @@
 <div class="about__have">
     <div class="container">
         <div class="about__have-section">
-            <span class="about__store-subtitle">SOFTWARE'S COMPACTIBILITY</span>
-            <h2 class="about__store-title">Our Software's Work on</h2>
-            <p>Lorem ipsum dolor sit amet consectetur. Sem turpis rhoncus non sagittis. Suscipit.</p>
+            @if(isset($homepages[12]['title']))
+            <span class="about__store-subtitle">{{ $homepages[12]['title'] }}</span>
+            <h2 class="about__store-title">{!! $homepages[12]['details'] !!}</h2>
+            @endif
+           
         </div>
         <div class="row">
             <section class="section items-section free-items">
@@ -148,10 +163,21 @@
                                         {{ Str::limit($product->product_short_desc, 100, '') }} 
                                     </p>
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <button class="btn btn-cart">Add to cart</button>
-                                        <button class="btn btn-wishlist">
-                                            <i class="bi bi-heart"></i>
-                                        </button>
+                                        <form action="{{ route('add.cart') }}" method="post" class="d-flex w-full justify-content-center align-items-center mx-auto addCard">
+                                            @csrf
+                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                            <input type="hidden" name="product_qty" value="1">
+                                            @if($product->discount_rate == 0.00 )
+                                            <input type="hidden" name="product_price" value="{{ $product->product_price }}">
+                                            @else
+                                            <input type="hidden" name="product_price" value="{{ $product->discount_price }}">
+                                            @endif
+                                            <button class="btn btn-cart" type="submit">Add to cart</button>
+                                        </form>
+                                        
+							<button class="btn btn-wishlist addWishlist" data-id="{{ $product->id }}">
+								<i class="bi bi-heart"></i>
+							</button>
                                     </div>
                                 </div>
                             </div>
@@ -176,8 +202,11 @@
 
 <div class="about__newsletter">
     <div class="about__newsletter-wrapper">
-        <span class="about__newsletter-title">Join With Us!</span>
-        <p class="about__newsletter-dis">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet, lacus, sit sollicitudin nullam vitae. Tortor, in enim</p>
+        @if(isset($homepages[13]['title']))
+        <span class="about__newsletter-title">{{ $homepages[13]['title'] }}!</span>
+        <p class="about__newsletter-dis">{!! $homepages[13]['details'] !!}</p>
+       @endif
+       <br>
         <form action="{{url('subscriber/store')}}" method="post">
             @csrf
             <input type="email" placeholder="Email address" name="email" required>

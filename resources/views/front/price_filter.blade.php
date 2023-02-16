@@ -106,7 +106,7 @@
 						<button class="btn-category">
 							<svg class="icon"><use xlink:href="{{ asset('frontend/') }}/img/icons.svg#icon-bars"></use></svg>
 						</button>
-						<p class="text text-center">Showing 1-9 of 32 results</p>
+				
 					</div>
 					<div class="items row g-5 mb-4">
 						@if($products->count() > 0)
@@ -192,7 +192,7 @@
 </div>
 
 <!-- footer -->
-@include('front.partial.footer_section')
+
 
 @push('js')
 {{-- <script>
