@@ -202,7 +202,7 @@ Route::prefix('user')->middleware(['auth', 'user-access:user','verified'])->grou
 
 
 
-    Route::post('bitcoin/payment', [CryptoController::class, 'CoinGate'])->name('bitcoin.payment');
+    Route::get('bitcoin/payment', [CryptoController::class, 'CoinGate'])->name('bitcoin.payment');
     Route::post('bitcoin/callback', [CryptoController::class, 'callback'])->name('bitcoin.callback');
 
 

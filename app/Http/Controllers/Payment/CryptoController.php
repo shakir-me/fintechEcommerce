@@ -24,66 +24,11 @@ use Helper;
 class CryptoController extends Controller
 {
 
+    public function CoinGate()
+     {
+         echo"Paypal er Moto Korte hobe";
+    }
 
-
-    public function CoinGate() {
-        //your app_id
-        $app_id = "315";
-        //your app_key
-        $api_key = "2kxwMRvcepQW9bnsjSgGqP";
-        //your api_secret
-        $api_secret = "EmHW0Dt8sdpOTq9jxN4aJBlFVfGeK6iC";
-        //currency you want to pay
-        $currency = "eur";
-        //currency you want to receive
-        $receive_currency = "eur";
-        //randomly generated token to secure the form
-        $token = hash('sha512', 'coingate'.rand());
-
-        $order_no = 'coingate'.rand();
-
-        $o = Order::create([
-
-        'user_id'   => auth()->id(),
-        'order_no' => $order_no,
-        // 'token' => $token,
-        'total_price' => request('total'),
-        'status' => 'unpaid'
-
-        ]);
-
-        //Post parameters , which are send to CoinGate
-
-      $post_params = array(
-        'order_id'          =>  $o->id,
-        // 'token'             =>  $token,
-        'price'             =>  request('total'),
-        'currency'          =>  $currency,
-        'receive_currency'  =>  $receive_currency,
-        'callback_url'      => 'http://localhost:8000/user/checkout?token='.$token,
-        'cancel_url'        => 'http://localhost:8000',
-        'success_url'       => 'http://localhost:8000/user/home',
-       );
-
-       //Package -> coingate-php
-
-        $order =Order::create($post_params, array(),array(
-        'environment' => 'sandbox',
-        'app_id' => $app_id,
-        'api_key' => $api_key,
-        'api_secret' => $api_secret));
-
-        Session::forget('cart');
-
-        if ($order) {
-            echo $order->status;
-            return redirect($order->payment_url);
-        } else {
-            print_r($order);
-        }
-
-
-      }
 
 
     public function callback(Request $request)
