@@ -24,20 +24,23 @@ class HomeController extends Controller
     public function index()
     {
 
-       
-        //  $products=Product::pluck("membership_id");
+
+        //   $products=Product::pluck("membership_id");
         //  return response()->json($products);
         $products = Product::whereIn('membership_id', [1,2,3,4,5,6])
         ->get();
-      
 
-        //return response()->json($products);
+
+        // $products =Product::whereJsonContains('membership_id', json_decode($products->membership_id))->where('id', '!=', $products->id)->get();
+
+
+       // return response()->json($products);
         return view('user.home',compact('products'));
     }
 
     public function RequestBook(Request $request)
     {
-        
+
     }
 
     /**

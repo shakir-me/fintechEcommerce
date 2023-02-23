@@ -4,12 +4,13 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Mail\ProductEmail;
 use App\Models\User;
 use App\Models\User\Subscription;
 use App\Models\Admin\Order;
 use App\Models\Admin\OrderDetails;
-use Auth;
+
 use Cart;
 use Session;
 use Mail;
@@ -23,7 +24,7 @@ class CheckoutController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {   
+    {
         $data = $request->all();
         return view('user.checkout',compact('data'));
         // dd($request->all());
@@ -36,15 +37,18 @@ class CheckoutController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {
        if($request->payment_method){
         if($request->payment_method == 1){
-            
+
            $balance = Auth::user()->balance;
            $user_id = Auth::id();
            if($balance >= $request->price){
 
             $order = new Order();
+            $order->name = $request->name;
+            $order->email = $request->email;
+            $order->subscribe_id = $request->subscribe_id;
             $order->user_id = Auth::id();
             $order->order_no = $request->order_no;
             $order->total_qty = Cart::count();
@@ -65,7 +69,7 @@ class CheckoutController extends Controller
                 $orderDetails->product_qty = $request->product_qty[$key];
                 $orderDetails->unit_price = $request->unit_price[$key];
                 $orderDetails->product_price = $request->unit_price[$key] * $request->product_qty[$key];
-              
+
                 $orderDetails->save();
 
             }
@@ -102,7 +106,10 @@ class CheckoutController extends Controller
             $type = 'payment';
             return view('payment.stripe',compact('data','type'));
         }elseif($request->payment_method == 4){
-            echo "Bitcoin";
+            $data = $request->all();
+            $type = 'payment';
+            // return response()->json($data);
+            return view('payment.bitcoin',compact('data','type'));
         }
        }else{
         $notification = array(
@@ -120,7 +127,7 @@ class CheckoutController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function subscriptionIndex(Request $request)
-    {   
+    {
         $data = $request->all();
         return view('user.subscription',compact('data'));
 
@@ -134,10 +141,10 @@ class CheckoutController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function subscriptionStore(Request $request)
-    {   
+    {
        if($request->payment_method){
         if($request->payment_method == 1){
-            
+
            $balance = Auth::user()->balance;
            $user_id = Auth::id();
 
@@ -219,7 +226,9 @@ class CheckoutController extends Controller
             $type = 'subscribe';
             return view('payment.stripe',compact('data','type'));
         }elseif($request->payment_method == 4){
-            echo "Bitcoin";
+            $data = $request->all();
+            $type = 'bitcoin';
+            return view('payment.bitcoin',compact('data','type'));
         }
        }else{
         $notification = array(

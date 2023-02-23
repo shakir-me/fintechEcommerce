@@ -1,3 +1,6 @@
+@php
+    $setting=DB::table('web_sites')->first();
+@endphp
 @extends('layouts.front')
 
 @section('front_content')
@@ -7,24 +10,24 @@
 		<div class="header__wrapper row g-5 row-md-lg-2">
 			<div class="col-12 col-lg-8">
 				<div class="header__content">
-					@if(isset($homepages[0]['title']))
-					<h1 class="heading mb-3">{{ $homepages[0]['title'] }}</h1>
+
+					<h1 class="heading mb-3">{{ $setting->title }}</h1>
 					<p class="text">
-						{{ $homepages[0]['details'] }}
+						{{ $setting->details }}
 					</p>
-              @endif
+
 					<form action="{{ route('product.search') }}" class="header__search d-flex align-items-center">
 						<label for="search">
 							<i class="bi bi-search"></i>
 						</label>
 						<input type="text" name="search" id="search" class="w-100" placeholder="Search here..." />
-			
-				
-		
+
+
+
 						<select name="category_id" >
 							@foreach ($categories as $category)
 							<option value="{{ $category->category_name }}">{{ $category->category_name }}</option>
-							@endforeach		
+							@endforeach
 						</select>
 					</form>
 				</div>
@@ -35,7 +38,7 @@
 							@if(Auth::check())
 							<a href="{{ url('user/home') }}">
 								<div class="loader">
-					
+
 								</div>
 								<div class="text">
 									<p class="hero-dis">Personal Fintech Account</p>
@@ -44,7 +47,7 @@
 							@else
 							<a href="javascript:void(0)" class="login">
 								<div class="loader">
-					
+
 								</div>
 								<div class="text">
 									<p class="hero-dis">Personal Fintech Account</p>
@@ -53,7 +56,7 @@
 							@endif
 						</div>
 					</div>
-				</div> 
+				</div>
 			</div>
 		</div>
 	</div>
@@ -62,21 +65,12 @@
 <section class="section about-section">
 	<div class="container">
 		<h2 class="heading mb-5 text-center d-none d-lg-block">
-			@if(isset($homepages[1]['title']))
-			{{ $homepages[1]['title'] }} <br />
-			{{ $homepages[1]['details'] }}
 
-			@endif
-		</h2>
-		<h2 class="heading mb-5 text-center d-lg-none">
-			@if(isset($homepages[1]['title']))
-			{{ $homepages[1]['title'] }} 
-			{{ $homepages[1]['details'] }}
-
-			@endif
-		
+			{{ $setting->market_title }} <br />
+            {{ $setting->market_details }}
 
 		</h2>
+
 		<div class="about row g-5">
 			@foreach ($marketPlaces as $marketPlace)
 			<div class="col-12 col-sm-6 col-lg-4">
@@ -89,11 +83,11 @@
 				</div>
 			</div>
 			@endforeach
-			
-		
-			
-		
-			
+
+
+
+
+
 
 		</div>
 	</div>
@@ -102,14 +96,13 @@
 <!-- latest items -->
 <section class="section items-section">
 	<div class="container">
-		@if(isset($homepages[2]['title']))
-		<h2 class="heading text-center">{{ $homepages[2]['title'] }} </h2>
-		<p class="text mb-4 text-center">	{{ $homepages[2]['details'] }}</p>
-     @endif
+
+		<h2 class="heading text-center">{{ $setting->latest_product_title }}  </h2>
+		<p class="text mb-4 text-center">{{ $setting->latest_product_des }} </p>
 
 		<div class="items row g-4 mb-4">
-		
-			
+
+
 			@foreach($latestProducts as $key=> $latest)
 			<div class="col-12 col-sm-6 col-lg-3">
 				<a href="{{ URL::to('product/details/'.$latest->product_slug) }}">
@@ -142,7 +135,9 @@
 							<p class="text mb-2 text-center">
 								{{ Str::limit($latest->product_short_desc, 100, '') }}
 							</p>
-							<div class="d-flex justify-content-between align-items-center">
+
+                        </a>
+							<div class="d-flex justify-content-center align-items-center">
 
 								<form  action="{{ route('add.cart') }}" method="post" class="d-flex w-full justify-content-center align-items-center mx-auto addCard">
 									@csrf
@@ -153,27 +148,25 @@
 									@else
 									<input type="hidden" name="product_price" value="{{ $latest->discount_price }}">
 									@endif
-									<div class="d-flex  justify-content-between align-items-center mx-auto">
+									<div class="d-flex  justify-content-center align-items-center mx-auto">
 
-										<button class="btn btn-cart mx-auto" type="submit">Add to cart </button>
+										<button class="btn btn-cart" type="submit">Add to carts </button>
 									</div>
 								</form>
 
-								<a href="#" class="btn btn-wishlist addWishlist" data-id="{{ $latest->id }}">
-									<i class="bi bi-heart"></i>
-								</a>
-								{{-- <button class="btn btn-wishlist">
-									<i class="bi bi-heart"></i>
-								</button> --}}
+                                <button class="btn btn-wishlist addWishlist" data-id="{{ $latest->id }}">
+                                    <i class="bi bi-heart"></i>
+                                </button>
+
 							</div>
 						</div>
 					</div>
-				</a>
+
 			</div>
-		
-	
+
+
 			@endforeach
-		
+
 		</div>
 
 		<div class="items__btn">
@@ -186,17 +179,17 @@
 <!-- latest items -->
 <section class="section items-section free-items">
 	<div class="container">
-		@if(isset($homepages[3]['title']))
-		<h2 class="heading text-center">{{ $homepages[3]['title'] }}</h2>
+
+		<h2 class="heading text-center">{{ $setting->free_product_title }} </h2>
 		<h3 class="heading mb-4 text-center">
-			{!! $homepages[3]['details'] !!}
+			{{ $setting->free_product_des }}
 		</h3>
-		@endif
+
 
 		<div class="items row g-5 mb-4">
 			@foreach ($freeProducts as $product)
 			<div class="col-12 col-sm-6 col-lg-3">
-				<a href="{{ URL::to('product/details/'.$product->product_slug) }}">							
+				<a href="{{ URL::to('product/details/'.$product->product_slug) }}">
 					<div class="items__item">
 					<img src="{{ asset($product->thumbnail) }}" alt="" class="items__img" />
 					<h5 class="heading name">{{ $product->product_name }}</h5>
@@ -227,6 +220,7 @@
 						<p class="text mb-2 text-center">
 							{{ Str::limit($product->product_short_desc, 100, '') }}
 						</p>
+                    </a>
 						<div class="d-flex justify-content-between align-items-center">
 							<form action="{{ route('add.cart') }}" method="post" class="d-flex w-full justify-content-center align-items-center mx-auto addCard">
 								@csrf
@@ -246,12 +240,12 @@
 						</div>
 					</div>
 				</div>
-				</a>
+
 			</div>
 			@endforeach
-			
-		
-			
+
+
+
 		</div>
 		<div class="items__btn">
 			<!-- <a href="#" class="btn btn-more">view more</a> -->
@@ -263,16 +257,19 @@
 <!-- membership section -->
 <section class="section membership-section">
 	<div class="container">
-		@if(isset($homepages[4]['title']))
-		<h2 class="heading center mb-1 text-center">{{ $homepages[4]['title'] }}</h2>
-		<p class="text mb-4 text-center">{!! $homepages[4]['details'] !!}</p>
 
-		@endif
+		<h2 class="heading center mb-1 text-center">{{ $setting->member_title }}</h2>
+		<div class='d-flex justify-content-center mb-5'>
+            {!! $setting->member_des !!}
+
+		</div>
+
+
 
 		<div class="membership row g-5">
 			@foreach ($memberships  as $key=> $member)
-				
-			
+
+
 			<div class="col-12 col-sm-6 col-lg-4 col-xl-3">
 				<div class="membership__item Reseller">
 					<div class="membership__top">
@@ -414,13 +411,13 @@
 						@endif
 						<button type="submit" class="btn btn-membershipt">Purchase</button>
 					</form>
-					
-					
+
+
 				</div>
 			</div>
 			@endforeach
-		
-			
+
+
 		</div>
 		<div class="items__btn">
 			<!-- <a href="#" class="btn btn-more">view more</a> -->
@@ -432,17 +429,20 @@
 <!-- request section -->
 <section class="section request-sction">
 	<div class="container">
-		@if(isset($homepages[5]['title']))
-		<h2 class="heading mb-2 text-center">{{ $homepages[5]['title'] }}</h2>
-		<p class="text mb-4 text-center">
-			{!! $homepages[5]['details'] !!}
-		</p>
-		@endif
 
-		
-		<div class="custom__form">
+		<h2 class="heading mb-2 text-center">{{ $setting->software_title }}</h2>
+		<div class='d-flex justify-content-center '>
+
+            {{ $setting->software_des }}
+
+		</div>
+
+
+
+
+		<div class="custom__form mt-0 pb-0">
 			<div class="row">
-				
+
 				<div class="col-lg-12">
 					<h3 class="custom__form-title">Software Request Form</h3>
 					<form action="{{ url('request-store') }}" method="post" enctype="multipart/form-data">
@@ -463,8 +463,8 @@
 						</div>
 						<div class="row">
 							@foreach ($requestProducts as $requestProduct )
-								
-						
+
+
 							<h3 class="custom__form-mark">{{ $requestProduct->name }}? *</h3>
 							<div class="col-lg-4">
 								<div class="">
@@ -504,18 +504,25 @@
 							</div>
 							@endforeach
 						</div>
-					
+
 						<div class="custom__form-field">
 							<label for="name">Software Information</label>
 							<input type="text" name="software_name" id="software_name" required placeholder="Software Name">
 						</div>
+
+
 						<div class="custom__form-field">
 							<label for="name">Upload a zip file describing your EA or Indicator Strategy</label>
-							<input type="file" name="imageone" id="name">
+							<input type="file" class="input-file" name="imageone" id="name">
 						</div>
+
+
+
+
+
 						<div class="custom__form-field">
 							<label for="name">Upload EA or Indicator</label>
-							<input type="file" name="imagetwo" id="name">
+							<input type="file" name="imagetwo" class="input-file" id="name">
 						</div>
 						<div class="custom__form-field">
 							<label for="name">Anything Else we need to know?</label>
@@ -523,64 +530,14 @@
 
 							</textarea>
 						</div>
-						<div class="custom__form-field">
-							<label for="name">Broker Information</label>
-							<input type="text" name="author_name" id="author_name">
-						</div>
-						<div class="row">
-							<div class="col-lg-6">
-								<div class="custom__form-field">
-									<label for="name">Broker Name </label>
-									<input type="text" name="baker_name" id="baker_name">
-								</div>
-							</div>
-							<div class="col-lg-6">
-								<div class="custom__form-field">
-									<label for="name">Securities to Trade</label>
-									<input type="text" name="trading_security" id="trading_security" placeholder="EURUSD, GBPUSD">
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-lg-6">
-								<div class="custom__form-field">
-									<label for="name">Trading Account Type (Create Demo account and upload details)</label>
-									<input type="text" name="trading_account" id="trading_account" placeholder="ECN MT4 Demo">
-								</div>
-							</div>
-							<div class="col-lg-6">
-								<div class="custom__form-field">
-									<label for="name">Trading Server</label>
-									<input type="text" name="trading_server" id="trading_server" placeholder="Alpari-Trade03">
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-lg-4">
-								<div class="custom__form-field">
-									<label for="name">Metatrader Login</label>
-									<input type="text" name="Account" id="Account" placeholder="3728293737">
-								</div>
-							</div>
-							<div class="col-lg-4">
-								<div class="custom__form-field">
-									<label for="name">Metatrader Password</label>
-									<input type="text" name="" id="Metatrader" placeholder="bsiwibdbuihu8">
-								</div>
-							</div>
-							<div class="col-lg-4">
-								<div class="custom__form-field">
-									<label for="name">Deposit Currency</label>
-									<input type="text" name="deposite_amount" id="deposite_amount" placeholder="USD">
-								</div>
-							</div>
-						</div>
+
+
 						<div class="custom__form-field">
 							<button class="custom-btn2" type="submit">submit</button>
 						</div>
 					</form>
 				</div>
-				
+
 			</div>
 		</div>
 	</div>
@@ -589,7 +546,10 @@
 <!-- client section -->
 <section class="section client-section">
 	<div class="container">
-		<h2 class="heading mb-4 text-center">What Our Client Say</h2>
+		<h2 class="heading text-center">
+            {{ $setting->tesmonial }}
+
+        </h2>
 
 		<div class="client d-flex justify-content-between align-items-center gap-3">
 			<div class="swiper">
@@ -613,13 +573,20 @@
 						</div>
 					</div>
 					@endforeach
-				
-					
+
+
 
 				</div>
 
 				<!-- If we need navigation buttons -->
-				
+				<!-- If we need navigation buttons -->
+				<div class="swiper-button-prev">
+								<i class="bi bi-chevron-left"></i>
+							</div>
+							<div class="swiper-button-next">
+								<i class="bi bi-chevron-right"></i>
+							</div>
+
 			</div>
 		</div>
 	</div>

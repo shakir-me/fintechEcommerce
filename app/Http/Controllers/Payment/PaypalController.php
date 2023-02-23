@@ -19,14 +19,14 @@ use Helper;
 
 class PaypalController extends Controller
 {
-    
+
     /**
      * process transaction.
      *
      * @return \Illuminate\Http\Response
      */
     public function processTransaction(Request $request)
-    {   
+    {
         session(['qty'            => $request->qty,
                  'price'          => $request->price,
                  'url'            => $request->product_url,
@@ -43,7 +43,9 @@ class PaypalController extends Controller
                  'monthly_charge' => $request->monthly_charge,
                  'is_lifetime'    => $request->is_lifetime,
                  'expired'        => $request->expired,
-               
+                 'name'        => $request->name,
+                 'email'        => $request->email,
+
 
                 ]);
 
@@ -78,7 +80,7 @@ class PaypalController extends Controller
             );
             return redirect()->route('user.home')->with($notification);
         } else {
-            
+
             $notification = array(
                 'messege'=>$response['message'] ?? 'Something went wrong.',
                 'alert-type'=>'error'
@@ -122,12 +124,15 @@ class PaypalController extends Controller
                 $order = new Order();
                 $order->user_id        = Auth::id();
                 $order->order_no       = session('order_no');
+                $order->email       = session('email');
+                $order->name       = session('name');
                 $order->total_qty      = Cart::count();
                 $order->total_price    = session('price');
                 $order->coupon_amount  = Session::has('coupon') ? Session::get('coupon')['discount'] : 0;
                 $order->payment_method = 'Paypal';
                 $order->refund         = Helper::refund(session('price'));
                 $order->coupon         = Session::has('coupon') ? Session::get('coupon')['code'] : "";
+                $order->subscribe_id        = session('subscribe_id');
                 $order->save();
 
                 $order_id = $order->id;
@@ -136,9 +141,9 @@ class PaypalController extends Controller
                     $orderDetails = New OrderDetails;
                     $orderDetails->order_id      = $order_id;
                     $orderDetails->product_name  = session('product_name')[$key];
-                    //  $orderDetails->product_id  = session('product_id')[$key];
                     $orderDetails->product_qty   = session('product_qty')[$key];
                     $orderDetails->unit_price    = session('unit_price')[$key];
+                    $orderDetails->product_id    = session('product_id')[$key];
                     $orderDetails->product_price = session('unit_price')[$key] * session('product_qty')[$key];
 
                     //return response()->json($orderDetails);
@@ -146,9 +151,9 @@ class PaypalController extends Controller
 
                 }
 
-                
+
                 User::where('id',Auth::id())->increment('balance', Helper::refund(session('price')));
-                
+
 
                 $emailContent = [
                         "email_subject" => 'Product link',

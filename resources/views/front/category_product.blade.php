@@ -29,7 +29,7 @@
 						<h4 class="heading mb-2">SORT BY</h4>
 						<ul class="categories__list">
 						<form  name="sortArts" id="sortArts">
-							<select name="sort" id="sort"  class="form-control form-select">
+							<select style="font-size: 16px;" name="sort" id="sort"  class="form-control form-select select_sort_by">
 								<option value="">Select Please</option>
 							<option value="product_popular" @if(isset($_GET['sort']) && $_GET['sort']=="product_popular") selected="" @endif>Popularity</option>
 							<option value="product_ratting" @if(isset($_GET['sort']) && $_GET['sort']=="product_ratting") selected="" @endif>Average ratting</option>
@@ -53,7 +53,7 @@
 							@endforeach
 					</div>
 
-					<div class="categories__item mb-2">
+					<!-- <div class="categories__item mb-2">
 						<h4 class="heading mb-2">Select By price</h4>
 						<form action="{{ route('price.range.product') }}" method="get">
 							<div class="range-wrapper">
@@ -71,7 +71,49 @@
 								</div>
 							</div>
 						</form>
+					</div> -->
+
+
+<div class="categories__item mb-2  categories__item__filtering">
+			<h4 class="heading mb-2">Select By price</h4>
+			<form action="">
+			<div class="wrapper">
+				 <div class="container_range">
+					<div class="slider-track"></div>
+					<input
+						type="range"
+						min="0"
+						max="1000"
+						value="0"
+						id="slider-1"
+						oninput="slideOne()"
+					/>
+					<input
+						type="range"
+						min="0"
+						max="1000"
+						value="1000"
+						id="slider-2"
+						oninput="slideTwo()"
+					/>
+				</div> 
+				<div class="d-flex justify-content-between align-items-center">
+					<button class="btn btn-apply">apply</button>
+					<div
+						class="categories__price d-flex justify-content-between align-items-center gap-2"
+					>
+					<span>$<span id="range1" class="min-price">0 </span>
+					</span>
+						<span class="minus">-</span>
+						<span>$<span id="range2" class="min-price">100</span>
+						</span>
 					</div>
+				</div>
+			</div>
+</form>
+		</div>
+
+
 					@if(Auth::check())
 					@php
                     $userDetails= App\Models\User::where('email',Auth::user()->email)->first();
@@ -200,5 +242,44 @@
 		});
 	});
 	</script>
+<<script>
+	window.onload = function () {
+	slideOne();
+	slideTwo();
+};
+
+let sliderOne = document.getElementById('slider-1');
+let sliderTwo = document.getElementById('slider-2');
+let displayValOne = document.getElementById('range1');
+let displayValTwo = document.getElementById('range2');
+let minGap = 0;
+let sliderTrack = document.querySelector('.slider-track');
+let sliderMaxValue = document.getElementById('slider-1').max;
+
+function slideOne() {
+	if (parseInt(sliderTwo.value) - parseInt(sliderOne.value) <= minGap) {
+		sliderOne.value = parseInt(sliderTwo.value) - minGap;
+	}
+	displayValOne.textContent = sliderOne.value;
+	fillColor();
+}
+function slideTwo() {
+	if (parseInt(sliderTwo.value) - parseInt(sliderOne.value) <= minGap) {
+		sliderTwo.value = parseInt(sliderOne.value) + minGap;
+	}
+	displayValTwo.textContent = sliderTwo.value;
+	fillColor();
+}
+function fillColor() {
+	percent1 = (sliderOne.value / sliderMaxValue) * 100;
+	percent2 = (sliderTwo.value / sliderMaxValue) * 100;
+	sliderTrack.style.background = `linear-gradient(to right, #dadae5 ${percent1}% , #3264fe ${percent1}% , #3264fe ${percent2}%, #dadae5 ${percent2}%)`;
+}
+
+</script>
+
+
 @endpush
 @endsection
+
+

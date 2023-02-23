@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Admin\Order;
 use App\Models\Admin\OrderDetails;
+use App\Models\Admin\Product;
 use App\Models\Review;
 use Auth;
 use Helper;
@@ -20,7 +21,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function userProfile()
-    {   
+    {
         return view('user.user_settings.profile');
     }
 
@@ -48,12 +49,12 @@ class UserController extends Controller
         $data->phone  = $request->phone;
         $data->mobile = $request->mobile;
         $data->address= $request->address;
-        
+
         if($request->image){
             $data->image = Helper::upload_image($request->image , 100, 100);
         }
         $data->save();
-        
+
         $notification = array(
             'messege'=> "Successfully Updated !",
             'alert-type'=>'success'
@@ -107,14 +108,14 @@ class UserController extends Controller
                       'alert-type'=>'success'
                   );
 
-                   return Redirect()->route('login')->with($notification); 
+                   return Redirect()->route('login')->with($notification);
                 }else{
                    $notification = array(
                         'messege'=> "New password and Confirm Password not matched!",
                         'alert-type'=>'error'
                     );
                    return Redirect()->back()->with($notification);
-                }     
+                }
           }else{
             $notification = array(
                  'messege'=> "Old Password not matched!",
@@ -139,15 +140,18 @@ class UserController extends Controller
     public function OrderView($id)
     {
         $order=Order::find($id);
-     
-        return view('user.orderview',compact('order'));
+        $products = Product::whereIn('membership_id', [1,2,3,4,5,6])
+        ->get();
+        return view('user.orderview',compact('order','products'));
     }
 
     public function Review($id)
     {
         $review=OrderDetails::find($id);
         //return response()->json($review);
-        return view('user.review',compact('review'));
+        $products = Product::whereIn('membership_id', [1,2,3,4,5,6])
+        ->get();
+        return view('user.review',compact('review','products'));
     }
 
     public function ReviewStore(Request $request)
@@ -163,8 +167,8 @@ class UserController extends Controller
             'alert-type'=>'success'
         );
 
-         return Redirect()->route('user.home')->with($notification); 
+         return Redirect()->route('user.home')->with($notification);
         // return response()->json($page);
-     
+
     }
 }

@@ -19,6 +19,8 @@ use App\Models\User\RequestProduct;
 use App\Models\RequestBooking;
 use App\Models\MarketPlace;
 use App\Models\HomePage;
+use App\Models\Admin\AboutTwo;
+use App\Models\Admin\AboutOne;
 use Auth;
 use DB;
 use Image;
@@ -30,9 +32,9 @@ class FrontController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
 
-      
+
     //    return response()->json($users);
         $testimonial = Testimonial::all();
         $freeProducts = Product::where('is_free',1)->take(4)->latest()->get();
@@ -41,10 +43,10 @@ class FrontController extends Controller
         $requestProducts = RequestProduct::get();
         $categories = Category::get();
         $marketPlaces = MarketPlace::get();
-        $homepages = HomePage::get()->toArray();
+
        //return response()->json($homepages);
-       
-        return view('front.home',compact('testimonial','freeProducts','latestProducts','memberships','requestProducts','categories','marketPlaces','homepages'));
+
+        return view('front.home',compact('testimonial','freeProducts','latestProducts','memberships','requestProducts','categories','marketPlaces'));
     }
 
     /**
@@ -66,10 +68,10 @@ class FrontController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function freeProduct()
-    {   
+    {
         $freeProducts = Product::where('is_free', 1);
 
-        
+
         if (isset($_GET['sort']) && ! empty($_GET['sort'])) {
             if ($_GET['sort']=="product_popular") {
                 $freeProducts->orderBy('products.id','Desc');
@@ -92,9 +94,9 @@ class FrontController extends Controller
 
 
       $freeProducts=$freeProducts->paginate(12);
-        
-        
-      
+
+
+
         $product_type = "free";
         $brands = Brand::all();
         $category    = Category::with('product')->get();
@@ -110,10 +112,10 @@ class FrontController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function latestProduct()
-    {   
+    {
         $freeProducts = Product::latest();
 
-           
+
         if (isset($_GET['sort']) && ! empty($_GET['sort'])) {
             if ($_GET['sort']=="product_popular") {
                 $freeProducts->orderBy('products.id','Desc');
@@ -136,8 +138,8 @@ class FrontController extends Controller
 
 
       $freeProducts=$freeProducts->paginate(12);
-        
-        
+
+
         $category_id = '';
         $start_price = '';
         $end_price = '';
@@ -156,14 +158,14 @@ class FrontController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function shop()
-    {   
+    {
         $category_id = '';
         $start_price = '';
         $end_price = '';
         $subcategory_id ='';
         $brand_id ='';
         $category = Category::with('product')->get();
-        
+
         $products = Product::where('status',1);
         if (isset($_GET['sort']) && ! empty($_GET['sort'])) {
             if ($_GET['sort']=="product_popular") {
@@ -184,8 +186,8 @@ class FrontController extends Controller
             }
           }
 
-          
-          
+
+
         $products=$products->paginate(12);
 
 
@@ -203,7 +205,7 @@ class FrontController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function categoryProduct($category)
-    {   
+    {
         $start_price = '';
         $end_price = '';
         $subcategory_id ='';
@@ -211,7 +213,7 @@ class FrontController extends Controller
         $category    = Category::with('product')->get();
         $products    = Product::where('category_id',$category_id->id);
 //sort by
-              
+
             if (isset($_GET['sort']) && ! empty($_GET['sort'])) {
                 if ($_GET['sort']=="product_popular") {
                     $products->orderBy('products.id','Desc');
@@ -231,8 +233,8 @@ class FrontController extends Controller
                 }
             }
 
-  
-  
+
+
 $products=$products->paginate(12);
 
 
@@ -254,7 +256,7 @@ $products=$products->paginate(12);
      * @return \Illuminate\Http\Response
      */
     public function subCategoryProduct($category , $subcategory)
-    {   
+    {
         $start_price = '';
         $end_price = '';
         $category_id = Category::where('category_slug',$category)->first();
@@ -296,7 +298,7 @@ $products=$products->paginate(12);
      * @return \Illuminate\Http\Response
      */
     public function priceRangeProduct(Request $request)
-    {   
+    {
         $category_id = "";
         $subcategory_id ='';
         $brand_id ='';
@@ -329,9 +331,9 @@ $products=$products->paginate(12);
 
       $products=$products->paginate(12);
 
-        
-        
-    
+
+
+
         $members = Membership::all();
         return view('front.price_filter',compact('category','products','category_id','start_price','end_price','brands','subcategory_id','brand_id','members'));
     }
@@ -344,7 +346,7 @@ $products=$products->paginate(12);
      * @return \Illuminate\Http\Response
      */
     public function brandProduct($brand)
-    {   
+    {
         $start_price = '';
         $end_price = '';
         $category_id = "";
@@ -364,11 +366,19 @@ $products=$products->paginate(12);
      * @return \Illuminate\Http\Response
      */
     public function productDetails($product_slug)
-    {   
+    {
 
         $product    = Product::where('product_slug',$product_slug)->first();
         $related_product = Product::where('category_id',$product->category_id)->latest()->get();
-        return view('front.product_details',compact('product','related_product'));
+
+        $shareComponent = \Share::page(route('product.details', $product->product_slug))
+        ->facebook()
+        ->twitter()
+        ->linkedin()
+        ->whatsapp();
+
+
+        return view('front.product_details',compact('product','related_product','shareComponent'));
     }
 
     /**
@@ -380,7 +390,8 @@ $products=$products->paginate(12);
     public function customerRequest()
     {
         $requestProducts = RequestProduct::get();
-        return view('front.customer_request',compact('requestProducts'));
+        $homepages = HomePage::get();
+        return view('front.customer_request',compact('requestProducts','homepages'));
     }
 
     /**
@@ -433,41 +444,43 @@ $products=$products->paginate(12);
     public function PrivacyPolicy()
     {
         $privacy_policy=Features::all();
-        return view('front.privacy_policy',compact('privacy_policy')); 
+        return view('front.privacy_policy',compact('privacy_policy'));
     }
 
     public function TeamAndCondition()
     {
 
-    
+
 
         $privacy_policy=Afeature::all();
-        return view('front.team_and_condition',compact('privacy_policy')); 
+        return view('front.team_and_condition',compact('privacy_policy'));
     }
 
     public function AboutUs()
     {
 
         $about=DB::table('abouts')->first();
+        $aboutones=AboutOne::all();
+        $abouttwos=AboutTwo::all();
         $Products = Product::take(8)->latest()->get();
 
         $homepages = HomePage::get()->toArray();
-        return view('front.about',compact('about','Products','homepages')); 
+        return view('front.about',compact('about','Products','homepages','aboutones','abouttwos'));
     }
 
     public function HowToWork()
     {
         $pages=Page::all();
-        return view('front.how_to_work',compact('pages')); 
+        return view('front.how_to_work',compact('pages'));
     }
 
     public function subscriberStore(Request $request)
     {
         $subscriber=new Subscriber();
-    
+
         $subscriber->email=$request->email;
         $subscriber->save();
- 
+
         $notification=array(
          'messege'=>'Subscriber Conatct Sent Please Wait !',
          'alert-type'=>'success'
@@ -476,8 +489,8 @@ $products=$products->paginate(12);
     }
 
     public function MenberProduct($id)
-    {   
-     
+    {
+
 
         $start_price = '';
         $end_price = '';
@@ -485,7 +498,7 @@ $products=$products->paginate(12);
         $subcategory_id = "";
         $category    = Category::with('product')->get();
         $products    = Product::where('membership_id',$id);
-        
+
         if (isset($_GET['sort']) && ! empty($_GET['sort'])) {
             if ($_GET['sort']=="product_popular") {
                 $products->orderBy('products.id','Desc');
@@ -508,8 +521,8 @@ $products=$products->paginate(12);
 
 
       $products=$products->paginate(12);
-        
- 
+
+
         $members = Membership::all();
 
         //return response()->json($products);
@@ -520,7 +533,7 @@ $products=$products->paginate(12);
     {
         $search = $request->search;
         $category_id = $request->category_id;
-      
+
         $start_price = '';
         $end_price = '';
         $category_id = "";
@@ -534,19 +547,19 @@ $products=$products->paginate(12);
         ->orderBy('id', 'desc')
         ->paginate(12);
 
-        
+
         $members = Membership::all();
 
 
         return view('front.search_product',compact('products','search','category_id','start_price','end_price','subcategory_id','category','members'));
 
-       
+
     }
 
     public function RequestStore (Request $request)
     {
           if(Auth::check()){
-            
+
             $data = new RequestBooking();
             $data->user_id          = Auth::id();
             $data->name             = $request->name;
@@ -575,10 +588,10 @@ $products=$products->paginate(12);
                     $data->imageone = $imageName;
                 }
                 else{
-                   $data->imageone = ""; 
+                   $data->imageone = "";
                 }
             }
-    
+
             if ($request->hasFile('imagetwo')) {
                 $image_tmp = $request->file('imagetwo');
                 if ($image_tmp->isValid()) {
@@ -591,13 +604,13 @@ $products=$products->paginate(12);
                     $data->imagetwo = $imageName;
                 }
                 else{
-                   $data->imagetwo = ""; 
+                   $data->imagetwo = "";
                 }
             }
-    
+
 
           //return response()->json($data);
-            $data->save(); 
+            $data->save();
 
             $data->save();
         $notification=array(
@@ -612,5 +625,5 @@ $products=$products->paginate(12);
         }
     }
 
-    
+
 }

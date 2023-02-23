@@ -30,8 +30,16 @@
 	      $userDetails= App\Models\User::where('email',Auth::user()->email)->first();
 		  $subcription=DB::table('subscriptions')->where('user_id',Auth::user()->id)->first();
 
+
+
 		  $membership=DB::table('memberships')->where('id',$subcription->subscribe_id)->first();
+
 		  $MembershpProducts=DB::table('products')->where('membership_id',$membership->id)->get();
+
+
+        //   dd($MembershpProducts);
+
+
 
 		//   Category::whereJsonContains('category_id', json_decode($events->category_id))->where('id', '!=', $events->id)->get();
 
@@ -80,12 +88,12 @@
 					{{-- @if($subscribe)
 						<span class="dashboard__header-location">Membership: <span class="badge @if($subscribe->subscribe_id == 1) bg-primary @elseif($subscribe->subscribe_id == 2) bg-success @elseif($subscribe->subscribe_id == 3) bg-info @else bg-danger @endif" >{{ $subscribe->membership_name }} </span></span>
 					@else
-					
 
-					
+
+
 						<span class="dashboard__header-location">Membership: <span class="badge bg-secondary" >General Member </span></span>
 					@endif --}}
-					
+
 					<button class="dashboard__header-balance">${{  $payment  }}</button>
 				</div>
 			</div>
@@ -139,7 +147,7 @@
 									</div>
 									@if($subscribe)
 									<div class="bg-secondary p-2 text-white">
-										<span> {{ $subscribe->coupon_rate }} @if($subscribe->coupon_type == "Percent") % @else $ @endif Discount Coupon For {{ $subscribe->membership_name }} : 
+										<span> {{ $subscribe->coupon_rate }} @if($subscribe->coupon_type == "Percent") % @else $ @endif Discount Coupon For {{ $subscribe->membership_name }} :
 										<input class="form-label" value="{{ $subscribe->coupon_name }}" ></span>
 									</div>
 									@endif
@@ -212,7 +220,7 @@
 										</tbody>
 									</table>
 								</div>
-							</div>	
+							</div>
 						</div>
 						<div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
 							<div class="dashboard__profile-order">
@@ -328,19 +336,19 @@
 						<div class="tab-pane fade" id="v-pills-product" role="tabpanel" aria-labelledby="v-pills-top-product">
 							<div class="items row" id="dashboard-member-product">
 
-							
-									
+
+
 								 @foreach ($products as $product )
-									
-								 
+
+
 								<div class="col-12 col-sm-6 col-lg-4">
 									<div class="items__item">
 										<a href="{{ URL::to('product/details/'.$product->product_slug) }}">
 											<img src="{{ asset($product->thumbnail) }}" alt="Product" class="items__img" />
 										</a>
 
-									
-										<h5 class="heading name">Microsoft Office</h5>
+
+										<h5 class="heading name">{{ $product->product_title }}</h5>
 										<h5 class="heading title"><a href="{{ URL::to('product/details/'.$product->product_slug) }}">{{ $product->product_name }}</a></h5>
 										<div class="price-list d-flex justify-content-center align-items-center gap-2 mb-1">
 											@if($product->discount_rate == 0.00)
@@ -359,7 +367,7 @@
 										<span class="price">${{ $product->product_price }}</span>
 										@endif
 										</div>
-		
+
 										<div class="items__bottom">
 											<p class="text mb-2 text-center">
 												{{ Str::limit($product->product_short_desc, 100, '') }}
@@ -384,10 +392,10 @@
 									</div>
 								</div>
 								@endforeach
-	
-								
+
+
 							</div>
-						
+
 						</div>
 						<div class="tab-pane fade" id="v-pills-log" role="tabpanel" aria-labelledby="v-pills-log-tab">...</div>
 					  </div>

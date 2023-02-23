@@ -24,9 +24,11 @@
 			<div class="row g-5">
 				<div class="col-xl-6 col-lg-6 col-md-12">
 					<div class="single__product-left">
-						<div class="single_preview_product">
+
+
+						<!-- <div class="single_preview_product">
 							<div class="single-popup-view">
-								<a class="popup-image" href="{{ asset('frontend/') }}/./assets/img/product/17-3.jpg"><i class="fal fa-search"></i></a>
+								<a class="popup-image" href="{{ asset('frontend/') }}/./assets/img/product/17-3.jpg"></a>
 							</div>
 							<div class="single__product-bigthumb tab-content" id="myTabefContent">
 								<div class="tab-pane fade show active" id="homde" role="tabpanel" >
@@ -42,25 +44,63 @@
 								</div>
 								@endforeach
 							</div>
-						</div>
-						<div class="single_product_tab">
+						</div> -->
+
+						<!-- <div class="single_product_tab">
 							<div class="single_prodct">
 								<ul class="single__product-items nav nav-tabs border-0" id="dfde" role="tablist">
 									<li class="single__product-item nav-item" role="presentation">
 										<button class="nav-link active" id="home-tab" data-bs-toggle="tab"
-											data-bs-target="#homde" type="button" role="tab" 
+											data-bs-target="#homde" type="button" role="tab"
 											aria-selected="true"><img src="{{ asset($product->thumbnail) }}" alt=""></button>
 									</li>
 									@foreach($images as $key=> $image)
 									<li class="single__product-item nav-item" role="presentation">
 										<button class="nav-link" id="home-tab" data-bs-toggle="tab"
-											data-bs-target="#homde-{{ $key }}" type="button" role="tab" 
+											data-bs-target="#homde-{{ $key }}" type="button" role="tab"
+											aria-selected="true"><img src="{{ asset($image) }}" alt=""></button>
+									</li>
+									@endforeach
+								</ul>
+							</div>
+						</div> -->
+
+						<div class="single_preview_product ">
+							<div class="single-popup-view  ">
+								<a class="popup-image" href="{{ asset('frontend/') }}/./assets/img/product/17-3.jpg"></a>
+							</div>
+							<div class="single__product-bigthumb tab-content slider-for" id="myTabefContent">
+								<div class="tab-pane fade show active" id="homde" role="tabpanel" >
+								   <div class="full-view">
+										<img class="" src="{{ asset($product->thumbnail) }}" alt="">
+								   </div>
+								</div>
+								@foreach($images as $key=> $image)
+								<div class="tab-pane fade show" id="homde-{{ $key }}" role="tabpanel" >
+								   <div class="full-view">
+										<img src="{{ asset($image) }}" alt="">
+								   </div>
+								</div>
+								@endforeach
+							</div>
+						</div>
+
+						<div class="single_product_tab">
+							<div class="single_prodct">
+								<ul class="single__product-items nav nav-tabs border-0 slider-nav" id="dfde" role="tablist">
+
+									@foreach($images as $key=> $image)
+									<li class="single__product-item nav-item " role="presentation">
+										<button class="nav-link" id="home-tab" data-bs-toggle="tab"
+											data-bs-target="#homde-{{ $key }}" type="button" role="tab"
 											aria-selected="true"><img src="{{ asset($image) }}" alt=""></button>
 									</li>
 									@endforeach
 								</ul>
 							</div>
 						</div>
+
+
 					</div>
 				</div>
 				<div class="col-xl-6 col-lg-6 col-md-12">
@@ -96,24 +136,24 @@
 						<div class="single__product-star">
 						 @for ($i=1; $i<=5; $i++)
                             @if ($i<=$avgrating)
-				
-						   <span><i class="bi bi-star-fill "></i></span>
-						
-						   
-							@else
-					
-							<span><i class="far fa-star "></i></span>
-							
-							@endif
-                                        
-							@endfor 
-					
 
-							
+						   <span><i class="bi bi-star-fill "></i></span>
+
+
+							@else
+
+							<span><i class="far fa-star "></i></span>
+
+							@endif
+
+							@endfor
+
+
+
 							<span class="single__product-reviewtitle">
 								({{ $product->orderItems->where('rstatus',1)->count() }} customer review)
-						
-								
+
+
 							</span>
 						</div>
 						<div class="single__product-feature">
@@ -127,7 +167,7 @@
 						<h4 class="single__product-title2">Ask a Question!
 						</h4>
 						<form action="{{ route('add.cart') }}" method="post" class="addCard">
-				
+
 							@csrf
 							<div class="viewcontent__action single_action pt-30">
 								<p class="single__product-increment single__product-cart"><i class="bi bi-plus"></i><span class="qty">1</span><i class="bi bi-dash"></i></p>
@@ -144,8 +184,8 @@
 							</div>
 						</form>
 						<a class="single__product-buy" href="#">BUY NOW</a>
-						<div class="single__product-categories">  
-							<ul class="single__product-cat">  
+						<div class="single__product-categories">
+							<ul class="single__product-cat">
 								<li>SKU:</li>
 								<li>categories :</li>
 								<li>Tags:</li>
@@ -154,16 +194,19 @@
 							<ul class="single__product-catname">
 								<li>{{ $product->product_code }}</li>
 								<li>{{ $product->category->category_name }}</li>
-								<li> @foreach($tags as $key=> $tag) {{ $tag }}, @endforeach </li> 
-								<li> {{ $product->brand->brand_name }} </li> 
+								<li> @foreach($tags as $key=> $tag) {{ $tag }}, @endforeach </li>
+								<li> {{ $product->brand->brand_name }} </li>
 							</ul>
 						</div>
 						<div class="single__product-social">
 							<span class="f-title edit-f-title">FOLLOW US ON</span>
-							<a href="#"><i class="bi bi-facebook"></i></a>
-							<a href="#"><i class="bi bi-instagram"></i></a>
-							<a href="#"><i class="bi bi-linkedin"></i></a>
-							<a href="#"><i class="bi bi-twitter"></i></a>
+                            {!! $shareComponent!!}
+
+
+						    {{-- <a href="#">{!!  Share::page('http://jorenvanhocht.be')->facebook(); !!}<i class="bi bi-facebook"></i></a>
+							<a href="#">{!! Share::page('http://jorenvanhocht.be')->whatsapp() !!}<i class="bi bi-whatsapp"></i></a>
+							<a href="#"> {!! Share::page('http://jorenvanhocht.be', 'Share title')->linkedin('Extra linkedin summary can be passed here') !!}<i class="bi bi-linkedin"></i></a>
+							<a href="#">{!!   Share::page('http://jorenvanhocht.be', 'Your share text can be placed here')->twitter();!!}<i class="bi bi-twitter"></i></a> --}}
 						</div>
 					</div>
 				</div>
@@ -201,7 +244,7 @@
 								<p class="single__additional-dis1">Note: {{ $product->product_short_desc }} </p>
 
 								<p>{!! $product->description !!}</p>
-								
+
 							</div>
 						</div>
 					</div>
@@ -225,7 +268,11 @@
 					<div class="reviews__area-header">
 						<h2 class="reviews__area-title">Reviews</h2>
 					</div>
+
+
 					<div class="row">
+                        @if($product->orderItems->where('rstatus',1)->count() > 0)
+
 						@foreach ($product->orderItems->where('rstatus',1) as $orderItem )
 						<div class="col-lg-6">
 							<div class="reviews__area-body">
@@ -242,34 +289,47 @@
 										</div>
 										<div class="star">
 
+                                            {{-- {{ $orderItem->review->rating }} --}}
 
-											<i class="fa-solid fa-star {{ $orderItem->review->rating }} "></i>
-									
+                                            @for ($i=1; $i<=5; $i++)
+                                            @if ($i<=$avgrating)
+
+                                           <span><i class="bi bi-star-fill "></i></span>
+
+
+                                            @else
+
+                                            <span><i class="far fa-star "></i></span>
+
+                                            @endif
+
+                                            @endfor
+											{{-- <i class="fa-solid fa-star {{ $orderItem->review->rating }} "></i> --}}
+
 										</div>
 										{{-- {{ $orderItem->review->rating }} --}}
 									</div>
-								
-							
+
+
 								</div>
 							</div>
 							<div class="reviews__area-footer"></div>
 						</div>
 						@endforeach
+                        @else
+						<div class="col-lg-6">
+							<p class="text-secondary" style="color:white"> Not Review  This Product</p>
+						</div>
+						@endif
 
 						{{-- <div class="col-lg-6">
-							
-						
+
+
 							<div class="reviews__area-login">
 								<h3>Leave your Review</h3>
 								<form action="#">
 									<div class="row">
-										<div class="col-6">
-											<div class="reviews__area-field">
-												<label for="Name">Name</label>
-												<input type="text" name="Name" id="Name"
-													placeholder="Your name">
-											</div>
-										</div>
+
 										<div class="col-6">
 											<div class="reviews__area-field">
 												<label for="rating">Your Rating</label>
@@ -295,10 +355,9 @@
 								</form>
 								<button class="review-login-btn" type="submit">Submit</button>
 							</div>
-
-				
-						
 						</div> --}}
+
+
 					</div>
 				</div>
 			</div>
@@ -345,7 +404,7 @@
 								</p>
 							</a>
 								<div class="d-flex justify-content-between align-items-center">
-							
+
 									<form action="{{ route('add.cart') }}" method="post" class="addCard">
 										@csrf
 										<input type="hidden" name="product_id" value="{{ $r_product->id }}">
@@ -394,11 +453,32 @@
 		   type: "GET",
 		   url: "cart/show",
 		   success: function (data) {
-		      $('.cart_list_popup').html(data)	
+		      $('.cart_list_popup').html(data)
 		   },
 		});
 	})
 </script>
+
+<script>
+	 $('.slider-for').slick({
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  arrows: false,
+  fade: true,
+  asNavFor: '.slider-nav'
+});
+$('.slider-nav').slick({
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  asNavFor: '.slider-for',
+  dots: false,
+  centerMode: true,
+  focusOnSelect: true
+});
+</script>
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+<script src="{{ asset('js/share.js') }}"></script>
 
 @endpush
 

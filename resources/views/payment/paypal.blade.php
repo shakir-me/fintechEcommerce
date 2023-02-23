@@ -52,8 +52,9 @@
 
         @if($type == 'payment')
           <input type="hidden" name="name" readonly value="{{ Auth::user()->name }}">
-          <input type="hidden" name="email" readonly value="{{ Auth::user()->email }}">
+          <input type="hidden" name="email" readonly value="{{ $type == 'payment' ? $data['email'] :''  }}">
           <input type="hidden" name="phone" readonly value="{{ Auth::user()->phone }}">
+          <input type="hidden" name="subscribe_id" readonly value="{{ $type == 'payment' ? $data['subscribe_id'] :''  }}">
 
           {{-- return condition1 ? value1 : condition2 ? value2 : condition3 ? value3 : value4; --}}
 
@@ -67,6 +68,7 @@
           <input type="hidden" name="product_name[]" value="{{ $type == 'payment' ? $data['product_name'][$key] :'' }}">
           <input type="hidden" name="product_qty[]" value="{{ $type == 'payment' ? $data['product_qty'][$key]  :''}}">
           <input type="hidden" name="unit_price[]" value="{{ $type == 'payment' ? $data['unit_price'][$key] :'' }}">
+          <input type="hidden" name="product_id[]" value="{{ $type == 'payment' ? $data['product_id'][$key] :'' }}">
           @endforeach
 
           <button type="submit" class="btn btn-success">Pay ${{ number_format($data['price'] , 2) }} from Paypal</button>
@@ -91,7 +93,7 @@
           <input type="hidden" name="type" readonly value="subscribe">
           <button type="submit" class="btn btn-success">Pay ${{ number_format($data['total_subscription_fee'] , 2) }} from Paypal</button>
         @endif
-        
+
       </form>
     </div>
   </div>

@@ -1,9 +1,15 @@
 <?php
 
 namespace App\Helpers;
+
+
 use Image;
 use App\Models\User\WishList;
+
 use Auth;
+
+
+
 
 class Helper
 {
@@ -34,15 +40,15 @@ class Helper
     }
 
     public static function discount($amount , $rate , $type)
-    {   
+    {
         if($type == "Flat"){
             $result = $amount - $rate ;
             return $result;
         }else{
            $result = $amount - ($amount /100 * $rate);
-           return $result; 
+           return $result;
         }
-        
+
     }
 
     public static function countWishlist()
@@ -60,13 +66,18 @@ class Helper
 
 
     public static function refund($amount)
-    {   
+    {
         if($amount >= 10){
-           return $amount /100 * 10 ; 
+           return $amount /100 * 10 ;
         }
 
         return 0.00;
-        
+
     }
+
+
+
+
+
 
 }

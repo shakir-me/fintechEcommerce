@@ -37,7 +37,7 @@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
 
-    <title>Syndron - Bootstrap5 Admin Template</title>
+    <title>Fintech Admin Dashboard</title>
     @stack('css')
 </head>
 

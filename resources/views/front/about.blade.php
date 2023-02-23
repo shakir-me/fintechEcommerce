@@ -23,13 +23,13 @@
                     <span class="about__store-subtitle">{{ $about->about_us }}</span>
                     <h3 class="about__store-title">{{ $about->about_title }}</h3>
                     <p>{!! $about->description !!}.</p>
-                   
+
                 </div>
             </div>
             <div class="col-xl-6">
                 <div class="about__store-thumb">
                     <img src="{{asset('backend/about/'.$about->image) }}"  alt="store">
-          
+
                 </div>
             </div>
         </div>
@@ -41,41 +41,25 @@
 <div class="about__features">
     <div class="container">
         <div class="about__features-wrapper">
-            <div class="about__features-item">
-                <div class="about__features-thumb">
-                    <img src="{{ asset('frontend/img/ab1.png')}}" alt="ab1">
-                </div>
-                <div class="about__features-content">
-                    @if(isset($homepages[6]['title']))
-                    <h4 class="about__features-title">{{ $homepages[6]['title'] }}</h4>
-                    <p class="about__features-dis">	{!! $homepages[6]['details'] !!}.</p>
-                    @endif
-                </div>
-            </div>
+            @foreach ($aboutones as $aboutone)
+
 
             <div class="about__features-item">
                 <div class="about__features-thumb">
-                    <img src="{{ asset('frontend/img/ab2.png')}}" alt="ab1">
+                    <img src="{{asset('backend/aboutone/'.$aboutone->image) }}" alt="ab1">
                 </div>
                 <div class="about__features-content">
-                    @if(isset($homepages[7]['title']))
-                    <h4 class="about__features-title">{{ $homepages[7]['title'] }}</h4>
-                    <p class="about__features-dis">{!! $homepages[7]['details'] !!}.</p>
-                    @endif
-                </div>
-            </div>
 
-            <div class="about__features-item">
-                <div class="about__features-thumb">
-                    <img src="{{ asset('frontend/img/ab3.png')}}" alt="ab1">
-                </div>
-                <div class="about__features-content">
-                    @if(isset($homepages[8]['title']))
-                    <h4 class="about__features-title">{{ $homepages[8]['title'] }}</h4>
-                    <p class="about__features-dis">{!! $homepages[8]['details'] !!}.</p>
-                    @endif
+                    <h4 class="about__features-title">{{ $aboutone->title }}</h4>
+                    <p class="about__features-dis">	{{ $aboutone->details }}.</p>
+
                 </div>
             </div>
+            @endforeach
+
+
+
+
 
         </div>
     </div>
@@ -91,23 +75,19 @@
                 @endif
         </div>
         <div class="row">
+         @foreach ($abouttwos as $abouttwo)
             <div class="col-lg-6">
-                @if(isset($homepages[10]['title']))
+                @
                 <div class="about__have-item">
-                    <span class="about__have-title">{{ $homepages[10]['title'] }}</span>
-                    <p class="about__have-dis">{!! $homepages[10]['details'] !!}.</p>
+                    <span class="about__have-title">{{ $abouttwo->title }}</span>
+                    <p class="about__have-dis">{!! $abouttwo->details !!}.</p>
                     {{-- <a href="#" class="about__have-btn">FIND THE RIGHT PRODUCT FOR YOU <i class="bi bi-arrow-right"></i></a> --}}
                 </div>
-                @endif
+
             </div>
-            <div class="col-lg-6">
-                <div class="about__have-item">
-                    @if(isset($homepages[11]['title']))
-                    <span class="about__have-title">{{ $homepages[11]['title'] }}</span>
-                    <p class="about__have-dis">{!! $homepages[11]['details'] !!}.</p>
-                    @endif
-                </div>
-            </div>
+            @endforeach
+
+
         </div>
     </div>
 </div>
@@ -120,15 +100,15 @@
             <span class="about__store-subtitle">{{ $homepages[12]['title'] }}</span>
             <h2 class="about__store-title">{!! $homepages[12]['details'] !!}</h2>
             @endif
-           
+
         </div>
         <div class="row">
             <section class="section items-section free-items">
                 <div class="container">
                     <div class="items row g-5 mb-4">
                         @foreach ( $Products as $product)
-                            
-                       
+
+
                         <div class="col-12 col-sm-6 col-lg-3">
                             <div class="items__item">
                                 <img src="{{ asset($product->thumbnail) }}" alt="" class="items__img" />
@@ -160,7 +140,7 @@
 
                                 <div class="items__bottom">
                                     <p class="text mb-2 text-center">
-                                        {{ Str::limit($product->product_short_desc, 100, '') }} 
+                                        {{ Str::limit($product->product_short_desc, 100, '') }}
                                     </p>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <form action="{{ route('add.cart') }}" method="post" class="d-flex w-full justify-content-center align-items-center mx-auto addCard">
@@ -174,7 +154,7 @@
                                             @endif
                                             <button class="btn btn-cart" type="submit">Add to cart</button>
                                         </form>
-                                        
+
 							<button class="btn btn-wishlist addWishlist" data-id="{{ $product->id }}">
 								<i class="bi bi-heart"></i>
 							</button>
@@ -184,9 +164,9 @@
                           </div>
 
                           @endforeach
-                     
-                      
-                     
+
+
+
                     </div>
                     <div class="items__btn">
                         <!-- <a href="#" class="btn btn-more">view more</a> -->

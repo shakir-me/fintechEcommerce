@@ -26,6 +26,8 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductRequestController;
 use App\Http\Controllers\Admin\MarketController;
 use App\Http\Controllers\Admin\HomePageController;
+use App\Http\Controllers\Admin\AboutOneController;
+use App\Http\Controllers\Admin\AboutTwoController;
 use App\Http\Controllers\Admin\RequestProductController as ReqProductController;
 
 //----Front-----
@@ -34,6 +36,7 @@ use App\Http\Controllers\Front\FrontController;
 //----Payment-----
 use App\Http\Controllers\Payment\PaypalController;
 use App\Http\Controllers\Payment\StripeController;
+use App\Http\Controllers\Payment\CryptoController;
 
 //----User-----
 use App\Http\Controllers\User\RequestProductController;
@@ -42,6 +45,7 @@ use App\Http\Controllers\User\WishListController;
 use App\Http\Controllers\User\CartController;
 use App\Http\Controllers\User\CheckoutController;
 use App\Http\Controllers\User\RechargeController;
+
 
 use App\Http\Controllers\Auth\GoogleController;
 
@@ -82,7 +86,7 @@ Route::get('get/{category}/{subcategory}/product', [FrontController::class, 'sub
 Route::get('/price/range/product', [FrontController::class, 'priceRangeProduct'])->name('price.range.product');
 Route::get('/{brand}/brand/product', [FrontController::class, 'brandProduct']);
 Route::get('/customer-request', [FrontController::class, 'customerRequest'])->name('customer.request');
-Route::get('/product/details/{product_slug}',[FrontController::class, 'productDetails']);
+Route::get('/product/details/{product_slug}',[FrontController::class, 'productDetails'])->name('product.details');
 Route::post('store/request/product',[RequestProductController::class, 'storeRequestProduct'])->name('store.request.product');
 
 Route::get('/contact-us', [FrontController::class, 'ContatctUs']);
@@ -118,7 +122,7 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
- 
+
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
@@ -146,7 +150,7 @@ Route::prefix('user')->middleware(['auth', 'user-access:user','verified'])->grou
 
     Route::get('/home', [HomeController::class, 'index'])->name('user.home');
 
-  
+
     //order view
     Route::get('order/view/{id}', [UserController::class, 'OrderView'])->name('user.order.view');
     Route::get('review/{id}', [UserController::class, 'Review'])->name('user.review');
@@ -191,6 +195,18 @@ Route::prefix('user')->middleware(['auth', 'user-access:user','verified'])->grou
 
     //----Stripe Payment Route----
     Route::post('stripe',[StripeController::class, 'stripePayment'])->name('stripe.payment');
+
+
+    //bitcoin
+
+
+
+
+    Route::post('bitcoin/payment', [CryptoController::class, 'CoinGate'])->name('bitcoin.payment');
+    Route::post('bitcoin/callback', [CryptoController::class, 'callback'])->name('bitcoin.callback');
+
+
+    //coin base payment system
 
 });
 
@@ -366,6 +382,31 @@ Route::prefix('admin')->middleware(['auth', 'user-access:admin'])->group(functio
         Route::post('update/{id}',[MarketController::class, 'update'])->name('update.market');
         Route::get('delete/{id}',[MarketController::class, 'delete'])->name('delete.market');
     });
+
+
+
+
+
+
+    Route::group(['prefix' => 'aboutone'], function () {
+        Route::get('/',[AboutOneController::class, 'index'])->name('index.aboutone');
+        Route::get('add',[AboutOneController::class, 'add'])->name('add.aboutone');
+        Route::post('store',[AboutOneController::class, 'store'])->name('store.aboutone');
+        Route::get('edit/{id}',[AboutOneController::class, 'edit'])->name('edit.aboutone');
+        Route::post('update/{id}',[AboutOneController::class, 'update'])->name('update.aboutone');
+        Route::get('delete/{id}',[AboutOneController::class, 'delete'])->name('delete.aboutone');
+    });
+
+    Route::group(['prefix' => 'abouttwo'], function () {
+        Route::get('/',[AboutTwoController::class, 'index'])->name('index.abouttwo');
+        Route::get('add',[AboutTwoController::class, 'add'])->name('add.abouttwo');
+        Route::post('store',[AboutTwoController::class, 'store'])->name('store.abouttwo');
+        Route::get('edit/{id}',[AboutTwoController::class, 'edit'])->name('edit.abouttwo');
+        Route::post('update/{id}',[AboutTwoController::class, 'update'])->name('update.abouttwo');
+        Route::get('delete/{id}',[AboutTwoController::class, 'delete'])->name('delete.abouttwo');
+    });
+
+
 
     //router homepage
 

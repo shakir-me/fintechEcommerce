@@ -1,7 +1,6 @@
 
 @php
-	$setting=DB::table('settings')->first();
-//  dd($setting);
+	$setting=DB::table('web_sites')->first();
 $payments = App\Models\User\Recharge::where('user_id',Auth::id())->sum('amount');
 @endphp
 <!DOCTYPE html>
@@ -37,6 +36,14 @@ $payments = App\Models\User\Recharge::where('user_id',Auth::id())->sum('amount')
 		<link rel="stylesheet" href="{{ asset('frontend/css/responsive.css')}}" />
 		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
 
+		<!-- slick css  -->
+		<link rel="stylesheet" href="{{ asset('frontend/css/slick.css')}}" />
+		<link rel="stylesheet" href="{{ asset('frontend/css/slick-theme.css')}}" />
+
+        <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/bootstrap.min.css" rel="stylesheet">
+
+
+
 	</head>
 	<body>
 		<main class="main">
@@ -56,12 +63,12 @@ $payments = App\Models\User\Recharge::where('user_id',Auth::id())->sum('amount')
 										<span class="wishlist__number wishlist-count">{{ Helper::countWishlist() }}</span>
 										<div class="hovercart hovercart-wishlist">
 											@if(Auth::check())
-											
+
 											<div class="wish_list_popup">
 												{{ Helper::wishlistPopup() }}
 											</div>
 										    @endif
-											
+
 										</div>
 									</span>
 
@@ -70,12 +77,12 @@ $payments = App\Models\User\Recharge::where('user_id',Auth::id())->sum('amount')
 										<span class="cart__number cart-count">{{ \Cart::count(); }}</span>
 										<div class="hovercart">
 										<div class="cart_list_popup">
-									
+
 										</div>
 										</div>
-							
+
 									</span>
-										
+
 									<button class="btn btn-dark">
 										<svg class="icon icon-dark">
 											<use xlink:href="{{ asset('frontend/img/icons.svg#icon-dark')}}"></use>
@@ -86,13 +93,27 @@ $payments = App\Models\User\Recharge::where('user_id',Auth::id())->sum('amount')
 											<use xlink:href="{{ asset('frontend/img/icons.svg#icon-light')}}"></use>
 										</svg>
 									</button>
+
+
 									@if(Auth::check())
+
+                                    @if(Auth::user()->type=='user')
+
 									<a class="link logout" href="{{ route('user.home') }}" style="color:white">   {{ Auth::user()->name }}</a>
-						            <button class="dashboard__header-balance">${{ $payments }}</button>
+                                    <button class="dashboard__header-balance">${{ $payments }}</button>
+                                    @else
+                                    <a class="link logout" href="{{ route('admin.home') }}" style="color:white"> dashboard  </a>
+                                    <button class="dashboard__header-balance"> {{ Auth::user()->name }}</button>
+                                    @endif
 									@else
 									<a href="#" class="link login">login</a>
 									<a href="#" class="link login-two register">register</a>
 									@endif
+
+
+
+
+
 								</div>
 							</div>
 						</div>
@@ -105,7 +126,7 @@ $payments = App\Models\User\Recharge::where('user_id',Auth::id())->sum('amount')
 				<div class="nav__links header-sticky">
 					<div class="container">
 						<ul class="nav__list d-flex justify-content-center align-items-center gap-5" id="mobile-menu">
-							
+
 
 
 							@foreach($category as $cat)
@@ -200,7 +221,7 @@ $payments = App\Models\User\Recharge::where('user_id',Auth::id())->sum('amount')
 				</div>
 			</div>
 
-		
+
 
 			@yield('front_content')
 
@@ -213,35 +234,22 @@ $payments = App\Models\User\Recharge::where('user_id',Auth::id())->sum('amount')
 								<img src="{{asset('backend/setting/'.$setting->image) }}" alt="" class="logo logo-black mb-3" />
 								<img src="{{asset('backend/setting/'.$setting->image) }}" alt="" class="logo logo-white mb-3" />
 								<p class="text text-white mb-3">
-									{{$setting->about}}
+									{{-- {{$setting->about}} --}}
 								</p>
 								<ul class="social d-flex align-items-center gap-2">
+                                    @foreach (socials() as $social)
 									<li class="social__item">
-										<a href="{{$setting->facebook}}" target="_blank" class="social__link">
+										<a href="{{$social->facebook}}" target="_blank" class="social__link">
 											<i class="bi bi-facebook"></i>
 										</a>
 									</li>
-									<li class="social__item">
-										<a href="{{$setting->instagram}}" target="_blank" class="social__link">
-											<i class="bi bi-instagram"></i>
-										</a>
-									</li>
-									<li class="social__item">
-										<a href="{{$setting->youtube}}" target="_blank" class="social__link">
-											<i class="bi bi-youtube"></i>
-										</a>
-									</li>
-									<li class="social__item">
-										<a href="{{$setting->twitter}}" target="_blank" class="social__link">
-											<i class="bi bi-twitter"></i>
-										</a>
-									</li>
+                                    @endforeach
 								</ul>
 							</div>
 						</div>
 @php
 $category_more = App\Models\Admin\Category::take(5)->get();
-@endphp						
+@endphp
 						<div class="col-12 col-sm-6 col-lg-3">
 							<div class="footer__item service">
 								<h3 class="heading mb-2">Service</h3>
@@ -251,10 +259,10 @@ $category_more = App\Models\Admin\Category::take(5)->get();
 										<a href="{{ URL::to('get/'.$cat_more->category_slug.'/product/') }}" class="link text-uppercase">{{ $cat_more->category_name }}</a>
 									</li>
 									@endforeach
-									
 
-								
-									
+
+
+
 
 									<li class="item">
 										<a href="{{ url('/membership') }}" class="link text-uppercase">Membership</a>
@@ -328,7 +336,7 @@ $category_more = App\Models\Admin\Category::take(5)->get();
 				</div>
 			</footer>
 			<div class="copyright">
-				<p>Your Site  © 2023 All Rights Reserved</p>
+				<p>Fintech © All rights reserved. Designed & Developed By <a style="color:#00ffe2" href="https://futureinltd.com/" target="_blank">Future Innovation LTD</a></p>
 			</div>
 
 			<div class="offcanvas-overlay"></div>
@@ -425,7 +433,7 @@ $category_more = App\Models\Admin\Category::take(5)->get();
 
 		</main>
 		<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
-		
+
 		<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 		<script
 			src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
@@ -442,10 +450,11 @@ $category_more = App\Models\Admin\Category::take(5)->get();
 		<script src="{{ asset('frontend/js/backToTop.js')}}"></script>
 		<script src="{{ asset('frontend/js/jquery.meanmenu.min.js')}}"></script>
 		<script src="{{ asset('frontend/js/main.js')}}"></script>
+		<script src="{{ asset('frontend/js/slick.min.js')}}"></script>
 
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-   
+
 		<script>
 		 @if(Session::has('messege'))
 		   var type="{{Session::get('alert-type','info')}}"
@@ -465,13 +474,13 @@ $category_more = App\Models\Admin\Category::take(5)->get();
 		   }
 		 @endif
 	  </script>
-	  
+
 
 		<script>
-			
+
 			let dbtn = document.querySelector('.dashboard-open');
 			let dashboard = document.querySelector('.dashboard__main');
-			
+
 			if(dbtn){
 				dbtn.addEventListener('click',()=>{
 					dashboard.classList.toggle('show-hide')
@@ -487,7 +496,7 @@ $category_more = App\Models\Admin\Category::take(5)->get();
 		                     url: "{{ url('user/add/wish-list/') }}/"+id,
 		                     type:"GET",
 		                     dataType:"json",
-		                     success:function(data) { 
+		                     success:function(data) {
 		                        if (data.success) {
 		                            toastr.success(data.success)
 		                            $.ajax({
@@ -503,20 +512,20 @@ $category_more = App\Models\Admin\Category::take(5)->get();
 		                               type: "GET",
 		                               url: "user/show/wishlist",
 		                               success: function (data) {
-		                                  $('.wish_list_popup').html(data)	
+		                                  $('.wish_list_popup').html(data)
 		                               },
 		                            });
 		                        }else{
 		                            toastr.error(data.error)
 		                        }
-		                        
+
 		                     },
 		                     error:function(data){
 		                     	toastr.error('<h3>Please Login Your Account</h3>');
-		                     }    
+		                     }
 		                 });
 		             } else {
-		                 
+
 		             }
 		         });
 		     });
@@ -545,15 +554,15 @@ $category_more = App\Models\Admin\Category::take(5)->get();
 							   type: "GET",
 							   url: "cart/show",
 							   success: function (data) {
-							      $('.cart_list_popup').html(data)	
+							      $('.cart_list_popup').html(data)
 							   },
 							});
-							
+
 							 $.ajax({
 							   type: "GET",
 							   url: "cart/count",
 							   success: function (data) {
-							      $('.cart-count').text(data)	
+							      $('.cart-count').text(data)
 							   },
 							});
 						},
@@ -578,7 +587,7 @@ $category_more = App\Models\Admin\Category::take(5)->get();
 				   type: "GET",
 				   url: "user/show/wishlist",
 				   success: function (data) {
-				      $('.wish_list_popup').html(data)	
+				      $('.wish_list_popup').html(data)
 				   },
 				});
 			})
@@ -590,13 +599,15 @@ $category_more = App\Models\Admin\Category::take(5)->get();
 				   type: "GET",
 				   url: "cart/show",
 				   success: function (data) {
-				      $('.cart_list_popup').html(data)	
+				      $('.cart_list_popup').html(data)
 				   },
 				});
 			})
 		</script>
 
-		
+
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-63f311cd6301e06d"></script>
+
 		@stack('js')
 	</body>
 </html>

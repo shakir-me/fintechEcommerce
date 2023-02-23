@@ -45,7 +45,9 @@ class RechargeController extends Controller
              $type = 'recharge';
              return view('payment.stripe',compact('data','type'));
          }elseif($request->payment_method == 4){
-             echo "Bitcoin";
+           $data = $request->all();
+             $type = 'recharge';
+             return view('payment.bitcoin.',compact('data','type'));
          }
         }else{
          return redirect()->back()->with('warning','Please Select One Payment Method');

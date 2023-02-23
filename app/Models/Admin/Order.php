@@ -9,12 +9,17 @@ class Order extends Model
 {
     use HasFactory;
 
-    /**
-     * Get the user that owns the phone.
-     */
+    protected $guarded = array();
+    protected $table = 'orders';
 
 
-    
+
+    protected $fillable = [
+        'order_no',
+        'user_id',
+    ];
+
+
     public function user()
     {
         return $this->belongsTo('App\Models\User','user_id');

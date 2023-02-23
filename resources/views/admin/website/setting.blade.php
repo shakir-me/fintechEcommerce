@@ -31,42 +31,115 @@
 					@csrf
 					<div class="row">
 						<div class="col-md-6">
-							<label for="inputFirstName" class="form-label">Email </label>
-							<input type="email" class="form-control" name="email" value="{{ $setting->email }}" id="inputFirstName">
+							<label for="inputFirstName" class="form-label">title </label>
+							<input type="text" class="form-control" name="title" value="{{ $setting->title }}" id="inputFirstName">
 						</div>
+
+                        <div class="col-md-6">
+							<label for="inputFirstName" class="form-label">Description </label>
+							<input type="text" class="form-control" name="details" value="{{ $setting->details }}" id="inputFirstName">
+						</div>
+
+                        <div class="col-md-6">
+							<label for="inputFirstName" class="form-label">Marketplace Title </label>
+							<input type="text" class="form-control" name="market_title" value="{{ $setting->market_title }}" id="inputFirstName">
+						</div>
+
+                        <div class="col-md-6">
+							<label for="inputFirstName" class="form-label">Marketplace Description </label>
+							<input type="text" class="form-control" name="market_details" value="{{ $setting->market_details }}" id="inputFirstName">
+						</div>
+
+
+
+
 						<div class="col-md-6">
 							<label for="inputLastName" class="form-label">Web Site Logo</label>
 							<input type="file" class="form-control" name="image" id="inputLastName">
 
-                            
+
                             <img src="{{asset('backend/setting/'.$setting->image) }}" class="rounded border" width="50" alt="">
-                            
-                          
 						</div>
+
+
                         <div class="col-md-6">
-							<label for="inputFirstName" class="form-label">Facebook Link </label>
-							<input type="text" class="form-control" name="facebook" value="{{ $setting->facebook }}" id="inputFirstName">
+							<label for="inputFirstName" class="form-label">Latest Product Title </label>
+							<input type="text" class="form-control" name="latest_product_title" value="{{ $setting->latest_product_title }}" id="inputFirstName">
 						</div>
 
                         <div class="col-md-6">
-							<label for="inputFirstName" class="form-label">Instagram Link </label>
-							<input type="text" class="form-control" name="instagram" value="{{ $setting->instagram }}" id="inputFirstName">
+							<label for="inputFirstName" class="form-label">Latest Product Description </label>
+							<input type="text" class="form-control" name="latest_product_des" value="{{ $setting->latest_product_des }}" id="inputFirstName">
 						</div>
+
                         <div class="col-md-6">
-							<label for="inputFirstName" class="form-label">Youtube Link </label>
-							<input type="text" class="form-control" name="youtube" value="{{ $setting->youtube }}" id="inputFirstName">
+							<label for="inputFirstName" class="form-label">Free Product Title </label>
+							<input type="text" class="form-control" name="free_product_title" value="{{ $setting->free_product_title }}" id="inputFirstName">
 						</div>
+
                         <div class="col-md-6">
-							<label for="inputFirstName" class="form-label">Twitter Link </label>
-							<input type="text" class="form-control" name="twitter"  value="{{ $setting->twitter }}" id="inputFirstName">
+							<label for="inputFirstName" class="form-label">Free Product Description </label>
+							<input type="text" class="form-control" name="free_product_des" value="{{ $setting->free_product_des }}" id="inputFirstName">
 						</div>
+
                         <div class="col-md-6">
-							<label for="inputFirstName" class="form-label">About Us </label>
-							<input type="text" class="form-control" name="about" value="{{ $setting->about }}" id="inputFirstName">
+							<label for="inputFirstName" class="form-label">Membership Title </label>
+							<input type="text" class="form-control" name="member_title" value="{{ $setting->member_title }}" id="inputFirstName">
 						</div>
-						
+
+                        <div class="col-md-6">
+							<label for="inputFirstName" class="form-label">Membership Description </label>
+							<input type="text" class="form-control" name="member_des" value="{{ $setting->member_des }}" id="inputFirstName">
+						</div>
+
+                        <div class="col-md-6">
+							<label for="inputFirstName" class="form-label">Request  Customer Title </label>
+							<input type="text" class="form-control" name="software_title" value="{{ $setting->software_title }}" id="inputFirstName">
+						</div>
+
+                        <div class="col-md-6">
+							<label for="inputFirstName" class="form-label">Request Customer  Description </label>
+							<input type="text" class="form-control" name="software_des" value="{{ $setting->software_des }}" id="inputFirstName">
+						</div>
+
+
+                        <div class="col-md-6">
+							<label for="inputFirstName" class="form-label">Client  Say  Title </label>
+							<input type="text" class="form-control" name="tesmonial" value="{{ $setting->tesmonial }}" id="inputFirstName">
+						</div>
+
+                        <div class="col-md-6">
+							<label for="inputFirstName" class="form-label">Conatct Page Title </label>
+							<input type="text" class="form-control" name="contact_title" value="{{ $setting->contact_title }}" id="inputFirstName">
+						</div>
+
+                        <div class="col-md-6">
+							<label for="inputFirstName" class="form-label">Conatct Page Description </label>
+							<input type="text" class="form-control" name="contact_desc" value="{{ $setting->contact_desc }}" id="inputFirstName">
+						</div>
+
+                        <div class="col-md-6">
+							<label for="inputFirstName" class="form-label">Availble Title </label>
+							<input type="text" class="form-control" name="available_title" value="{{ $setting->available_title }}" id="inputFirstName">
+						</div>
+
+                        <div class="col-md-6">
+
+                            <label for="inputFirstName" class="form-label">Availble Description </label>
+                            <textarea class="form-control" name="available_desc" placeholder="Enter description...." rows="6" id="summernote">
+                                {!! $setting->available_desc !!}
+                            </textarea>
+						</div>
+
+
+
+
+
+
+
+
 					</div>
-				
+
 
 					<br>
 					<div class="col-12">

@@ -36,7 +36,7 @@
                 </ul>
             </li>
 
-     
+
 
 
             <li class="menu-label">Manage Products</li>
@@ -87,7 +87,7 @@
                     <li> <a href="{{ route('add.productrequest') }}"><i class="bx bx-right-arrow-alt"></i>All Product  Request</a>
                     </li>
 
-{{-- 
+{{--
                     <li> <a href="{{ route('index.request.product') }}"><i class="bx bx-right-arrow-alt"></i>New Request</a>
                     </li> --}}
 
@@ -112,14 +112,8 @@
                     <div class="menu-title">Testimonial</div>
                 </a>
             </li>
-          
-            {{-- <li>
-                <a href="{{ route('index.social') }}">
-                    <div class="parent-icon"><i class='bx bx-cookie'></i>
-                    </div>
-                    <div class="menu-title">Socials</div>
-                </a>
-            </li> --}}
+
+
             <li>
                 <a href="{{ route('index.subscriber') }}">
                     <div class="parent-icon"><i class='bx bx-user-circle'></i>
@@ -127,21 +121,25 @@
                     <div class="menu-title">Subscriber List</div>
                 </a>
             </li>
+
+               <li class="menu-label">Manage Site</li>
             <li>
+
+
                 <a class="has-arrow" href="javascript:;">
                     <div class="parent-icon"><i class="bx bx-repeat"></i>
                     </div>
-                    <div class="menu-title">Cms Page</div>
+                    <div class="menu-title">Home Page</div>
                 </a>
                 <ul>
-                    <li> <a href="{{ route('index.features') }}"><i class="bx bx-right-arrow-alt"></i>Privacy Policy</a>
-                    </li>
-                    <li> <a href="{{ route('index.afeature') }}"><i class="bx bx-right-arrow-alt"></i>Terms Of Service </a>
-                    </li>
-                    <li> <a href="{{ route('index.page') }}"><i class="bx bx-right-arrow-alt"></i>It Work</a>
-                    </li>
-                    <li> <a href="{{ route('about.us') }}"><i class="bx bx-right-arrow-alt"></i>About Us</a>
-                    </li>
+
+                            <li>
+                <a href="{{ route('index.social') }}">
+                    <div class="parent-icon"><i class="bx bx-right-arrow-alt"></i>
+                    </div>
+                    <div class="menu-title">Socials</div>
+                </a>
+            </li>
                     <li> <a href="{{ route('website.setting') }}"><i class="bx bx-right-arrow-alt"></i>Web Setting</a>
                     </li>
 
@@ -151,9 +149,57 @@
                     <li> <a href="{{ route('index.market') }}"><i class="bx bx-right-arrow-alt"></i>Market Place</a>
                     </li>
 
-                   
+
                 </ul>
             </li>
+
+                  <li class="menu-label">Privacy Policy</li>
+            <li>
+
+
+                <a class="has-arrow" href="javascript:;">
+                    <div class="parent-icon"><i class="bx bx-repeat"></i>
+                    </div>
+                    <div class="menu-title">Privacy Policy</div>
+                </a>
+                <ul>
+                  <li> <a href="{{ route('index.features') }}"><i class="bx bx-right-arrow-alt"></i>Privacy Policy</a>
+                    </li>
+                    <li> <a href="{{ route('index.afeature') }}"><i class="bx bx-right-arrow-alt"></i>Terms Of Service </a>
+                    </li>
+                    <li> <a href="{{ route('index.page') }}"><i class="bx bx-right-arrow-alt"></i>It Work</a>
+                    </li>
+
+                    </li>
+                </ul>
+            </li>
+
+            <li class="menu-label">About Page</li>
+            <li>
+
+
+                <a class="has-arrow" href="javascript:;">
+                    <div class="parent-icon"><i class="bx bx-repeat"></i>
+                    </div>
+                    <div class="menu-title">About Page</div>
+                </a>
+                <ul>
+                    <li> <a href="{{ route('about.us') }}"><i class="bx bx-right-arrow-alt"></i>About Us</a>
+                    </li>
+                    <li> <a href="{{ route('index.aboutone') }}"><i class="bx bx-right-arrow-alt"></i>About Section One </a>
+                    </li>
+                    <li> <a href="{{ route('index.abouttwo') }}"><i class="bx bx-right-arrow-alt"></i>About Section Two </a>
+                    </li>
+
+                    </li>
+                </ul>
+            </li>
+
+
+
+
+
+
             {{-- <li>
                 <a class="has-arrow" href="javascript:;">
                     <div class="parent-icon"> <i class="bx bx-donate-blood"></i>
@@ -330,7 +376,7 @@
                     </li>
                 </ul>
             </li> --}}
-   
+
         </ul>
         <!--end navigation-->
     </div>

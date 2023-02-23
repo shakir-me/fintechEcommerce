@@ -184,6 +184,8 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Srmklive\PayPal\Providers\PayPalServiceProvider::class,
 
+        Jorenvh\Share\Providers\ShareServiceProvider::class,
+
         /*
          * Package Service Providers...
          */
@@ -214,6 +216,8 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Helper' => App\Helpers\Helper::class,
+
+        'Share' => Jorenvh\Share\ShareFacade::class,
     ])->toArray(),
 
 ];

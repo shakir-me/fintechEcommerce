@@ -28,8 +28,12 @@
 					<div class="categories__item mb-2">
 						<h4 class="heading mb-2">SORT BY</h4>
 						<ul class="categories__list">
+
+
+
+
 						<form  name="sortArts" id="sortArts">
-							<select name="sort" id="sort"  class="form-control form-select">
+							<select  name="sort" id="sort"  class="form-control form-select ">
 								<option value="">Select Please</option>
 								<option value="product_popular" @if(isset($_GET['sort']) && $_GET['sort']=="product_popular") selected="" @endif>Popularity</option>
 								<option value="product_ratting" @if(isset($_GET['sort']) && $_GET['sort']=="product_ratting") selected="" @endif>Average ratting</option>
@@ -38,7 +42,14 @@
 								<option value="price_high_to_low" @if(isset($_GET['sort']) && $_GET['sort']=="price_high_to_low") selected="" @endif>Price High  To High</option>
 								</select>
 							</select>
+
+
+
+
 						</form>
+
+
+
 					</div>
 
 					<div class="categories__item mb-2">
@@ -112,11 +123,11 @@
 
 							<div class="col-12 col-sm-6 col-xl-4 col-xxl-3">
 								<a href="{{ URL::to('product/details/'.$product->product_slug) }}">
-								<div class="items__item">
-									<img src="{{ asset($product->thumbnail) }}" alt="" class="items__img" />
-									<h5 class="heading name">{{ $product->product_name }}</h5>
-									<h5 class="heading title">{{ $product->product_title }}</h5>
-									<div class="price-list d-flex justify-content-center align-items-center gap-2 mb-1">
+								   <div class="items__item">
+									 <img src="{{ asset($product->thumbnail) }}" alt="" class="items__img" />
+									 <h5 class="heading name">{{ $product->product_name }}</h5>
+									 <h5 class="heading title">{{ $product->product_title }}</h5>
+									 <div class="price-list d-flex justify-content-center align-items-center gap-2 mb-1">
 										@if($product->discount_rate == 0.00)
 										<p class="price newprice">${{ $product->product_price }}</p>
 										@else
@@ -132,13 +143,13 @@
 										@else
 										<span class="price">${{ $product->product_price }}</span>
 										@endif
-									</div>
+									  </div>
 
-									<div class="items__bottom">
+									  <div class="items__bottom">
 										<p class="text mb-2 text-center">
 											{{ Str::limit($product->product_short_desc, 100, '') }}
 										</p>
-									</a>
+							    </a>
 										<div class="d-flex justify-content-between align-items-center">
 											{{-- <button class="btn btn-search">
 												<i class="bi bi-search"></i>
@@ -160,7 +171,7 @@
 										</div>
 									</div>
 								</div>
-							
+
 							</div>
 						@endforeach
 						@else
@@ -176,7 +187,7 @@
 
 			<div class="pagination">
 
-				
+
 
 				{{-- {{ $products->links() }} --}}
 
