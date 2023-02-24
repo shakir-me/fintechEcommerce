@@ -37,7 +37,7 @@ return [
      * Example 1: [\Victorybiz\LaravelCryptoPaymentGateway\Http\Controllers\CryptoPaymentController::class, 'ipn']
      * Example 2: [App\Http\Controllers\Payment\PaymentController::class, 'ipn']
      */
-    'hook_ipn' => [],
+    'hook_ipn' => [App\Http\Controllers\Payment\CryptoController::class, 'ipn'],
 
     /**
      * Default coin

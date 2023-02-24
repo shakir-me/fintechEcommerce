@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Payment\CryptoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\ProductEmail;
@@ -38,6 +39,7 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
+       
        if($request->payment_method){
         if($request->payment_method == 1){
 
@@ -105,11 +107,10 @@ class CheckoutController extends Controller
             $data = $request->all();
             $type = 'payment';
             return view('payment.stripe',compact('data','type'));
-        }elseif($request->payment_method == 4){
-            $data = $request->all();
+        }elseif($request->method == 4){  // pyment_method ta thik kre niyen
             $type = 'payment';
-            // return response()->json($data);
-            return view('payment.bitcoin',compact('data','type'));
+            return  (new CryptoController)->index($request, $type);
+         
         }
        }else{
         $notification = array(

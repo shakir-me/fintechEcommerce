@@ -199,6 +199,17 @@ Route::prefix('user')->middleware(['auth', 'user-access:user','verified'])->grou
 
     //bitcoin
 
+    
+
+// routes/web.php
+
+Route::match(['get', 'post'], '/payments/crypto/pay', Victorybiz\LaravelCryptoPaymentGateway\Http\Controllers\CryptoPaymentController::class)
+                ->name('payments.crypto.pay');
+
+Route::post('/payments/crypto/callback', [CryptoController::class, 'callback'])
+                ->withoutMiddleware(['web', 'auth']);
+
+
 
 
 

@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\Payment;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Srmklive\PayPal\Services\PayPal as PayPalClient;
 use Cart;
-use Session;
 use Mail;
-use App\Mail\ProductEmail;
-use Auth;
-use App\Models\Admin\Order;
+use Helper;
+use Session;
 use App\Models\User;
-use App\Models\Admin\OrderDetails;
+use App\Mail\ProductEmail;
+use App\Models\Admin\Order;
+use Illuminate\Http\Request;
 use App\Models\User\Recharge;
 use App\Models\User\Subscription;
-use Helper;
+use App\Models\Admin\OrderDetails;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
 class PaypalController extends Controller
 {

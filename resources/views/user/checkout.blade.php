@@ -89,7 +89,7 @@
                             	<span class="payment-select" data-id="2" style=" cursor: pointer; "><img src="{{ asset('frontend/') }}/img/paypal1.png" alt=""></span>
                                 {{-- <img src="{{ asset('frontend/img/payment-1.png') }}" alt="Sri Lanka Flag"> --}}
                             </label>
-                            <input type="radio" id="payment-input" name="country-flags" >
+                            <input type="radio" id="payment-input" name="method" value="2" >
                             <div class="selected-bg"></div>
                         </div>
 
@@ -99,14 +99,14 @@
                                 <span class="payment-select" data-id="3" style=" cursor: pointer; ">
                                     <img src="{{ asset('frontend/') }}/img/payment-5.png" width="80" alt=""></span>
                             </label>
-                            <input type="radio" id="payment-input3" name="country-flags" >
+                            <input type="radio" id="payment-input3" name="method" value="3">
                             <div class="selected-bg"></div>
                         </div>
                         <div class="payment-logos">
-                            <label class="img-btn" for="payment-input2">
+                            <label class="img-btn" for="payment-input4">
                                 <span class="payment-select" data-id="4" style=" cursor: pointer; "><img src="{{ asset('frontend/') }}/img/bitcoin1.png" alt=""></span>
                             </label>
-                            <input type="radio" id="payment-input" name="country-flags" >
+                            <input type="radio" id="payment-input4" name="method" value="4">
                             <div class="selected-bg"></div>
                         </div>
 
@@ -124,6 +124,7 @@
 <script>
 	$(".payment-select").click(function(){
 		var id = $(this).data('id');
+        console.log(id);
 		$(this).addClass('bg-info');
 		$('.payment-select').not(this).removeClass('bg-info');
 		$(".payment-method").val(id);
